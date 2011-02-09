@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: c9fe8885f92093065a58ca26b7aafea30875ee2d
+  specs:
+    devise (1.2.rc)
+      bcrypt-ruby (~> 2.1.2)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.0.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -29,6 +38,7 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     arel (2.0.8)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
     configatron (2.6.4)
       yamler (>= 0.1.0)
@@ -59,6 +69,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    orm_adapter (0.0.4)
     pg (0.10.1)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -103,6 +114,8 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.24)
+    warden (1.0.3)
+      rack (>= 1.0.0)
     yamler (0.1.0)
 
 PLATFORMS
@@ -110,6 +123,7 @@ PLATFORMS
 
 DEPENDENCIES
   cover_me (>= 1.0.0.rc5)
+  devise (= 1.2.rc)!
   factory_girl_rails (= 1.1.beta1)
   haml-rails (>= 0.3.4)
   jquery-rails (>= 0.2.7)
