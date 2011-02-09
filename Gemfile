@@ -26,6 +26,7 @@ end
 # - Testing libraries with generators and rake tasks
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
+  gem 'thin' # To Run development server and integration tests faster
 end
 
 
