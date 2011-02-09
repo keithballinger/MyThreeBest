@@ -69,6 +69,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mocha (0.9.11)
+      rake
     orm_adapter (0.0.4)
     pg (0.10.1)
     polyglot (0.3.1)
@@ -127,6 +129,7 @@ DEPENDENCIES
   factory_girl_rails (= 1.1.beta1)
   haml-rails (>= 0.3.4)
   jquery-rails (>= 0.2.7)
+  mocha (>= 0.9.11)
   pg (= 0.10.1)
   rails (= 3.0.4)
   rails3-generators (>= 0.17.4)

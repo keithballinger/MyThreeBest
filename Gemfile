@@ -33,6 +33,7 @@ end
 group :test do
   gem 'factory_girl_rails', '1.1.beta1'
   gem 'shoulda-matchers', '1.0.0.beta1'
+  gem 'mocha', '>= 0.9.11'
   gem 'cover_me', '>= 1.0.0.rc5'
 end
 
