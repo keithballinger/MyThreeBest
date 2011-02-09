@@ -1,31 +1,39 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+#- Basic Rails App
+gem 'rails', '3.0.4'
+gem 'rails3-generators', '>= 0.17.4'
+gem 'haml-rails', '>= 0.3.4'
+gem 'jquery-rails', '>= 0.2.7'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+#- Authentication
+gem 'devise', '1.2.rc', :git => 'git://github.com/plataformatec/devise.git'
 
-# Use unicorn as the web server
-# gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+# - Only used in development
+group :development do
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+end
 
-# To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
-# gem 'ruby-debug'
-# gem 'ruby-debug19'
 
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
+# - Only used in production
+group :production do
+  gem 'pg', '0.10.1'
+end
 
-# Bundle gems for the local environment. Make sure to
-# put test-only gems in this group so their generators
-# and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
+
+# - Testing libraries with generators and rake tasks
+group :development, :test do
+  gem 'rspec-rails', '>= 2.5.0'
+end
+
+
+#- For Testing
+group :test do
+  gem 'factory_girl_rails', '1.1.beta1'
+  gem 'shoulda-matchers', '1.0.0.beta1'
+  gem 'cover_me', '>= 1.0.0.rc5'
+end
+
+
