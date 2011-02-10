@@ -7,5 +7,6 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic do |username, password|
         username == "m3b" && password == "m3b-staging"
     end
+    warden.custom_failure! if performed?
   end
 end
