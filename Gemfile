@@ -8,7 +8,7 @@ gem 'jquery-rails', '>= 0.2.7'
 
 
 #- Authentication
-gem 'devise', '1.2.rc', :git => 'git://github.com/plataformatec/devise.git'
+gem 'devise', '>=1.1.5'
 
 
 # - Only used in development
