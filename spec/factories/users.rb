@@ -2,5 +2,9 @@
 
 FactoryGirl.define do
   factory :user do
-    end
+    first_name 'John'
+    last_name  'Doe'
+    facebook_uid '1234567890'
+    facebook_token 'myverylargefacebooktoken'
+  end
 end
