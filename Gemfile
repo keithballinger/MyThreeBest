@@ -18,7 +18,7 @@ end
 
 
 # - Only used in production
-group :production do
+group :production, :staging do
   gem 'pg', '0.10.1'
 end
 
