@@ -1,0 +1,15 @@
+development:
+  app_id: '109251382486502'
+  app_secret: 'f735f57e75b1cf632dddddf3e500da2e'
+
+test:
+  app_id: '123456'
+  app_secret: 's3cr37'
+
+staging:
+  app_id: '175780329132792'
+  app_secret: '3bc76328e880b94ffa258c8da0bb4a52'
+
+production:
+  app_id: ''
+  app_secret: ''

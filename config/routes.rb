@@ -1,9 +1,10 @@
 MyThreeBest::Application.routes.draw do
 
-  devise_for :users
+  #devise_for :users
 
   root :to => "pages#index"
 
+  match "/auth/:provider/callback" => "sessions#create"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

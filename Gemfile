@@ -8,8 +8,8 @@ gem 'jquery-rails', '>= 0.2.7'
 
 
 #- Authentication
-gem 'devise', '>=1.1.5'
-
+gem 'devise', '>= 1.1.5'
+gem 'omniauth', '>= 0.1.6'
 
 # - Only used in development
 group :development do
@@ -36,6 +36,7 @@ group :test do
   gem 'shoulda-matchers', '1.0.0.beta1'
   gem 'mocha', '>= 0.9.11'
   gem 'cover_me', '>= 1.0.0.rc5'
+  gem 'fakeweb', '>= 1.3.0'
 end
 
 
