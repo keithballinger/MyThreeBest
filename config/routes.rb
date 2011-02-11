@@ -1,6 +1,8 @@
 MyThreeBest::Application.routes.draw do
 
-  #devise_for :users
+  devise_for :users do
+    get "logout", :to => "devise/sessions#destroy"
+  end
 
   root :to => "pages#index"
 

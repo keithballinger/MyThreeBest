@@ -8,6 +8,15 @@ class User < ActiveRecord::Base
   validates_presence_of :facebook_uid
   validates_presence_of :facebook_token
   validates_uniqueness_of :facebook_uid
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.facebook_uid = auth["uid"]
+      user.facebook_token = auth["credentials"]["token"]
+      user.first_name = auth["user_info"]["first_name"]
+      user.last_name = auth["user_info"]["last_name"]
+    end
+  end
 end
 
 # == Schema Information

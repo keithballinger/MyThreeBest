@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
 
   def create
-    render :text => request.env["omniauth.auth"].to_yaml.to_s.gsub("\n","<br/>")
+    auth = request.env["omniauth.auth"]
+    @user = User.find_by_facebook_uid(auth["uid"]) || User.create_with_omniauth(auth)
+    sign_in_and_redirect(@user)
   end
 end

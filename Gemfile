@@ -10,7 +10,7 @@ gem 'annotate'
 
 #- Authentication
 gem 'devise', '>= 1.1.5'
-gem 'omniauth', '>= 0.1.6'
+gem 'omniauth', '>= 0.2.0.beta3'
 
 # - Only used in development
 group :development do
