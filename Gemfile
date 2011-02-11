@@ -27,6 +27,7 @@ end
 # - Testing libraries with generators and rake tasks
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
+  gem 'steak', '>= 1.1.0'
   gem 'thin' # To Run development server and integration tests faster
 end
 
@@ -38,6 +39,7 @@ group :test do
   gem 'mocha', '>= 0.9.11'
   gem 'cover_me', '>= 1.0.0.rc5'
   gem 'fakeweb', '>= 1.3.0'
+  gem 'capybara', '>= 0.4.1.2'
 end
 
 
