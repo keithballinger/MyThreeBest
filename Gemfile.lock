@@ -29,6 +29,7 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     addressable (2.2.4)
+    annotate (2.4.0)
     arel (2.0.8)
     bcrypt-ruby (2.1.4)
     builder (2.1.2)
@@ -176,6 +177,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   cover_me (>= 1.0.0.rc5)
   devise (>= 1.1.5)
   factory_girl_rails (= 1.1.beta1)
