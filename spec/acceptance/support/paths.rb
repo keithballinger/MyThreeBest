@@ -4,6 +4,14 @@ module NavigationHelpers
   def homepage
     "/"
   end
+
+  def login_page
+    "/auth/facebook"
+  end
+
+  def logout_page
+    "/logout"
+  end
 end
 
 RSpec.configuration.include NavigationHelpers, :type => :acceptance
