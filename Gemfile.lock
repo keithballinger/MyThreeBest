@@ -245,7 +245,7 @@ DEPENDENCIES
   mocha (>= 0.9.11)
   omniauth (>= 0.2.0.beta3)
   pg (>= 0.10.1)
-  rails (= 3.0.4)
+  rails (>= 3.0.4)
   rails3-generators (>= 0.17.4)
   resque (>= 1.13.0)
   resque_spec (>= 0.4.2)
