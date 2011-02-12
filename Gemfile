@@ -15,8 +15,11 @@ gem 'omniauth', '>= 0.2.0.beta3'
 
 #- M3B Base
 gem 'koala', '>= 1.0.0.beta'
-gem 'typhoeus', '>= 0.2.1'
 gem 'resque', '>= 1.13.0'
+gem 'dalli', '>= 1.0.2'
+gem 'toystore', '>= 0.6.3'
+gem 'typhoeus', '>= 0.2.1'
+gem 'yajl-ruby', '>= 0.8.1'
 
 # - Only used in development
 group :development do
