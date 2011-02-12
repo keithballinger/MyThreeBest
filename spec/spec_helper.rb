@@ -27,4 +27,5 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
   config.include Devise::TestHelpers, :type => :controller
+  config.include KoalaHelpers
 end

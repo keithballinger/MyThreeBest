@@ -23,17 +23,9 @@ describe User do
     }.to change(User, :count).by(1)
   end
 
-  it "should have a friend list" do
-
-    # stub external connection with Facebook
-    graph = mock('GraphAPI')
-    users = [{"name" => "John Doe", "id" => "1"}, {"name" => "Joe Dohn", "id" => "2"}]
-    graph.stubs(:get_connections).returns(users)
-    Koala::Facebook::GraphAPI.stubs(:new).returns(graph)
-
-
-    @user.friends.size.should == 2
-
+  it "should have a friends list" do
+    stub_friends(20)
+    @user.friends.size.should == 20
   end
 
 end
