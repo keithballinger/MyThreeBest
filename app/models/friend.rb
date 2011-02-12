@@ -1,6 +1,6 @@
 class Friend
   include Toy::Store
-  store :redis, Redis.new
+  store :redis, Store
 
   attribute :name, String
   attribute :id, String
