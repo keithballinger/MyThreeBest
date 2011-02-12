@@ -29,6 +29,9 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     adapter (0.5.2)
+    adapter-redis (0.5.1)
+      adapter (~> 0.5.1)
+      redis (~> 2.1.1)
     addressable (2.2.4)
     annotate (2.4.0)
     arel (2.0.8)
@@ -243,6 +246,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  adapter-redis (>= 0.5.1)
   annotate (>= 2.4.0)
   capybara (>= 0.4.1.2)
   cover_me (>= 1.0.0.rc5)
