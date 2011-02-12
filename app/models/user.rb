@@ -17,6 +17,11 @@ class User < ActiveRecord::Base
       user.last_name = auth["user_info"]["last_name"]
     end
   end
+
+  def friends
+    graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
+    graph.get_connections("me", "friends")
+  end
 end
 
 # == Schema Information

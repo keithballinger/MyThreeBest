@@ -7,6 +7,11 @@ feature "Users Logout", %q{
 } do
 
   scenario "I logout from the page" do
+    graph = mock('GraphAPI')
+    users = [{"name" => "John Doe", "id" => "1"}, {"name" => "Joe Dohn", "id" => "2"}]
+    graph.stubs(:get_connections).returns(users)
+    Koala::Facebook::GraphAPI.stubs(:new).returns(graph)
+
     visit login_page
     visit logout_page
     page.should have_content('Login with Facebook')
