@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name
   validates_presence_of :facebook_uid
-  validates_presence_of :facebook_token
   validates_uniqueness_of :facebook_uid
 
   def self.create_with_omniauth(auth)
