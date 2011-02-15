@@ -6,8 +6,11 @@ feature "Users Login", %q{
   I want to login using my Facebook account
 } do
 
-  scenario "I login in the page" do
+  background do
     stub_friends
+  end
+
+  scenario "I login in the page" do
     visit login_page
     page.should have_content('Welcome John')
     page.should have_content('Logout')

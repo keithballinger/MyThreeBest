@@ -9,6 +9,7 @@ feature "Users Logout", %q{
   background do
     stub_friends
     visit login_page
+    #login_as Factory.create(:user)
   end
 
   scenario "I logout from the page" do
