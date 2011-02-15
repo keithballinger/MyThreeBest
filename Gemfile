@@ -39,7 +39,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
   gem 'steak', '>= 1.1.0'
-  gem 'thin' # To Run development server and integration tests faster
+  gem 'thin', '>= 1.2.7' # To Run development server and integration tests faster (when use Selenium)
 end
 
 
@@ -49,10 +49,22 @@ group :test do
   gem 'shoulda-matchers', '>= 1.0.0.beta1'
   gem 'mocha', '>= 0.9.11'
   gem 'ffaker', '>= 1.2.0'
-  gem 'cover_me', '>= 1.0.0.rc5'
-  gem 'fakeweb', '>= 1.3.0'
-  gem 'capybara', '>= 0.4.1.2'
   gem 'resque_spec', '>= 0.4.2'
+
+  # Integrations tests
+  gem 'capybara', '>= 0.4.1.2'
+  gem 'database_cleaner', '>= 0.6.3'
+  gem 'fakeweb', '>= 1.3.0'
+
+  # Code metrics
+  gem 'metrical', '>= 0.0.4'
+  gem 'simplecov', '>= 0.4.0', :require => false
+
+  # Speed up our tests
+  gem 'spork', '>= 0.9.0.rc3'
+  gem 'guard-spork', '>= 0.1.4'
+  gem 'rb-fsevent', '>= 0.3.10'
+  gem 'infinity_test', '>= 1.0.2'
 end
 
 
