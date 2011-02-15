@@ -11,23 +11,9 @@ class User < ActiveRecord::Base
   has_many :friendships
   has_many :friends, :through => :friendships
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.facebook_uid = auth["uid"]
-      user.facebook_token = auth["credentials"]["token"]
-      user.first_name = auth["user_info"]["first_name"]
-      user.last_name = auth["user_info"]["last_name"]
-    end
-  end
-
-  def self.find_or_create_with_omniauth(auth)
-    user = self.find_by_facebook_uid(auth["uid"])
-    if user
-      user.update_attribute(:facebook_token, auth["credentials"]["token"])
-    else
-      user = self.create_with_omniauth(auth)
-    end
-    return user
+  def profile_picture
+    graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
+    return graph.get_picture(self.facebook_uid)
   end
 
   def friend(other)
@@ -40,6 +26,26 @@ class User < ActiveRecord::Base
     not Friendship.where(:user_id => self.id, :friend_id => other.id).blank?
   end
 
+  def self.find_or_create_with_omniauth(auth)
+    user = self.find_by_facebook_uid(auth["uid"])
+    if user
+      user.update_attribute(:facebook_token, auth["credentials"]["token"])
+    else
+      user = self.create_with_omniauth(auth)
+    end
+    return user
+  end
+
+  private
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.facebook_uid = auth["uid"]
+      user.facebook_token = auth["credentials"]["token"]
+      user.first_name = auth["user_info"]["first_name"]
+      user.last_name = auth["user_info"]["last_name"]
+    end
+  end
 end
 
 # == Schema Information
