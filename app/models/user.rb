@@ -17,6 +17,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.find_or_create_with_omniauth(auth)
+    user = self.find_by_facebook_uid(auth["uid"])
+    if user
+      user.update_attribute(:facebook_token, auth["credentials"]["token"])
+    else
+      user = self.create_with_omniauth(auth)
+    end
+    return user
+  end
+
   def friends
     graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
     graph.get_connections("me", "friends")

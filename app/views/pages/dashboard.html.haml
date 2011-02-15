@@ -4,6 +4,6 @@
 
 %p Some of your friends:
 -@friends.each do |friend|
-  = image_tag "http://graph.facebook.com/#{friend['id']}/picture?small"
+  = image_tag "http://graph.facebook.com/#{friend['id']}/picture?type=small"
   %p= friend['name']
 
