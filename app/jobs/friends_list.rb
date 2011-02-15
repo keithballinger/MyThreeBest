@@ -1,4 +1,4 @@
-class FriendsListJob < Resque::JobWithStatus
+class FriendsList < Resque::JobWithStatus
   @queue = :friends_list
 
   def perform(params)
