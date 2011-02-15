@@ -7,7 +7,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :facebook_uid, :null => false
-      t.string :facebook_token, :null => false
+      t.string :facebook_token
 
       t.trackable
       t.timestamps

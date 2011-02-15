@@ -1,9 +1,6 @@
 %h1 Something cool is happening here
 %p Welcome #{current_user.first_name}
+=image_tag "http://graph.facebook.com/#{current_user.facebook_uid}/picture?type=small"
 =link_to "Logout", logout_path
 
-%p Some of your friends:
--@friends.each do |friend|
-  = image_tag "http://graph.facebook.com/#{friend['id']}/picture?type=small"
-  %p= friend['name']
 

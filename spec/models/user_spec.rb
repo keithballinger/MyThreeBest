@@ -3,7 +3,7 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
-    @user = Factory.create(:user)
+    @user = Factory.create(:registered_user)
     @auth_cred = {
       "uid" => "9876543210",
       "credentials" => {"token" => "myfacebooktoken"},
@@ -15,17 +15,33 @@ describe User do
 
   it { should validate_uniqueness_of(:facebook_uid) }
 
+  it { should have_many(:friendships) }
+
+  it { should have_many(:friends) }
+
   it "should create a new account using facebook authentication info" do
     expect {
       user = User.create_with_omniauth(@auth_cred)
     }.to change(User, :count).by(1)
   end
 
-  it "should have a friends list" do
-    stub_friends(20)
-    @user.friends.size.should == 20
+  it "should friend with others" do
+    other = Factory.create(:user)
+    expect {
+      @user.friend(other)
+    }.to change(Friendship, :count).by(2)
   end
 
+  it "should respond true if is friend with other" do
+    other = Factory.create(:user)
+    @user.friend(other)
+    @user.friend?(other).should == true
+  end
+
+  it "should respond false if isn't friend with other" do
+    other = Factory.create(:user)
+    @user.friend?(other).should == false
+  end
 end
 
 # == Schema Information

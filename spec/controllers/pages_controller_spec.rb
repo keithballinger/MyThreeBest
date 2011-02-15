@@ -11,7 +11,7 @@ describe PagesController do
 
     it "should render dashboard page if user is logged" do
       stub_friends
-      sign_in Factory.create(:user)
+      sign_in Factory.create(:registered_user)
       get 'index'
       response.should render_template('dashboard')
     end

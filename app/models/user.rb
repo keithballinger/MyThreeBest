@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   validates_presence_of :facebook_uid
   validates_uniqueness_of :facebook_uid
 
+  has_many :friendships
+  has_many :friends, :through => :friendships
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.facebook_uid = auth["uid"]
@@ -27,10 +30,16 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def friends
-    graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
-    graph.get_connections("me", "friends")
+  def friend(other)
+    Friendship.create(:user_id => self.id, :friend_id => other.id)
+    Friendship.create(:user_id => other.id, :friend_id => self.id)
+    true
   end
+
+  def friend?(other)
+    not Friendship.where(:user_id => self.id, :friend_id => other.id).blank?
+  end
+
 end
 
 # == Schema Information
