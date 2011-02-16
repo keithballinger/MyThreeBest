@@ -7,7 +7,7 @@ feature "Users Login", %q{
 } do
 
   background do
-    stub_friends
+    stub_facebook_profile
   end
 
   scenario "I login in the page" do

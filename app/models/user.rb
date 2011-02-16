@@ -11,8 +11,12 @@ class User < ActiveRecord::Base
   has_many :friendships
   has_many :friends, :through => :friendships
 
-  def profile_picture
-    graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
+  def profile_picture(token = nil)
+    if token
+      graph = Koala::Facebook::GraphAPI.new(token)
+    else
+      graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
+    end
     return graph.get_picture(self.facebook_uid)
   end
 
@@ -23,7 +27,12 @@ class User < ActiveRecord::Base
   end
 
   def friend?(other)
-    not Friendship.where(:user_id => self.id, :friend_id => other.id).blank?
+    user = User.find_by_facebook_uid(other)
+    if user
+      return !Friendship.where(:user_id => self.id, :friend_id => user.id).blank?
+    else
+      return false
+    end
   end
 
   def self.find_or_create_with_omniauth(auth)

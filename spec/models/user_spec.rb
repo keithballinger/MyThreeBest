@@ -32,15 +32,33 @@ describe User do
     }.to change(Friendship, :count).by(2)
   end
 
-  it "should respond true if is friend with other" do
-    other = Factory.create(:user)
-    @user.friend(other)
-    @user.friend?(other).should == true
+  describe "friend?" do
+    it "should respond true if user is friend with other" do
+      other = Factory.create(:user)
+      @user.friend(other)
+      @user.friend?(other.facebook_uid).should == true
+    end
+
+    it "should respond false if user isn't friend with other" do
+      other = Factory.create(:user)
+      @user.friend?(other.facebook_uid).should == false
+    end
+
+    it "should respond false if is a new friend" do
+      @user.friend?("9823113111100083").should == false
+    end
   end
 
-  it "should respond false if isn't friend with other" do
+  it "should have a profile pic" do
+    stub_facebook_profile
+    @user.profile_picture.should_not be_nil
+  end
+
+  it "should be able to see friends profile pic" do
+    stub_facebook_profile
     other = Factory.create(:user)
-    @user.friend?(other).should == false
+    @user.friend(other)
+    other.profile_picture(@user.facebook_token).should_not be_nil
   end
 end
 
