@@ -1,13 +1,13 @@
 class CreateUserJobs < ActiveRecord::Migration
   def self.up
     create_table :user_jobs do |t|
-      t.string :job_id
-      t.integer :user_id
-      t.string :type
+      t.string :job_id, :null => false
+      t.integer :user_id, :null => false
+      t.string :job_type, :null => false
 
       t.timestamps
     end
-    add_index :user_jobs, [:user_id, :type]
+    add_index :user_jobs, [:user_id, :job_type]
   end
 
   def self.down

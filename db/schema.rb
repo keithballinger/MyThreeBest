@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217023552) do
+ActiveRecord::Schema.define(:version => 20110217031617) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -31,6 +31,16 @@ ActiveRecord::Schema.define(:version => 20110217023552) do
   end
 
   add_index "invites", ["inviter_id"], :name => "index_invites_on_inviter_id"
+
+  create_table "user_jobs", :force => true do |t|
+    t.string   "job_id",     :null => false
+    t.integer  "user_id",    :null => false
+    t.string   "job_type",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_jobs", ["user_id", "job_type"], :name => "index_user_jobs_on_user_id_and_job_type"
 
   create_table "users", :force => true do |t|
     t.string   "first_name"

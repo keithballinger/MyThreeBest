@@ -6,3 +6,4 @@ tmp/*
 .rvmrc
 coverage
 coverage.data
+dump.rdb

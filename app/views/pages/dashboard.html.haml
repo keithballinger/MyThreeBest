@@ -2,5 +2,6 @@
 %p Welcome #{current_user.first_name}
 =image_tag current_user.profile_picture
 =link_to "Logout", logout_path
-
+#friends
+=link_to "Reload friends", new_invite_path, :remote => true
 

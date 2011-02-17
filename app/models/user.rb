@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   # - Associations
   has_many :friendships
   has_many :friends, :through => :friendships
+  has_many :user_jobs
 
   # - Callbacks
   after_create :load_friends_list, :if => :facebook_token?
@@ -65,7 +66,7 @@ class User < ActiveRecord::Base
 
   def load_friends_list
     job_id = FriendsList.create(:user_id => self.id)
-    UserJob.create(:job_id => job_id, :user_id => self.id)
+    UserJob.create(:job_id => job_id, :user_id => self.id, :job_type => "friends_list")
   end
 end
 

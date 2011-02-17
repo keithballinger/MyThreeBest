@@ -1,0 +1,10 @@
+<% if @friends.size == 8 %>
+    $("#friends").html("<%= escape_javascript(render(@friends)) %>");
+    //window.clearInterval(pageInterval);
+    //window.pageInterval = null;
+  <% else %>
+    alert("No Yet Ready...");
+    //if(window.pageInterval == null){
+    //  window.pageInterval = window.setInterval("reload_page()",3000);
+    //}
+<% end %>

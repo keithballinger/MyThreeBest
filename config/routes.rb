@@ -7,6 +7,8 @@ MyThreeBest::Application.routes.draw do
   root :to => "pages#index"
 
   match "/auth/:provider/callback" => "sessions#create"
+
+  resources :invites
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

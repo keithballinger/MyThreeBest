@@ -2,4 +2,4 @@ development:
   redis_url: "redis://localhost"
 
 test:
-  redis_url: "redis://fakeredis"
+  redis_url: "redis://localhost/test"

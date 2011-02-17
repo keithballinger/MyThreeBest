@@ -19,6 +19,8 @@ describe User do
 
   it { should have_many(:friends) }
 
+  it { should have_many(:user_jobs) }
+
   it "should create a new account using facebook authentication info" do
     expect {
       user = User.create_with_omniauth(@auth_cred)

@@ -18,6 +18,7 @@ gem 'resque-status', '>= 0.2.2', :require => 'resque/status'
 gem 'typhoeus', '>= 0.2.1'
 gem 'yajl-ruby', '>= 0.8.1', :require => 'yajl/json_gem'
 gem 'dalli', '>= 1.0.2'
+gem 'will_paginate', '>= 3.0.pre2'
 
 # - Only used in development
 group :development do
