@@ -57,6 +57,7 @@ class User < ActiveRecord::Base
   end
 end
 
+
 # == Schema Information
 #
 # Table name: users
@@ -65,7 +66,7 @@ end
 #  first_name         :string(255)
 #  last_name          :string(255)
 #  facebook_uid       :string(255)     not null
-#  facebook_token     :string(255)     not null
+#  facebook_token     :string(255)
 #  sign_in_count      :integer         default(0)
 #  current_sign_in_at :datetime
 #  last_sign_in_at    :datetime
