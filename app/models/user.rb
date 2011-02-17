@@ -5,11 +5,18 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name
+
+  # - Validations
   validates_presence_of :facebook_uid
   validates_uniqueness_of :facebook_uid
 
+  # - Associations
   has_many :friendships
   has_many :friends, :through => :friendships
+
+  # - Callbacks
+  after_create :load_friends_list, :if => :facebook_token?
+
 
   def profile_picture(token = nil)
     if token
@@ -54,6 +61,11 @@ class User < ActiveRecord::Base
       user.first_name = auth["user_info"]["first_name"]
       user.last_name = auth["user_info"]["last_name"]
     end
+  end
+
+  def load_friends_list
+    job_id = FriendsList.create(:user_id => self.id)
+    UserJob.create(:job_id => job_id, :user_id => self.id)
   end
 end
 
