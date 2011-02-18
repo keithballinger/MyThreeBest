@@ -8,4 +8,5 @@ class InvitesController < ApplicationController
       format.js
     end
   end
+
 end

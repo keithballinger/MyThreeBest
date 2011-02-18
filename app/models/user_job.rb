@@ -9,22 +9,9 @@ class UserJob < ActiveRecord::Base
   validates_presence_of :job_type
 
   def status
-    job.status
+    Resque::Status.get(self.job_id).status
   end
 
-  def num
-    job.num
-  end
-
-  def total
-    job.total
-  end
-
-  private
-
-  def job
-    job = Resque::Status.get(self.job_id)
-  end
 end
 
 
