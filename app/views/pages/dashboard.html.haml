@@ -3,5 +3,14 @@
 =image_tag current_user.profile_picture
 =link_to "Logout", logout_path
 #friends
-=link_to "Reload friends", new_invite_path, :remote => true
+  =image_tag "/images/loading.gif"
+#pagination
+#pages_info
+:javascript
+    function reloadFriends(){
+      $.get("#{new_invite_path}");
+    }
+    $(document).ready(function() {
+      window.reloadInterval = window.setInterval(reloadFriends,3000);
+    });
 
