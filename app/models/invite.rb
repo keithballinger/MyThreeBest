@@ -1,4 +1,12 @@
 class Invite < ActiveRecord::Base
+
+  # - Validations
+  validates_presence_of :inviter_id
+  validates_presence_of :invited_id
+  validates_presence_of :status
+  validates_uniqueness_of :invited_id, :scope => :inviter_id
+
+
 end
 
 # == Schema Information

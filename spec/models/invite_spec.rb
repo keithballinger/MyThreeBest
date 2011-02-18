@@ -1,7 +1,17 @@
 require 'spec_helper'
 
 describe Invite do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before(:each) do
+   user1 = Factory.create(:registered_user)
+   user2 = Factory.create(:user)
+   @invite = Invite.create(:inviter_id => user1.id, :invited_id => user2.id, :status => "pending")
+  end
+
+  it { should validate_presence_of(:inviter_id) }
+  it { should validate_presence_of(:invited_id) }
+  it { should validate_presence_of(:status) }
+
+  it { should validate_uniqueness_of(:invited_id).scoped_to(:inviter_id) }
 end
 
 # == Schema Information

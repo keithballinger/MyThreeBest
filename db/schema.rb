@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(:version => 20110217031617) do
   add_index "friendships", ["user_id"], :name => "index_friendships_on_user_id"
 
   create_table "invites", :force => true do |t|
-    t.integer  "inviter_id"
-    t.integer  "invited_id"
-    t.string   "status"
+    t.integer  "inviter_id", :null => false
+    t.integer  "invited_id", :null => false
+    t.string   "status",     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
