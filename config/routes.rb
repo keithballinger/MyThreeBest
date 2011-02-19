@@ -8,6 +8,7 @@ MyThreeBest::Application.routes.draw do
 
   match "/auth/:provider/callback" => "sessions#create"
 
+  match "/invite/:user_id" => "invites#create", :as => :invite_friend
   resources :invites
   # The priority is based upon order of creation:
   # first created -> highest priority.

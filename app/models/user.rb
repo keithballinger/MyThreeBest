@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name
+  cattr_reader :per_page
+  @@per_page = 10
+
 
   # - Validations
   validates_presence_of :facebook_uid
@@ -41,6 +44,18 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def invite(user)
+    Invite.create(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
+  end
+
+  def invited?(user)
+    Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
+  end
+
+  def friends_list_job
+    self.user_jobs.where(:job_type => "friends_list").first
   end
 
   def self.find_or_create_with_omniauth(auth)

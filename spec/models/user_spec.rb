@@ -56,11 +56,19 @@ describe User do
     @user.profile_picture.should_not be_nil
   end
 
-  it "should be able to see friends profile pic" do
+  it "should be able to see friends profile picture" do
     stub_facebook_profile
     other = Factory.create(:user)
     @user.friend(other)
     other.profile_picture(@user.facebook_token).should_not be_nil
+  end
+
+  it "should invite to friends to vote" do
+    other = Factory.create(:user)
+    @user.friend(other)
+    expect {
+      @user.invite(other)
+    }.to change(Invite, :count).by(1)
   end
 end
 
