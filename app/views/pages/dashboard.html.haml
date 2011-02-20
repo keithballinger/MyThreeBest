@@ -9,11 +9,13 @@
 - if @job.status == "completed"
   :javascript
       $(document).ready(function() {
+         window.reloadPath = "/invites/new";
          reloadFriends();
       });
 - else
   :javascript
       $(document).ready(function() {
+        window.reloadPath = "/invites/new";
         window.reloadInterval = window.setInterval(reloadFriends,3000);
       });
 

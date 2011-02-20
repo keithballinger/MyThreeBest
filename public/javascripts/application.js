@@ -8,11 +8,12 @@ function ajaxPagination() {
           url: $(this).attr("href"),
           dataType: "script"
         });
+        window.reloadPath = $(this).attr("href");
         return false;
     });
 }
 
 function reloadFriends() {
-    $.get("/invites/new");
+    $.get(window.reloadPath);
 }
 
