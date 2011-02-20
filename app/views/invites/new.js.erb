@@ -1,4 +1,4 @@
-<% if @friends.count >= User.per_page || @job.status == "completed" %>
+<% if @friends.count >= 10 || @job.status == "completed" %>
     $("#friends").html("<%= escape_javascript(render(@friends))%>");
     $("#pagination").html("<%= escape_javascript(will_paginate(@friends)) %>");
     $("#pages_info").html("<%= escape_javascript(page_entries_info(@friends)) %>");
