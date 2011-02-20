@@ -6,7 +6,13 @@ class Invite < ActiveRecord::Base
   validates_presence_of :status
   validates_uniqueness_of :invited_id, :scope => :inviter_id
 
+  # - Callbacks
+  after_create :send_friends_invite
 
+  def send_friends_invite
+    job_id = FriendsInvite.create(:inviter_id => self.inviter_id, :invited_id => self.invited_id)
+    UserJob.create(:job_id => job_id, :user_id => self.inviter_id, :job_type => "friends_invite")
+  end
 end
 
 # == Schema Information
