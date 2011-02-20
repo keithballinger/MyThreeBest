@@ -3,7 +3,7 @@ class InvitesController < ApplicationController
 
   def new
     @job = current_user.friends_list_job
-    @friends = current_user.friends.paginate(:page => params[:page])
+    @friends = current_user.friends.paginate(:page => params[:page], :per_page => 10)
     respond_to do |format|
       format.js
     end

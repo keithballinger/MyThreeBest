@@ -5,9 +5,6 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name
-  cattr_reader :per_page
-  @@per_page = 10
-
 
   # - Validations
   validates_presence_of :facebook_uid
