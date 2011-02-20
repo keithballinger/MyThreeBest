@@ -12,3 +12,7 @@ function ajaxPagination() {
     });
 }
 
+function reloadFriends() {
+    $.get("/invites/new");
+}
+

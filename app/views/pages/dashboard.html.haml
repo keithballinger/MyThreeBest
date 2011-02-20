@@ -6,11 +6,14 @@
   =image_tag "/images/loading.gif"
 #pagination
 #pages_info
-:javascript
-    function reloadFriends(){
-      $.get("#{new_invite_path}");
-    }
-    $(document).ready(function() {
-      window.reloadInterval = window.setInterval(reloadFriends,3000);
-    });
+- if @job.status == "completed"
+  :javascript
+      $(document).ready(function() {
+         reloadFriends();
+      });
+- else
+  :javascript
+      $(document).ready(function() {
+        window.reloadInterval = window.setInterval(reloadFriends,3000);
+      });
 
