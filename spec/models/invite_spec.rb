@@ -14,14 +14,15 @@ describe Invite do
   it { should validate_uniqueness_of(:invited_id).scoped_to(:inviter_id) }
 end
 
+
 # == Schema Information
 #
 # Table name: invites
 #
 #  id         :integer         not null, primary key
-#  inviter_id :integer
-#  invited_id :integer
-#  status     :string(255)
+#  inviter_id :integer         not null
+#  invited_id :integer         not null
+#  status     :string(255)     not null
 #  created_at :datetime
 #  updated_at :datetime
 #

@@ -50,7 +50,7 @@ group :test do
   gem 'ffaker', '>= 1.2.0'
   gem 'resque_spec', '>= 0.4.2'
 
-  # Integrations tests
+  # Acceptance tests
   gem 'capybara', '>= 0.4.1.2'
   gem 'database_cleaner', '>= 0.6.3'
   gem 'fakeweb', '>= 1.3.0'
