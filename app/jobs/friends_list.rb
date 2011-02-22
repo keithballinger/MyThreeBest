@@ -3,6 +3,7 @@ class FriendsList < Resque::JobWithStatus
 
   def perform
     me = User.find(options['user_id'])
+    me.friends_list_job.update_attributes(:status => "working")
     graph = Koala::Facebook::GraphAPI.new(me.facebook_token)
     friends = graph.get_connections("me", "friends")
     total = friends.count
@@ -18,6 +19,7 @@ class FriendsList < Resque::JobWithStatus
       me.friend(user) unless me.friend?(user.facebook_uid)
       num += 1
     end
+    me.friends_list_job.update_attributes(:status => "completed")
     completed
   end
 end

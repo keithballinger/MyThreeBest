@@ -11,11 +11,10 @@ describe UserJob do
   it { should validate_presence_of(:job_id) }
   it { should validate_presence_of(:user_id) }
   it { should validate_presence_of(:job_type) }
+  it { should validate_presence_of(:status) }
 
-  it "should have a status" do
-    @user_job.status.should == "queued"
-  end
 end
+
 
 
 # == Schema Information
@@ -28,5 +27,6 @@ end
 #  job_type   :string(255)     not null
 #  created_at :datetime
 #  updated_at :datetime
+#  status     :string(255)
 #
 

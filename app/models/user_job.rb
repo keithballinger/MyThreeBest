@@ -7,12 +7,9 @@ class UserJob < ActiveRecord::Base
   validates_presence_of :job_id
   validates_presence_of :user_id
   validates_presence_of :job_type
-
-  def status
-    Resque::Status.get(self.job_id).status
-  end
-
+  validates_presence_of :status
 end
+
 
 
 # == Schema Information
@@ -25,5 +22,6 @@ end
 #  job_type   :string(255)     not null
 #  created_at :datetime
 #  updated_at :datetime
+#  status     :string(255)
 #
 

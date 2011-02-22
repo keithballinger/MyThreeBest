@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110217031617) do
+ActiveRecord::Schema.define(:version => 20110222035200) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20110217031617) do
     t.string   "job_type",   :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
   end
 
   add_index "user_jobs", ["user_id", "job_type"], :name => "index_user_jobs_on_user_id_and_job_type"

@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
 
   def load_friends_list
     job_id = FriendsList.create(:user_id => self.id)
-    UserJob.create(:job_id => job_id, :user_id => self.id, :job_type => "friends_list")
+    UserJob.create(:job_id => job_id, :user_id => self.id, :job_type => "friends_list", :status => "queued")
   end
 end
 
