@@ -14,7 +14,7 @@ function getFriends(){
     });
 }
 
-function loadFriends(friends){
+function loadFriends2(friends){
     var items = [];
 
     $.each(friends, function(key, val) {
@@ -26,5 +26,10 @@ function loadFriends(friends){
         html: items.join('')
     }).appendTo('#friends');
   
+    $('#loading').hide();
+}
+
+function loadFriends(friends){
+    $( "#friend_template" ).tmpl(friends).appendTo("#friends_list");
     $('#loading').hide();
 }
