@@ -13,8 +13,9 @@ class FriendsList < Resque::JobWithStatus
       user = User.find_by_facebook_uid(friend['id'])
       unless user
         info = graph.get_object(friend['id'])
+        photo = graph.get_picture(friend['id'])
         user = User.create!(:first_name => info['first_name'], :last_name => info['last_name'],
-                            :facebook_uid => friend['id'])
+                            :facebook_uid => friend['id'], :profile_picture => photo)
       end
       me.friend(user) unless me.friend?(user.facebook_uid)
       num += 1

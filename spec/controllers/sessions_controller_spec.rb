@@ -10,6 +10,7 @@ describe SessionsController do
       end
 
       it "should create and login to a new user" do
+        stub_facebook_profile
         expect do
           get :create, :provider => "facebook"
         end.to change(User, :count).by(1)
@@ -18,7 +19,8 @@ describe SessionsController do
       end
 
       it "should login to user if already created" do
-        user = User.create_with_omniauth(@creds)
+        stub_facebook_profile
+        user = User.find_or_create_with_omniauth(@creds)
         expect do
           get :create, :provider => "facebook"
         end.to change(User, :count).by(0)

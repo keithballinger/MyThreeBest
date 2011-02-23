@@ -10,7 +10,6 @@ describe PagesController do
     end
 
     it "should render dashboard page if user is logged" do
-      stub_facebook_profile
       sign_in Factory.create(:registered_user)
       get 'index'
       response.should render_template('dashboard')

@@ -15,6 +15,8 @@ describe User do
 
   it { should validate_uniqueness_of(:facebook_uid) }
 
+  it { should validate_presence_of(:profile_picture) }
+
   it { should have_many(:friendships) }
 
   it { should have_many(:friends) }
@@ -24,8 +26,9 @@ describe User do
   it { should have_many(:photos) }
 
   it "should create a new account using facebook authentication info" do
+    stub_facebook_profile
     expect {
-      user = User.create_with_omniauth(@auth_cred)
+      user = User.find_or_create_with_omniauth(@auth_cred)
     }.to change(User, :count).by(1)
   end
 
@@ -51,18 +54,6 @@ describe User do
     it "should respond false if is a new friend" do
       @user.friend?("9823113111100083").should == false
     end
-  end
-
-  it "should have a profile pic" do
-    stub_facebook_profile
-    @user.profile_picture.should_not be_nil
-  end
-
-  it "should be able to see friends profile picture" do
-    stub_facebook_profile
-    other = Factory.create(:user)
-    @user.friend(other)
-    other.profile_picture(@user.facebook_token).should_not be_nil
   end
 
   it "should invite to friends to vote" do

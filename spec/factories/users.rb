@@ -9,6 +9,7 @@ FactoryGirl.define do
     first_name { Faker::Name.first_name }
     last_name  { Faker::Name.last_name }
     facebook_uid
+    profile_picture "http://facebook.com/profile_picture.png"
   end
 
   factory :registered_user, :parent => :user do

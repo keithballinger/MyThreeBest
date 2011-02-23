@@ -4,11 +4,12 @@ class User < ActiveRecord::Base
   devise :trackable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name
+  attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name, :profile_picture
 
   # - Validations
   validates_presence_of :facebook_uid
   validates_uniqueness_of :facebook_uid
+  validates_presence_of :profile_picture
 
   # - Associations
   has_many :friendships
@@ -18,16 +19,6 @@ class User < ActiveRecord::Base
 
   # - Callbacks
   after_create :load_user_data, :if => :facebook_token?
-
-
-  def profile_picture(token = nil)
-    if token
-      graph = Koala::Facebook::GraphAPI.new(token)
-    else
-      graph = Koala::Facebook::GraphAPI.new(self.facebook_token)
-    end
-    return graph.get_picture(self.facebook_uid)
-  end
 
   def friend(other)
     Friendship.create!(:user_id => self.id, :friend_id => other.id)
@@ -78,6 +69,8 @@ class User < ActiveRecord::Base
       user.facebook_token = auth["credentials"]["token"]
       user.first_name = auth["user_info"]["first_name"]
       user.last_name = auth["user_info"]["last_name"]
+      graph = Koala::Facebook::GraphAPI.new(auth["credentials"]["token"])
+      user.profile_picture = graph.get_picture(auth["uid"])
     end
   end
 
