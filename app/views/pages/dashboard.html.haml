@@ -2,20 +2,7 @@
 %p #{current_user.first_name}
 =image_tag current_user.profile_picture
 =link_to "Logout", logout_path
-#friends
+#loading
   =image_tag "/images/loading.gif"
-#pagination
-#pages_info
-- if @job.status == "completed"
-  :javascript
-      $(document).ready(function() {
-         window.reloadPath = "/invites/new";
-         reloadFriends();
-      });
-- else
-  :javascript
-      $(document).ready(function() {
-        window.reloadPath = "/invites/new";
-        window.reloadInterval = window.setInterval(reloadFriends,3000);
-      });
+#friends
 
