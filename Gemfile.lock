@@ -337,6 +337,7 @@ DEPENDENCIES
   infinity_test (>= 1.0.2)
   jquery-rails (>= 0.2.7)
   koala (>= 1.0.0.beta)
+  launchy (>= 0.3.7)
   metrical (>= 0.0.4)
   mocha (>= 0.9.11)
   omniauth (>= 0.2.0.beta3)

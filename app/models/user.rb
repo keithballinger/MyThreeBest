@@ -14,9 +14,10 @@ class User < ActiveRecord::Base
   has_many :friendships
   has_many :friends, :through => :friendships
   has_many :user_jobs
+  has_many :photos
 
   # - Callbacks
-  after_create :load_friends_list, :if => :facebook_token?
+  after_create :load_user_data, :if => :facebook_token?
 
 
   def profile_picture(token = nil)
@@ -29,8 +30,8 @@ class User < ActiveRecord::Base
   end
 
   def friend(other)
-    Friendship.create(:user_id => self.id, :friend_id => other.id)
-    Friendship.create(:user_id => other.id, :friend_id => self.id)
+    Friendship.create!(:user_id => self.id, :friend_id => other.id)
+    Friendship.create!(:user_id => other.id, :friend_id => self.id)
     true
   end
 
@@ -44,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def invite(user)
-    Invite.create(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
+    Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
   end
 
   def invited?(user)
@@ -53,6 +54,10 @@ class User < ActiveRecord::Base
 
   def friends_list_job
     self.user_jobs.where(:job_type => "friends_list").first
+  end
+
+  def user_photos_job
+    self.user_jobs.where(:job_type => "user_photos").first
   end
 
   def self.find_or_create_with_omniauth(auth)
@@ -76,9 +81,13 @@ class User < ActiveRecord::Base
     end
   end
 
-  def load_friends_list
+  def load_user_data
     job_id = FriendsList.create(:user_id => self.id)
-    UserJob.create(:job_id => job_id, :user_id => self.id, :job_type => "friends_list", :status => "queued")
+    Rails.logger.info "[Queued Job with id #{job_id}]"
+    UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "friends_list", :status => "queued")
+    job_id = UserPhotos.create(:user_id => self.id)
+    Rails.logger.info "[Queued Job with id #{job_id}]"
+    UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "user_photos", :status => "queued")
   end
 end
 

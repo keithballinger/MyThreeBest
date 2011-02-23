@@ -1,17 +1,17 @@
 development:
   app_id: '109251382486502'
   app_secret: 'f735f57e75b1cf632dddddf3e500da2e'
-  app_scope: 'email,offline_access,user_photos,user_photo_video_tags,publish_stream'
+  app_scope: 'offline_access,user_photos,user_photo_video_tags,friends_photos,friends_photo_video_tags,publish_stream'
 
 test:
   app_id: '123456'
   app_secret: 's3cr37'
-  app_scope: 'email,offline_access,user_photos,user_photo_video_tags,publish_stream'
+  app_scope: 'offline_access,user_photos,user_photo_video_tags,friends_photos,friends_photo_video_tags,publish_stream'
 
 staging:
   app_id: '175780329132792'
   app_secret: '3bc76328e880b94ffa258c8da0bb4a52'
-  app_scope:  'email,offline_access,user_photos,user_photo_video_tags,publish_stream'
+  app_scope:  'offline_access,user_photos,user_photo_video_tags,friends_photos,friends_photo_video_tags,publish_stream'
 
 production:
   app_id: ''
