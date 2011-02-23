@@ -1,5 +1,7 @@
 MyThreeBest::Application.routes.draw do
 
+  get "friends/list"
+
   devise_for :users do
     get "logout", :to => "devise/sessions#destroy"
   end

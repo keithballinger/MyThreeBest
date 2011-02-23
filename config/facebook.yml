@@ -1,6 +1,6 @@
 development:
-  app_id: '109251382486502'
-  app_secret: 'f735f57e75b1cf632dddddf3e500da2e'
+  app_id: '198269216852292'
+  app_secret: 'c98edf1abd4280af8d9cb0a0fef7d2bf'
   app_scope: 'email,offline_access,user_photos,user_photo_video_tags,publish_stream'
 
 test:
