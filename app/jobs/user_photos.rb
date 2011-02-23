@@ -10,8 +10,8 @@ class UserPhotos < Resque::JobWithStatus
     num = 1
     photos.each do |photo|
       at(num, total, "Looking at photo #{num} of #{total}")
-      preview = photo["images"].select{|x| x["width"] == 180}.first["source"]
-      url = photo["images"].first["source"]
+      preview = photo["images"][1]["source"]
+      url = photo["images"][0]["source"]
       title = photo["name"]
       Photo.create!(:title => title, :preview_url => preview, :url => url, :user_id => user.id)
       num += 1
