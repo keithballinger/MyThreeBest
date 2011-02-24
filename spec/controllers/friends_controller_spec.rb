@@ -4,7 +4,8 @@ describe FriendsController do
 
   describe "GET 'index'" do
     it "should return friends list" do
-      sign_in Factory.create(:user)
+      user = Factory.create(:registered_user)
+      sign_in user
       get 'index'
       response.should be_success
     end

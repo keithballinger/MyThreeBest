@@ -2,13 +2,16 @@
 %p #{current_user.first_name}
 =image_tag current_user.profile_picture
 =link_to "Logout", logout_path
+%a{ :href => 'javascript:inviteAll()' }
+  %p
+    Invite all my friends on my wall
 #loading
   =image_tag "/images/loading.gif"
 #friends
 %script{:type => "text/x-jquery-tmpl",
         :id  => "friend_template"}
-  <tr><td><img src="${user.profile_picture}" /></td><td valign=top>${user.first_name} ${user.last_name}<br /><a href="/invite/create/${user.id}" class="fg-button ui-state-default ui-corner-all">Invite</a></td></tr>
+  <tr><td><img src="${user.profile_picture}" /></td><td valign=top>${user.first_name} ${user.last_name}<br /><a href="/invite/${user.id}" id="invitation_${user.id}" data-remote="true" class="fg-button ui-state-default ui-corner-all">Invite</a></td></tr>
 %ul#friends_list
 
-        
+
 

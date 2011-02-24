@@ -8,6 +8,7 @@ MyThreeBest::Application.routes.draw do
 
   match "/auth/:provider/callback" => "sessions#create"
 
+  match "/invite/all" => "invites#all", :as => :invite_all
   match "/invite/:user_id" => "invites#create", :as => :invite_friend
   resources :invites
   resources :friends
