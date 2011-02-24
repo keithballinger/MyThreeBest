@@ -35,12 +35,19 @@ class User < ActiveRecord::Base
     end
   end
 
+  def invite_all
+    job_id = PostInvite.create(:inviter_id => self.id)
+    UserJob.create(:job_id => job_id, :user_id => self.id, :job_type => "post_invite")
+  end
+
   def invite(user)
-    Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
+    invite = Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
+    invite.send_friends_invite
   end
 
   def invited?(user)
-    Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
+    invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
+    invite.send_friends_invite
   end
 
   def friends_list_job

@@ -11,6 +11,7 @@ class FriendsController < ApplicationController
     
     @result = FriendsResult.new
     @result.job_status = @job.status
+    
     @result.friends = @friends
     @result.friends_total_count = @friends.count
     

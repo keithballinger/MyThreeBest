@@ -2,6 +2,9 @@
 %p #{current_user.first_name}
 =image_tag current_user.profile_picture
 =link_to "Logout", logout_path
+%a{ :href => 'javascript:inviteAll()' }
+  %p 
+    Invite all my friends on my wall
 #loading
   =image_tag "/images/loading.gif"
 #friends
