@@ -12,7 +12,7 @@ feature "Users Login", %q{
 
   scenario "I login in the page" do
     visit login_page
-    page.should have_content('Welcome John')
+    page.should have_content('John')
     page.should have_content('Logout')
   end
 end

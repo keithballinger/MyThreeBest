@@ -1,7 +1,5 @@
 MyThreeBest::Application.routes.draw do
 
-  get "friends/list"
-
   devise_for :users do
     get "logout", :to => "devise/sessions#destroy"
   end
@@ -12,6 +10,7 @@ MyThreeBest::Application.routes.draw do
 
   match "/invite/:user_id" => "invites#create", :as => :invite_friend
   resources :invites
+  resources :friends
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

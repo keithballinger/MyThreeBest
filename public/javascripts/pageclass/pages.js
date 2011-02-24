@@ -1,16 +1,14 @@
 $(document).ready(function() {
     getFriends();
+    window.getFriendsInterval = window.setInterval(getFriends, 1000);
 });
 
 function getFriends(){
-    $.getJSON('http://localhost:3000/friends/list', function(response) {
-        
-        if( response.job_status == "completed" ){
+    $.getJSON('/friends', function(response) {
+        if( response.job_status == "completed" ) {
             loadFriends(response.friends);
-        }else{
-            setInterval("getFriends()", 1000);
+            window.clearInterval(window.getFriendsInterval);
         }
-        
     });
 }
 
@@ -25,7 +23,7 @@ function loadFriends2(friends){
         'class': 'my-new-list',
         html: items.join('')
     }).appendTo('#friends');
-  
+
     $('#loading').hide();
 }
 
