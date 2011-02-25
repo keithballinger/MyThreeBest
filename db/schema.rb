@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110223055459) do
+ActiveRecord::Schema.define(:version => 20110225053046) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -71,5 +71,16 @@ ActiveRecord::Schema.define(:version => 20110223055459) do
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "voter_id",   :null => false
+    t.integer  "photo_id",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["photo_id"], :name => "index_votes_on_photo_id"
+  add_index "votes", ["voter_id", "photo_id"], :name => "index_votes_on_voter_id_and_photo_id"
+  add_index "votes", ["voter_id"], :name => "index_votes_on_voter_id"
 
 end

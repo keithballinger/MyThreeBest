@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :photo do
-      title "MyText"
-      url "MyString"
-      preview_url "MyString"
-      user_id 1
-      total_votes 1
-    end
+    title { Faker::Lorem.words.join(" ") }
+    url "http://facebook.com/random_photo.jpg"
+    preview_url "http://facebook.com/random_photo_preview.jpg"
+    user
+    total_votes 0
+  end
 end

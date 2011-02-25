@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
 
   # - Associations
   belongs_to :user
+  has_many :votes
 
   # - Validations
 

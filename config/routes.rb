@@ -1,17 +1,28 @@
 MyThreeBest::Application.routes.draw do
 
+  # - Homepage
+  root :to => "pages#index"
+
+  # - Auth Routes
   devise_for :users do
     get "logout", :to => "devise/sessions#destroy"
   end
-
-  root :to => "pages#index"
-
   match "/auth/:provider/callback" => "sessions#create"
 
+  # - Friends
+  resources :friends
+
+
+  # -  Invites routes
   match "/invite/all" => "invites#all", :as => :invite_all
   match "/invite/:user_id" => "invites#create", :as => :invite_friend
   resources :invites
-  resources :friends
+
+  # - Vote Routes
+  match "/vote/:user_id" => "votes#new", :as => :new_vote
+  match "/vote/:user_id" => "votes#create", :as => :save_vote
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
