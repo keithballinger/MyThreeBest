@@ -5,8 +5,10 @@ MyThreeBest::Application.routes.draw do
 
   # - Auth Routes
   devise_for :users do
-    get "logout", :to => "devise/sessions#destroy"
+    get "/login", :to => redirect("/auth/facebook"), :as => :new_user_session
+    get "/logout", :to => "devise/sessions#destroy"
   end
+
   match "/auth/:provider/callback" => "sessions#create"
 
   # - Friends
