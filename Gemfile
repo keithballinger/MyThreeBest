@@ -19,12 +19,14 @@ gem 'typhoeus', '>= 0.2.1'
 gem 'yajl-ruby', '>= 0.8.1', :require => 'yajl/json_gem'
 gem 'dalli', '>= 1.0.2'
 gem 'will_paginate', '>= 3.0.pre2'
+gem 'hoptoad_notifier', '>= 2.4.6'
 
 # - Only used in development
 group :development do
   gem 'sqlite3-ruby', '>= 1.3.3', :require => 'sqlite3'
   gem 'rails3-generators', '>= 0.17.4'
   gem 'annotate', '>= 2.4.0'
+  gem 'hoptoad_notifier', '>= 2.4.6'
 end
 
 
