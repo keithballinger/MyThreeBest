@@ -7,11 +7,33 @@
     Invite all my friends on my wall
 #loading
   =image_tag "/images/loading.gif"
-#friends
-%script{:type => "text/x-jquery-tmpl",
-        :id  => "friend_template"}
-  <tr><td><img src="${user.profile_picture}" /></td><td valign=top>${user.first_name} ${user.last_name}<br /><a href="/invite/${user.id}" id="invitation_${user.id}" data-remote="true" class="fg-button ui-state-default ui-corner-all">Invite</a></td></tr>
-%ul#friends_list
-
+%table
+  %tr
+    %td{:valign => "top"}
+      %table
+        %thead
+          %tr
+            %th 
+            %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: left_row }'}}
+    %td{:valign => "top"}
+      %table
+        %thead
+          %tr
+            %th 
+            %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: right_row }'}}
+            
+            
+%script#friendRowTemplate{:type => "text/html"}
+  %tr
+    %td
+      %table
+        %tr
+          %td
+            %img{:src => "${ profile_image_url }"}/
+          %td{:valign => "top"}
+            ${ name }
+            %br
+            %a.fg-button.ui-state-default.ui-corner-all{"data-remote" => "true", :href => "/vote/", :id => "invitation_${vote_id}"} Invite
+                
 
 
