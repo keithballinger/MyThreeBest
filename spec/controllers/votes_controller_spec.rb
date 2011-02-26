@@ -16,17 +16,15 @@ describe VotesController do
       sign_in @voter
       get 'new', :user_id => @user.id
 
-      #assigns(:photos).should == photos
-      pending
+      response.should render_template("votes/new")
+      assigns(:photos).should == photos
     end
 
     it "should redirect to voter if isn't friend" do
       sign_in @voter
       get 'new', :user_id => @user.id
 
-      #response.should redirect_to(root_path)
-      pending
-
+      response.should redirect_to(root_path)
     end
   end
 

@@ -1,2 +1,4 @@
-%h1 Votes#new
-%p Find me in app/views/votes/new.html.haml
+%p Photos of #{@user.first_name}
+- @photos.each do |photo|
+  = image_tag photo.preview_url
+  %p #{photo.title}

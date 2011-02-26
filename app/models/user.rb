@@ -27,7 +27,12 @@ class User < ActiveRecord::Base
   end
 
   def friend?(other)
-    user = User.find_by_facebook_uid(other)
+    if other.instance_of?(User)
+      user = other
+    else
+      user = User.find_by_facebook_uid(other)
+    end
+
     if user
       return !Friendship.where(:user_id => self.id, :friend_id => user.id).blank?
     else

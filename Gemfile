@@ -27,6 +27,7 @@ group :development do
   gem 'rails3-generators', '>= 0.17.4'
   gem 'annotate', '>= 2.4.0'
   gem 'hoptoad_notifier', '>= 2.4.6'
+  gem 'ruby-debug19', '>= 0.11.6'
 end
 
 
