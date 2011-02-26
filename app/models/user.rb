@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   # - Callbacks
   after_create :load_user_data, :if => :facebook_token?
+  after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
   def friend(other)
     Friendship.create!(:user_id => self.id, :friend_id => other.id)
