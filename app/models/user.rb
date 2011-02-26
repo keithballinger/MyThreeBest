@@ -91,6 +91,7 @@ class User < ActiveRecord::Base
 end
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -107,5 +108,6 @@ end
 #  last_sign_in_ip    :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
+#  profile_picture    :string(255)
 #
 
