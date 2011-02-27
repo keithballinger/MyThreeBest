@@ -1,3 +1,4 @@
+=javascript_include_tag 'contentflow'
 %p Photos of #{@user.first_name}
 .photos-box
   .ContentFlow
@@ -5,9 +6,44 @@
       .indicator
     .flow
       - @photos.each do |photo|
-        = image_tag photo.preview_url, :class => "item", :title => photo.title
+        = image_tag photo.preview_url, :id => photo.id, :class => "item", :title => photo.title
     .globalCaption
     .scrollbar
       .slider
         .position
+  %a{:href => "#", :id => "select-photo"} Select photo
+
+.selected-photo{:class => (@first_voted.nil? ? "free": "used")}
+  - if @first_voted
+    = image_tag @first_voted.preview_url
+  - else
+    %p Select a photo
+.selected-photo{:class => (@second_voted.nil? ? "free": "used")}
+  - if @second_voted
+    = image_tag @second_voted.preview_url
+  - else
+    %p Select a photo
+.selected-photo{:class => (@third_voted.nil? ? "free": "used")}
+  - if @third_voted
+    = image_tag @third_voted.preview_url
+  - else
+    %p Select a photo
+
+:javascript
+  $(document).ready(function() {
+      $("#select-photo").click(function(){
+          var selected = $(".active canvas");
+          var photoId = selected.attr('id');
+          var photo = selected.attr('src');
+          var freePos = $(".free");
+          if (freePos.length > 0) {
+              $(freePos[0]).html("<img src='"+photo+"' />");
+              $(freePos[0]).removeClass("free");
+          }
+          else
+          {
+              alert("Three photos selected already!!");
+          }
+      });
+  });
 
