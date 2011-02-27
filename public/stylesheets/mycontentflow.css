@@ -12,6 +12,7 @@
 
     /* ----- styling of items ----- */
     .ContentFlow .flow .item.active {
+        color: black;
         cursor: pointer;
     }
         .ContentFlow .flow .item .caption {
@@ -34,7 +35,7 @@
             .ContentFlow .flow .item .caption a:active,
             .ContentFlow .flow .item .caption a:hover {
                 text-decoration: none;
-                color: white;
+                color: black;
                 font-style: italic;
                 font-size: 0.8em;
             }
@@ -70,14 +71,14 @@
                 top: 120%;
                 font-size: 16px;
                 font-weight: bold;
-                color: silver
+                color: black;
             }
 
     /* ----- global caption ----- */
     .ContentFlow .globalCaption {
         text-align: center;
         font-weight: bold;
-        color: white;
+        color: black;
         font-size: 14px;
         height: 20px;
         margin: 2em auto;
@@ -90,7 +91,7 @@
             .ContentFlow .globalCaption .caption a:active,
             .ContentFlow .globalCaption .caption a:hover {
                 text-decoration: none;
-                color: white;
+                color: black;
                 font-style: italic;
                 font-size: 0.8em;
             }
@@ -105,7 +106,7 @@
         height: 100%;
         top: 0px;
         left: 0px;
-        background: black;
+        background: white;
     }
         .ContentFlow .loadIndicator .indicator {
             background: url(/images/contentflow/loader.gif) center center no-repeat;

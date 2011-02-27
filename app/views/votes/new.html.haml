@@ -1,13 +1,13 @@
 %p Photos of #{@user.first_name}
-
-.ContentFlow
-  .loadIndicator
-    .indicator
-  .flow
-    - @photos.each do |photo|
-      = image_tag photo.preview_url, :class => "item", :title => photo.title
-  .globalCaption
-  .scrollbar
-    .slider
-      .position
+.photos-box
+  .ContentFlow
+    .loadIndicator
+      .indicator
+    .flow
+      - @photos.each do |photo|
+        = image_tag photo.preview_url, :class => "item", :title => photo.title
+    .globalCaption
+    .scrollbar
+      .slider
+        .position
 
