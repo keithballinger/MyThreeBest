@@ -14,7 +14,6 @@ MyThreeBest::Application.routes.draw do
   # - Friends
   #resources :friends
   match "/friends" => "friends#index", :as => :friends_show
-  match "/friends/list" => "friends#list", :as => :friends_list
 
   # -  Invites routes
   match "/invite/all" => "invites#all", :as => :invite_all
