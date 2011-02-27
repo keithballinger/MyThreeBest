@@ -11,6 +11,7 @@ describe Vote do
   it { should validate_uniqueness_of(:voter_id).scoped_to(:photo_id) }
 end
 
+
 # == Schema Information
 #
 # Table name: votes
@@ -20,5 +21,6 @@ end
 #  photo_id   :integer         not null
 #  created_at :datetime
 #  updated_at :datetime
+#  voted_id   :integer
 #
 

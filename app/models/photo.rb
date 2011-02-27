@@ -5,7 +5,6 @@ class Photo < ActiveRecord::Base
   has_many :votes
 
   # - Validations
-
   validates_presence_of :url
   validates_presence_of :total_votes
 end

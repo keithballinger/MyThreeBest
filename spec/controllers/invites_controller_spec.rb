@@ -35,4 +35,12 @@ describe InvitesController do
 
   end
 
+  describe "on #all" do
+    it "should send a invitation to user facebook wall" do
+      expect {
+        xhr :get, :all
+      }.to change(UserJob, :count).by(1)
+    end
+  end
+
 end

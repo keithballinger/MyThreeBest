@@ -2,11 +2,12 @@ require 'spec_helper'
 
 describe VotesController do
 
+  before(:each) do
+    @user = Factory.create(:registered_user)
+    @voter = Factory.create(:registered_user)
+  end
+
   describe "on #new" do
-    before(:each) do
-      @user = Factory.create(:registered_user)
-      @voter = Factory.create(:registered_user)
-    end
 
     it "should show vote page to voters if user is friend" do
       @user.friend(@voter)
@@ -20,6 +21,20 @@ describe VotesController do
       assigns(:photos).should == photos
     end
 
+    it "should show vote page to voters with their current votes" do
+      @user.friend(@voter)
+      (1..3).each do
+        photo = Factory.create(:photo, :user_id => @user.id)
+        @voter.vote(photo)
+      end
+      sign_in @voter
+      get 'new', :user_id => @user.id
+
+      assigns(:first_voted).should_not be_nil
+      assigns(:second_voted).should_not be_nil
+      assigns(:third_voted).should_not be_nil
+    end
+
     it "should redirect to voter if isn't friend" do
       sign_in @voter
       get 'new', :user_id => @user.id
@@ -30,7 +45,28 @@ describe VotesController do
 
   describe "on #create" do
 
-    it "should create votes for user photos"
+    it "should create votes for user photos" do
+      @user.friend(@voter)
+      photo = Factory.create(:photo, :user_id => @user.id)
+
+      sign_in @voter
+      expect {
+        post 'create', :user_id => @user.id, :photo_id => photo.id
+      }.to change(photo.votes, :count).by(1)
+    end
+
+    it "shouldn't create more than three votes for a certain user" do
+      @user.friend(@voter)
+      (1..3).each do
+        photo = Factory.create(:photo, :user_id => @user.id)
+        @voter.vote(photo)
+      end
+      photo4 = Factory.create(:photo, :user_id => @user.id)
+
+      sign_in @voter
+      post 'create', :user_id => @user.id, :photo_id => photo4.id
+      photo4.votes.count.should == 0
+    end
 
   end
 

@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :friends, :through => :friendships
   has_many :user_jobs
   has_many :photos
+  has_many :votes, :through => :photos
 
   # - Callbacks
   after_create :load_user_data, :if => :facebook_token?
@@ -43,7 +44,7 @@ class User < ActiveRecord::Base
 
   def invite_all
     job_id = PostInvite.create(:inviter_id => self.id)
-    UserJob.create(:job_id => job_id, :user_id => self.id, :job_type => "post_invite")
+    UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "post_invite", :status => "queued")
   end
 
   def invite(user)
@@ -53,6 +54,16 @@ class User < ActiveRecord::Base
 
   def invited?(user)
     invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
+  end
+
+  def vote(photo)
+    return if voted?(photo.user)
+    vote = Vote.create(:photo_id => photo.id, :voter_id => self.id)
+  end
+
+  def voted?(user)
+    vote_count = user.votes.where(:voter_id => self.id).count
+    return true if vote_count == 3
   end
 
   def friends_list_job

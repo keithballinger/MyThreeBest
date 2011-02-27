@@ -1,4 +1,5 @@
 =javascript_include_tag 'contentflow'
+=javascript_include_tag 'jquery.simplemodal.min'
 %p Photos of #{@user.first_name}
 .photos-box
   .ContentFlow
@@ -29,20 +30,32 @@
   - else
     %p Select a photo
 
+#repeated-photo{:class => "alert-dialog simplemodal-data"}
+  %p Photo already selected!!
+  %a{:href => "#", :class => "simplemodal-close"} Accept
+
+#vote-limit{:class => "alert-dialog simplemodal-data"}
+  %p Three photos selected already!!
+  %a{:href => "#", :class => "simplemodal-close"} Accept
+
 :javascript
   $(document).ready(function() {
-      $("#select-photo").click(function(){
+      $("#select-photo").click(function() {
           var selected = $(".active canvas");
           var photoId = selected.attr('id');
           var photo = selected.attr('src');
           var freePos = $(".free");
+          var alreadySelected = $(".selected-photo img[src='"+photo+"']");
           if (freePos.length > 0) {
-              $(freePos[0]).html("<img src='"+photo+"' />");
-              $(freePos[0]).removeClass("free");
-          }
-          else
-          {
-              alert("Three photos selected already!!");
+              if (alreadySelected.length == 0) {
+                  $.get("/vote/"+#{@user.id}+"/"+photoId);
+                  $(freePos[0]).html("<img src='"+photo+"' />");
+                  $(freePos[0]).removeClass("free");
+              } else {
+                  $("#repeated-photo").modal();
+              }
+          } else {
+              $("#vote-limit").modal();
           }
       });
   });

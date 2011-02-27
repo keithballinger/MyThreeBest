@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 #- Basic Rails App
-gem 'rails', '>= 3.0.4'
+gem 'rails', '>= 3.0.5'
 gem 'haml-rails', '>= 0.3.4'
 gem 'jquery-rails', '>= 0.2.7'
 
@@ -27,7 +27,7 @@ group :development do
   gem 'rails3-generators', '>= 0.17.4'
   gem 'annotate', '>= 2.4.0'
   gem 'hoptoad_notifier', '>= 2.4.6'
-  gem 'ruby-debug19', '>= 0.11.6'
+  gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
 end
 
 

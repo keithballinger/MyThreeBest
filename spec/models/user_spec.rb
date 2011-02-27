@@ -43,6 +43,12 @@ describe User do
     it "should respond true if user is friend with other" do
       other = Factory.create(:user)
       @user.friend(other)
+      @user.friend?(other).should == true
+    end
+
+    it "should respond true if user is friend with other (using facebook_uid)" do
+      other = Factory.create(:user)
+      @user.friend(other)
       @user.friend?(other.facebook_uid).should == true
     end
 
@@ -62,6 +68,46 @@ describe User do
     expect {
       @user.invite(other)
     }.to change(Invite, :count).by(1)
+  end
+
+  it "should invite to all friends with a facebook wall post" do
+    expect {
+      @user.invite_all
+    }.to change(UserJob, :count).by(1)
+  end
+
+  it "should vote to a friend photo" do
+    other = Factory.create(:registered_user)
+    photo = Factory.create(:photo, :user_id => other.id)
+    @user.friend(other)
+    expect {
+      @user.vote(photo)
+    }.to change(Vote, :count).by(1)
+  end
+
+  it "shouldn't vote to more than three photos of a friend" do
+    other = Factory.create(:registered_user)
+    @user.friend(other)
+    (1..3).each do
+      photo = Factory.create(:photo, :user_id => other.id)
+      @user.vote(photo)
+    end
+    photo4 = Factory.create(:photo, :user_id => other.id)
+
+    expect {
+      @user.vote(photo4)
+    }.not_to change(Vote, :count)
+  end
+
+  it "should respond if friend had voted to other" do
+    other = Factory.create(:registered_user)
+    @user.friend(other)
+    (1..3).each do
+      photo = Factory.create(:photo, :user_id => other.id)
+      @user.vote(photo)
+    end
+
+    @user.voted?(other).should == true
   end
 end
 

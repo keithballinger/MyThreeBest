@@ -9,6 +9,7 @@ class Vote < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
 #
 # Table name: votes
@@ -18,5 +19,6 @@ end
 #  photo_id   :integer         not null
 #  created_at :datetime
 #  updated_at :datetime
+#  voted_id   :integer
 #
 
