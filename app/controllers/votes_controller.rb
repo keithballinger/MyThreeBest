@@ -13,7 +13,7 @@ class VotesController < ApplicationController
 
   private
   def authorize_user!
-    #redirect_to root_path unless current_user.friend?(User.find(params[:user_id]))
+    redirect_to root_path unless current_user.friend?(User.find(params[:user_id]))
   end
 
 end
