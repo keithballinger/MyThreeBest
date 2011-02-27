@@ -1,4 +1,4 @@
-/*  ContentFlow, version 1.0.2 
+/*  ContentFlow, version 1.0.2
  *  (c) 2007 - 2010 Sebastian Kutsch
  *  <http://www.jacksasylum.eu/ContentFlow/>
  *
@@ -6,14 +6,14 @@
  *  (see http://www.jacksasylum.eu/ContentFlow/LICENSE)
  *
  *--------------------------------------------------------------------------*/
-/* 
+/*
  * ============================================================
  * Global configutaion and initilization object
  * ============================================================
  */
 var ContentFlowGlobal = {
     Flows: new Array,
-    AddOns: {}, 
+    AddOns: {},
     scriptName: 'contentflow.js',
     scriptElement:  null,
     Browser: new (function () {
@@ -22,7 +22,7 @@ var ContentFlowGlobal = {
         this.IE6 = this.IE && typeof(window.XMLHttpRequest) == "undefined" ? true : false;
         this.IE8 = this.IE && typeof(document.querySelectorAll) != "undefined" ? true : false;
         this.IE7 = this.IE && ! this.IE6 && !this.IE8 ? true : false;
-        this.WebKit = /WebKit/i.test(navigator.userAgent) ? true : false, 
+        this.WebKit = /WebKit/i.test(navigator.userAgent) ? true : false,
         this.iPhone = /iPhone|iPod/i.test(navigator.userAgent)? true : false;
         this.Chrome = /Chrome/i.test(navigator.userAgent) ? true : false;
         this.Safari = /Safari/i.test(navigator.userAgent) && !this.Chrome ? true : false;
@@ -99,13 +99,13 @@ var ContentFlowGlobal = {
         /* get / set basic values */
         this.scriptElement = this.getScriptElement(this.scriptName);
         if (!this.scriptElement) {
-            this.scriptName = 'contentflow_src.js';
+            this.scriptName = 'contentflow.js';
             this.scriptElement = this.getScriptElement(this.scriptName);
         }
 
         this.BaseDir = this.getScriptPath(this.scriptElement, this.scriptName) ;
-        if (!this.AddOnBaseDir) this.AddOnBaseDir = this.BaseDir;
-        if (!this.CSSBaseDir) this.CSSBaseDir = this.BaseDir;
+        if (!this.AddOnBaseDir) this.AddOnBaseDir = "/javascripts/";
+        if (!this.CSSBaseDir) this.CSSBaseDir = "/stylesheets/";
     },
 
     init: function () {
@@ -179,7 +179,7 @@ var ContentFlowGlobal = {
         }
         // flag this function so we don't do the same thing twice
         arguments.callee.done = true;
-        
+
         /* fix for mootools */
         if (window.Element && Element.implement && document.all && !window.opera) {
             for (var prop in window.CFElement.prototype) {
@@ -193,7 +193,7 @@ var ContentFlowGlobal = {
 
         /* init all manualy created flows */
         for (var i=0; i< ContentFlowGlobal.Flows.length; i++) {
-            ContentFlowGlobal.Flows[i].init(); 
+            ContentFlowGlobal.Flows[i].init();
         }
 
         /* init the rest */
@@ -222,7 +222,7 @@ ContentFlowGlobal.initPath();
 var ContentFlowAddOn = function (name, methods, register) {
     if (typeof register == "undefined" || register != false)
         ContentFlowGlobal.AddOns[name] = this;
-        
+
     this.name = name;
     if (!methods) methods = {};
     this.methods = methods;
@@ -270,7 +270,7 @@ ContentFlowAddOn.prototype = {
 
 
 
-/* 
+/*
  * ============================================================
  * ContentFlowGUIElement
  * ============================================================
@@ -287,7 +287,7 @@ var ContentFlowGUIElement = function (CFobj, element) {
         this.observedEvent = eventName;
         this.addEvent(eventName, m, false);
     };
-    
+
     element.makeDraggable = function (onDrag, beforeDrag, afterDrag) {
 
         this.stopDrag = function(event) {
@@ -305,7 +305,7 @@ var ContentFlowGUIElement = function (CFobj, element) {
             else {
                 window.removeEvent('mousemove', onDrag, false);
             }
-            afterDrag(event); 
+            afterDrag(event);
         }.bind(this);
 
         this.initDrag = function (event) {
@@ -313,8 +313,8 @@ var ContentFlowGUIElement = function (CFobj, element) {
             var e = event;
             if (event.touches) e = event.touches[0];
 
-            this.mouseX = e.clientX; 
-            this.mouseY = e.clientY; 
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
 
             beforeDrag(event);
 
@@ -329,7 +329,7 @@ var ContentFlowGUIElement = function (CFobj, element) {
                 var s = this;
                 s.ontouchmove = false
                 window.addEvent('touchmove', function (e) {
-                        s.ontouchmove = true; 
+                        s.ontouchmove = true;
                         onDrag(e);
                 }, false);
                 event.preventDefault();
@@ -348,9 +348,9 @@ var ContentFlowGUIElement = function (CFobj, element) {
             this.addEventListener('touchstart', startDrag, false);
         }
         else {
-            this.addEvent('mousedown', startDrag, false); 
+            this.addEvent('mousedown', startDrag, false);
         }
-        
+
     };
 
     element.Browser = ContentFlowGlobal.Browser;
@@ -359,7 +359,7 @@ var ContentFlowGUIElement = function (CFobj, element) {
 };
 
 
-/* 
+/*
  * ============================================================
  * ContentFlowItem
  * ============================================================
@@ -426,7 +426,7 @@ var ContentFlowItem  = function (CFobj, element, index) {
     if (this.content.nodeName == "IMG") {
         CFobj._imagesToLoad++;
 
-        var foobar = function () { 
+        var foobar = function () {
             CFobj._imagesToLoad--;
             this.image = this.content;
             this.setImageFormat(this.image);
@@ -459,14 +459,14 @@ var ContentFlowItem  = function (CFobj, element, index) {
 };
 
 ContentFlowItem.prototype = {
-    
+
     Browser: ContentFlowGlobal.Browser,
 
     makeActive: function () {
         this.element.addClassName('active');
         this.CFobj.conf.onMakeActive(this);
     },
-    
+
     makeInactive: function () {
         this.element.removeClassName('active');
         this.CFobj.conf.onMakeInactive(this);
@@ -476,7 +476,7 @@ ContentFlowItem.prototype = {
         var cItem = this.clickItem;
         this[this._activeElement].addEvent('click', cItem, false);
     },
-    
+
     setImageFormat: function (img) {
         if (this.Browser.IE6 || this.Browser.IE7) img.style.width = "auto";
         img.origProportion =  img.width / img.height;
@@ -545,7 +545,7 @@ ContentFlowItem.prototype = {
         } else {
             if (CFobj._reflectionWithinImage)
                 var canvas = this.canvas = $CF(document.createElement('canvas'));
-            else 
+            else
                 var canvas = reflection = this.reflection = document.createElement('canvas');
 
             if (canvas.getContext) {
@@ -566,7 +566,7 @@ ContentFlowItem.prototype = {
                 // overwrite default height and width
                 if (CFobj._reflectionWithinImage) {
                     canvas.width = width;
-                    canvas.height = height; 
+                    canvas.height = height;
                     this.setImageFormat(canvas);
                     canvas.height = height * (1 + CFobj.conf.reflectionHeight + CFobj.conf.reflectionGap);
 
@@ -575,7 +575,7 @@ ContentFlowItem.prototype = {
                     canvas.width = width;
                     canvas.height = height * CFobj.conf.reflectionHeight;
                 }
-                    
+
                 context.save(); /* save default context */
 
                 /* draw image into canvas */
@@ -592,7 +592,7 @@ ContentFlowItem.prototype = {
                 }
                 // -1 for FF 1.5
                 contextHeight -= 1;
-                
+
                 context.translate(0, contextHeight);
                 context.scale(1, -1);
                 /* draw reflection image into canvas */
@@ -600,7 +600,7 @@ ContentFlowItem.prototype = {
 
                 /* restore default context for simpler further canvas manupulation */
                 context.restore();
-                    
+
                 if (CFobj._reflectionColorRGB) {
                     var gradient = context.createLinearGradient(0, 0, 0, canvas.height);
 
@@ -625,7 +625,7 @@ ContentFlowItem.prototype = {
 
                     context.fillStyle = gradient;
                     context.fillRect(0, 0, canvas.width, canvas.height);
-                    
+
                 }
 
                 if (CFobj._reflectionWithinImage) {
@@ -635,7 +635,7 @@ ContentFlowItem.prototype = {
                     delete this.image;// = true;
 
                 }
-                
+
             } else {
                 CFobj._reflectionWithinImage = false;
                 delete this.reflection;
@@ -648,7 +648,7 @@ ContentFlowItem.prototype = {
 
             /* be shure that caption is last child */
             if (this.caption) this.element.appendChild(this.caption);
-        } 
+        }
 
     }
 
@@ -680,11 +680,11 @@ ContentFlow.prototype = {
     _currentPosition: 0,
     _targetPosition: 0,
     _stepLock: false,
-    _millisecondsPerStep: 40, 
+    _millisecondsPerStep: 40,
     _reflectionWithinImage: true,
     Browser: ContentFlowGlobal.Browser,
-    
-    _defaultConf: { 
+
+    _defaultConf: {
         /* pre conf */
         useAddOns: 'all', // all, none, [AddOn1, ... , AddOnN]
 
@@ -711,7 +711,7 @@ ContentFlow.prototype = {
         scrollWheelSpeed: 1.0,
         keys: {
             13: function () { this.conf.onclickActiveItem(this._activeItem) },
-            37: function () { this.moveTo('pre') }, 
+            37: function () { this.moveTo('pre') },
             38: function () { this.moveTo('visibleNext') },
             39: function () { this.moveTo('next') },
             40: function () { this.moveTo('visiblePre') }
@@ -758,12 +758,12 @@ ContentFlow.prototype = {
 
         //onDrawItem: function(item, relativePosition, relativePositionNormed, side, size) {},
         onDrawItem: function(item) {},
-        
+
         onclickPreButton: function (event) {
             this.moveToIndex('pre');
             return Event.stop(event);
         },
-        
+
         onclickNextButton: function (event) {
             this.moveToIndex('next');
             return Event.stop(event);
@@ -792,11 +792,11 @@ ContentFlow.prototype = {
             }
             return stepwidth;
         },
-        
+
         calcSize: function (item) {
             var rP = item.relativePosition;
             //var rPN = relativePositionNormed;
-            //var vI = this.conf.visibleItems; 
+            //var vI = this.conf.visibleItems;
 
             var h = 1/(Math.abs(rP)+1);
             var w = h;
@@ -806,10 +806,10 @@ ContentFlow.prototype = {
         calcCoordinates: function (item) {
             var rP = item.relativePosition;
             //var rPN = item.relativePositionNormed;
-            var vI = this.conf.visibleItems; 
+            var vI = this.conf.visibleItems;
 
             var f = 1 - 1/Math.exp( Math.abs(rP)*0.75);
-            var x =  item.side * vI/(vI+1)* f; 
+            var x =  item.side * vI/(vI+1)* f;
             var y = 1;
 
             return {x: x, y: y};
@@ -830,7 +830,7 @@ ContentFlow.prototype = {
         calcFontSize: function (item) {
             return item.size.height;
         },
-   
+
         calcOpacity: function (item) {
             return Math.max(1 - ((1 - this.conf.endOpacity ) * Math.sqrt(Math.abs(item.relativePositionNormed))), this.conf.endOpacity);
         }
@@ -838,7 +838,7 @@ ContentFlow.prototype = {
 
     /* ---------- end of defaultConf ---------- */
 
-    
+
     /*
      * ==================== index helper methods ====================
      */
@@ -947,7 +947,7 @@ ContentFlow.prototype = {
         }
         if (check != false)
             index = this._checkIndex(index);
-        
+
         return index;
     },
 
@@ -960,7 +960,7 @@ ContentFlow.prototype = {
 
 
     /*
-     * ==================== public methods ==================== 
+     * ==================== public methods ====================
      */
     getAddOnConf: function(name) {
           return ContentFlowGlobal.getAddOnConf(name);
@@ -1022,7 +1022,7 @@ ContentFlow.prototype = {
             case "none":
             case "transparent":
             default:
-                this._reflectionColor = "transparent"; 
+                this._reflectionColor = "transparent";
                 this._reflectionColorRGB = {
                     hR: 0, hG: 0, hB:0,
                     iR: 0, iG: 0, iB:0
@@ -1080,7 +1080,7 @@ ContentFlow.prototype = {
     },
 
     getItem: function (index) {
-        return this.items[this._checkIndex(Math.round(index))]; 
+        return this.items[this._checkIndex(Math.round(index))];
     },
 
     /*
@@ -1104,7 +1104,7 @@ ContentFlow.prototype = {
     resize: function () {
         this._initSizes();
         this._initStep();
-    }, 
+    },
 
     /*
      * scrolls flow to item i
@@ -1130,7 +1130,7 @@ ContentFlow.prototype = {
         if (typeof i == "object") this.moveToItem(i);
         else if (isNaN(i) || (i == Math.floor(i) && i < this.items.length) ) this.moveToIndex(i);
         else this.moveToPosition(i);
-    }, 
+    },
 
     /*
      * initializes item and adds it at index position
@@ -1138,7 +1138,7 @@ ContentFlow.prototype = {
     _addItemCue: [],
     _addItemCueProcess: function (deleteFirst) {
         var c = this._addItemCue;
-        if (deleteFirst == true) 
+        if (deleteFirst == true)
             c.shift();
         if (c.length > 0 && ! c[0].p) {
             c[0].p = true;
@@ -1149,7 +1149,7 @@ ContentFlow.prototype = {
     },
     addItem: function(el, index) {
         this._addItemCue.push({ el: el, i: index, p: false});
-        if (this._addItemCue.length == 1) 
+        if (this._addItemCue.length == 1)
             this._addItemCueProcess();
     },
 
@@ -1173,7 +1173,7 @@ ContentFlow.prototype = {
         index = Math.max(index, 0);
         index = Math.min(index, this.itemsLastIndex + 1);
         index = isNaN(index) ? 0 : index;
-        
+
         this.Flow.appendChild(el);
 
         /* init item after insertion. that way it's part of the document and all styles are applied */
@@ -1215,20 +1215,20 @@ ContentFlow.prototype = {
             this._targetPosition++;
             if (!this.conf.circularFlow)
                 this._targetPosition = Math.min(this._targetPosition, this.itemsLastIndex);
-        } 
+        }
         if (this._getPositionByIndex(index) <= this._currentPosition) {
             this._currentPosition++;
             if (!this.conf.circularFlow)
                 this._currentPosition = Math.min(this._currentPosition, this.itemsLastIndex);
         }
-        
+
         // avoid display errors (wrong sizing)
         var CF = this;
         window.setTimeout(function () {
             if(CF.items.length == 1 ) {
                 CF._currentPosition = -0.01;
                 CF._targetPosition = 0;
-                CF.resize(); 
+                CF.resize();
             }
             else {
                 CF._initStep();
@@ -1236,9 +1236,9 @@ ContentFlow.prototype = {
         }, 100);
 
         return index;
-        
+
     },
-        
+
     /*
      * removes item at index position, cleans it up and returns it
      */
@@ -1258,7 +1258,7 @@ ContentFlow.prototype = {
             this.items[i].setIndex(i);
         }
         this._setLastIndex();
-        
+
         /* adjust targetItem, currentPos and activeItem so that current view does not change*/
         if (Math.round(this._getPositionByIndex(index)) < Math.round(this._targetPosition)) {
             this._targetPosition--;
@@ -1285,7 +1285,7 @@ ContentFlow.prototype = {
     /*
      * ==================== initialization ====================
      */
-    
+
 
     /* -------------------- main init -------------------- */
     _init: function () {
@@ -1299,7 +1299,7 @@ ContentFlow.prototype = {
                 return;
             }
         }
-        
+
         /* ----------  reserve CSS namespace */
 
         $CF(this.Container).addClassName('ContentFlow');
@@ -1326,11 +1326,11 @@ ContentFlow.prototype = {
 
         }
 
-        /* ----------  init configuration */ 
+        /* ----------  init configuration */
         this.setConfig(this._defaultConf);
         this._initAddOns(); /* init AddOns */
         this.setConfig(this._userConf);
-        
+
         this._initSizes(); // ......
 
 
@@ -1340,7 +1340,7 @@ ContentFlow.prototype = {
         this.items = new Array();
         for (var i=0; i<items.length; i++) {
             var item = this.items[i] = new ContentFlowItem(this, items[i], i);
-            if (i > 0) { 
+            if (i > 0) {
                 item.pre = this.items[i-1];
                 item.pre.next = item;
             }
@@ -1378,12 +1378,12 @@ ContentFlow.prototype = {
             case "left":
                 index += 0.5;
                 break;
-        } 
+        }
         this._currentPosition = index;
-        
 
-        /* ---------- wait till all images are loaded or 
-         * grace time is up to show all and take the first step  
+
+        /* ---------- wait till all images are loaded or
+         * grace time is up to show all and take the first step
         */
         var now = new Date();
         var cf = this;
@@ -1397,7 +1397,7 @@ ContentFlow.prototype = {
                         cf._activeItem.makeActive();
                         cf._setCaptionLabel(cf._activeItem.index);
                     }
-                    
+
                     cf.Flow.style.visibility = "visible"; // show flow after images are loaded
                     if (cf.loadIndicator) cf.loadIndicator.style.display = "none";
                     if (cf.Scrollbar) cf.Scrollbar.style.visibility = "visible";
@@ -1412,12 +1412,12 @@ ContentFlow.prototype = {
                 }
             }, 10
         );
-        
+
         this.isInit = true;
 
     },
-    
-    /* ---------- init AddOns ---------- */ 
+
+    /* ---------- init AddOns ---------- */
     _initAddOns: function () {
 
         // get an array of names of all AddOns that should be used
@@ -1468,7 +1468,7 @@ ContentFlow.prototype = {
 
 
     _initGUI: function () {
-        
+
         // resize
         //if (!this.Browser.iPhone) {
             var resize = this.resize.bind(this);
@@ -1481,7 +1481,7 @@ ContentFlow.prototype = {
                 //g._initStep();
             //} , false);
         //}
-        
+
         // pre and next buttons
         var divs = this.Container.getElementsByTagName('div');
         for (var i = 0; i < divs.length; i++) {
@@ -1523,7 +1523,7 @@ ContentFlow.prototype = {
                             if (mouseoverCheck.offsetLeft > 0) key(event) ;
                         });
                     }
-                } 
+                }
                 else {
                     this.Container.addEvent('keydown', key);
                 }
@@ -1541,7 +1541,7 @@ ContentFlow.prototype = {
                 if (event.touches) e = event.touches[0];
                 var mouseX = e.clientX;
                 var mouseY = e.clientY;
-                
+
                 if (this.conf.verticalFlow) {
                     var dist = mouseY - this.Flow.mouseY; // px / or px per sec because _dragFlow wil be called in shorter intervalls if draged fast
                     var dim = this.Flow.dimensions.height;
@@ -1553,8 +1553,8 @@ ContentFlow.prototype = {
                 var itemDist = (dist / dim )* (2*this.conf.visibleItems +1); // items
                 var target = this._currentPosition - itemDist * 2*this.conf.visibleItems / this.conf.flowDragFriction ;
 
-                this.Flow.mouseX = mouseX; 
-                this.Flow.mouseY = mouseY; 
+                this.Flow.mouseX = mouseX;
+                this.Flow.mouseY = mouseY;
 
                 this.moveToPosition(target, true);
             }.bind(this);
@@ -1577,7 +1577,7 @@ ContentFlow.prototype = {
                 if (!event) var event = window.event;
 
                 if (!this.Scrollbar.clickLocked) {
-                    var mouseX = event.clientX; 
+                    var mouseX = event.clientX;
                     var positionOnScrollbar = mouseX - this.Scrollbar.position.left;
                     var targetIndex = Math.round(positionOnScrollbar/this.Scrollbar.dimensions.width * this.itemsLastIndex);
                     this.moveToIndex(targetIndex);
@@ -1644,7 +1644,7 @@ ContentFlow.prototype = {
             this.Slider.makeDraggable(onDrag, beforeDrag, afterDrag);
         }
 
-                
+
         // Position object
         if (this.Position) {
             this.Position.setLabel = function (index) {
@@ -1661,7 +1661,7 @@ ContentFlow.prototype = {
         this.loadIndicator = this.Container.getChildrenByClassName('loadIndicator')[0];
     },
 
-    /* ---------- init element sizes ---------- */ 
+    /* ---------- init element sizes ---------- */
     _initSizes: function (x) {
         //if (this.Browser.Konqueror4 && x != true) {
             //var t = this;
@@ -1676,7 +1676,7 @@ ContentFlow.prototype = {
 
         // reduce maxHeit if container has a fixed height
         if (!this.conf.verticalFlow && this.Container.style.height && this.Container.style.height != "auto")
-            this.maxHeight -= scrollbarHeight; 
+            this.maxHeight -= scrollbarHeight;
 
         if (!this._activeItem) return;
 
@@ -1731,7 +1731,7 @@ ContentFlow.prototype = {
                 scrollbarHeight += SL.dimensions.height;
 
                 if (PO = this.Position) {
-                    
+
                     var oldLabel = PO.innerHTML;
                     var maxH = maxW = 0;
                     PO.style.width = "auto";
@@ -1806,14 +1806,14 @@ ContentFlow.prototype = {
         }
 
         // set height of container and flow
-        if (this.ContainerOldDim) 
+        if (this.ContainerOldDim)
             Csd = this.ContainerOldDim;
-        if (this.FlowOldDim) 
+        if (this.FlowOldDim)
             Fsd = this.FlowOldDim;
 
         this.ContainerOldDim = "auto";
         this.FlowOldDim = "auto";
-        
+
 
         /* calc maxHeight */
         if (this.conf.maxItemHeight <= 0) {
@@ -1827,7 +1827,7 @@ ContentFlow.prototype = {
             if (Csd && Csd != "auto") {
                 var gap = this.conf.verticalFlow  ? 0 : this.conf.reflectionGap;
                 var rH = this.conf.verticalFlow  ? 0 : this.conf.reflectionHeight;
-                this.maxHeight = Cdim/ (this.conf.scaleFactor* (1 + rH + gap)); 
+                this.maxHeight = Cdim/ (this.conf.scaleFactor* (1 + rH + gap));
                 this.ContainerOldDim = Csd;
             }
             else if (Fsd && Fsd != "auto") {
@@ -1926,7 +1926,7 @@ ContentFlow.prototype = {
             return true;
         }
     },
-    
+
     /*
      * ==================== mouse wheel ====================
      * Event handler for mouse wheel event
@@ -1935,10 +1935,10 @@ ContentFlow.prototype = {
 
     _wheel: function (event) {
         if (!event) var event = window.event; // MS
-        
+
         var delta = 0;
         if (event.wheelDelta) {
-            delta = event.wheelDelta/120; 
+            delta = event.wheelDelta/120;
         } else if (event.detail) {
             delta = -event.detail/3;
         }
@@ -1949,7 +1949,7 @@ ContentFlow.prototype = {
                 target += (1 * this.conf.scrollWheelSpeed);
             } else {
                 target -= (1 * this.conf.scrollWheelSpeed);
-            } 
+            }
             this.moveToPosition(Math.round(target));
         }
 
@@ -1973,7 +1973,7 @@ ContentFlow.prototype = {
      */
 
     /*
-     * intend to make a step 
+     * intend to make a step
      */
     _initStep: function (holdSlider, holdPos) {
         if (this.Slider) {
@@ -1995,7 +1995,7 @@ ContentFlow.prototype = {
      */
     _step: function () {
 
-        var diff = this._targetPosition - this._currentPosition; 
+        var diff = this._targetPosition - this._currentPosition;
         var absDiff = Math.abs(diff);
         if ( absDiff > 0.001) { // till activeItem is nearly at position 0
 
@@ -2010,7 +2010,7 @@ ContentFlow.prototype = {
                 this._setCaptionLabel(this._activeItem.index);
                 if (Math.abs(this._targetPosition - this._currentPosition) <= 0.5 ) this.conf.onReachTarget(this._activeItem);
             }
-            
+
             this._positionItems();
 
             var st = this._step.bind(this);
@@ -2032,11 +2032,11 @@ ContentFlow.prototype = {
             this.Slider.setPosition(this._currentPosition);
         }
     },
-    
+
 
 
 /* ------------------------------------------------------------------------------------------------------ */
-    
+
     /*
      * position items
      */
@@ -2115,7 +2115,7 @@ ContentFlow.prototype = {
         var pY = this.maxHeight/2 * ( 1 + coords.y ) + (relItemPos.y - 1 )* sB/2;
         els.left = (vF ? pY : pX)+"px";
         els.top = (vF ? pX : pY)+"px";
-        
+
         this._setItemSize(item, size);
 
         /* set opacity */
@@ -2158,7 +2158,7 @@ ContentFlow.prototype = {
                 }
                 else if (sFP != 1) {
                     width *= sFP;
-                    height = Math.min(width/prop, max ? max : 1) 
+                    height = Math.min(width/prop, max ? max : 1)
                 }
                 else {
                     height = width / prop;
@@ -2177,7 +2177,7 @@ ContentFlow.prototype = {
             else if (prop <= 1) {
                 if (sFP == "max") {
                     width = max ? max : 1;
-                } 
+                }
                 else if (sFP != 1) {
                     height *= sFP;
                     width = Math.min(height*prop, max ? max : 1);
@@ -2238,7 +2238,7 @@ ContentFlow.prototype = {
                 }
                 else if (ContentFlowGlobal.Browser.IE6) {
                     var h = parseInt(item.content.style.height)/100;
-                    item.content.style.height = size.height*h+"px"; 
+                    item.content.style.height = size.height*h+"px";
                     var mT = parseInt(item.content.style.marginTop)/100;
                     item.content.style.marginTop = size.height*mT+"px";
                 }
@@ -2272,7 +2272,7 @@ ContentFlow.prototype = {
 
     _setItemOpacity: (function () {
             if (ContentFlowGlobal.Browser.IE6) {
-                var _setItemOpacity = function (item) { 
+                var _setItemOpacity = function (item) {
                     if (item.content.origSrc && item.content.origSrc.match(/\.png$/) ) {
                         var s = item.content.src;
                         item.content.src = item.content.origSrc;
@@ -2282,7 +2282,7 @@ ContentFlow.prototype = {
                     else {
                         item.content.style.filter = "progid:DXImageTransform.Microsoft.BasicImage(opacity="+item.opacity+")";
                     }
-                    if (item.reflection) item.reflection.style.filter = item.reflection.filterString+"progid:DXImageTransform.Microsoft.BasicImage(opacity="+item.opacity+")"; 
+                    if (item.reflection) item.reflection.style.filter = item.reflection.filterString+"progid:DXImageTransform.Microsoft.BasicImage(opacity="+item.opacity+")";
                 }
             }
             else if (ContentFlowGlobal.Browser.IE) {
@@ -2471,7 +2471,7 @@ if (!CFElement.hasClassName) {
 
 /*
  * adds the class className to the element
- */ 
+ */
 if (!CFElement.addClassName) {
     CFElement.prototype.addClassName = function(className) {
         if(!this.hasClassName(className)) {
@@ -2482,7 +2482,7 @@ if (!CFElement.addClassName) {
 
 /*
  * removes the class className from the element el
- */ 
+ */
 if (!CFElement.removeClassName) {
     CFElement.prototype.removeClassName = function(className) {
         this.className = this.className.replace(new RegExp('\\b'+className+'\\b'), '').replace(/\s\s/g,' ');
@@ -2531,7 +2531,7 @@ if (!CFElement.addEvent) {
             this.attachEvent('on'+eventName, method);
     };
 }
-   
+
 /*
  * Browser independent event handling method.
  * removes the eventListener  eventName with the attached function method from element el.
@@ -2561,7 +2561,7 @@ if (!window.addEvent) {
         }
     };
 }
-   
+
 /*
  * Browser independent event handling method.
  * removes the eventListener  eventName with the attached function method from element el.
