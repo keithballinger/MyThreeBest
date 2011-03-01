@@ -5,7 +5,18 @@ class UserPhotos < Resque::JobWithStatus
     user = User.find(options['user_id'])
     user.user_photos_job.update_attributes(:status => "working")
     graph = Koala::Facebook::GraphAPI.new(user.facebook_token)
-    photos = graph.get_connections("me", "photos")
+    photos = []
+    partial_photos = graph.get_connections("me", "photos")
+    old_photo_count = 0
+    photo_count = nil
+    until old_photo_count == photo_count
+      old_photo_count = photos.size
+      photos = photos + partial_photos
+      photos.uniq!
+      photo_count = photos.size
+      partial_photos = partial_photos.next_page
+    end
+    photos.uniq!
     total = photos.count
     num = 1
     photos.each do |photo|
@@ -19,4 +30,5 @@ class UserPhotos < Resque::JobWithStatus
     user.user_photos_job.update_attributes(:status => "completed")
     completed
   end
+
 end
