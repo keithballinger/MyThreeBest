@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   after_create :load_user_data, :if => :facebook_token?
   after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
+  def registered_friends
+    self.friends.where(User.arel_table[:facebook_token].not_eq(nil))
+  end
+
   def friend(other)
     Friendship.create!(:user_id => self.id, :friend_id => other.id)
     Friendship.create!(:user_id => other.id, :friend_id => self.id)
