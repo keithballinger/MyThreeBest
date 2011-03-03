@@ -9,6 +9,7 @@ class Photo < ActiveRecord::Base
   validates_presence_of :total_votes
 end
 
+
 # == Schema Information
 #
 # Table name: photos
@@ -21,5 +22,6 @@ end
 #  total_votes :integer         default(0)
 #  created_at  :datetime
 #  updated_at  :datetime
+#  facebook_id :string(255)
 #
 
