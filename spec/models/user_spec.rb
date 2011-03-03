@@ -76,13 +76,25 @@ describe User do
     }.to change(UserJob, :count).by(1)
   end
 
-  it "should vote to a friend photo" do
+  it "should vote to a friend in an allowed photo" do
     other = Factory.create(:registered_user)
     photo = Factory.create(:photo, :user_id => other.id)
+    PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id, 
+                               :photo_id => photo.id)
     @user.friend(other)
     expect {
       @user.vote(photo)
     }.to change(Vote, :count).by(1)
+  end
+
+  it "shouldn't vote to a friend in a disallowed photo" do
+    other = Factory.create(:registered_user)
+    photo = Factory.create(:photo, :user_id => other.id)
+
+    @user.friend(other)
+    expect {
+      @user.vote(photo)
+    }.not_to change(Vote, :count)
   end
 
   it "shouldn't vote to more than three photos of a friend" do
@@ -90,6 +102,8 @@ describe User do
     @user.friend(other)
     (1..3).each do
       photo = Factory.create(:photo, :user_id => other.id)
+      PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
+                             :photo_id => photo.id)
       @user.vote(photo)
     end
     photo4 = Factory.create(:photo, :user_id => other.id)
@@ -104,6 +118,8 @@ describe User do
     @user.friend(other)
     (1..3).each do
       photo = Factory.create(:photo, :user_id => other.id)
+      PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
+                             :photo_id => photo.id)
       @user.vote(photo)
     end
 
@@ -111,7 +127,6 @@ describe User do
   end
 
   it "should have registered_friends" do
-    @user = Factory.create(:registered_user)
     friend1 = Factory.create(:registered_user)
     friend2 = Factory.create(:user)
     friend3 = Factory.create(:registered_user)
@@ -120,6 +135,18 @@ describe User do
     @user.friend(friend3)
 
     @user.registered_friends.should == [friend1, friend3]
+  end
+
+  it "should get only allowed photos" do
+    friend = Factory.create(:registered_user)
+    @user.friend(friend)
+    photo1 = Factory.create(:photo, :user_id => @user.id)
+    photo2 = Factory.create(:photo, :user_id => @user.id)
+    photo3 = Factory.create(:photo, :user_id => @user.id)
+    PhotoPermission.create(:photo_id => photo1.id, :owner_id => @user.id, :friend_id => friend.id)
+    PhotoPermission.create(:photo_id => photo3.id, :owner_id => @user.id, :friend_id => friend.id)
+
+    friend.photos_for_friend(@user).should == [photo1, photo3]
   end
 end
 

@@ -12,7 +12,12 @@ describe VotesController do
     it "should show vote page to voters if user is friend" do
       @user.friend(@voter)
       photos = []
-      (1..5).each { photos << Factory.create(:photo, :user_id => @user.id) }
+      (1..5).each do 
+        photo = Factory.create(:photo, :user_id => @user.id)
+        photos << photo
+        PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                               :photo_id => photo.id) 
+      end
 
       sign_in @voter
       get 'new', :user_id => @user.id
@@ -25,6 +30,8 @@ describe VotesController do
       @user.friend(@voter)
       (1..3).each do
         photo = Factory.create(:photo, :user_id => @user.id)
+        PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                               :photo_id => photo.id) 
         @voter.vote(photo)
       end
       sign_in @voter
@@ -48,6 +55,8 @@ describe VotesController do
     it "should create votes for user photos" do
       @user.friend(@voter)
       photo = Factory.create(:photo, :user_id => @user.id)
+      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                             :photo_id => photo.id)
 
       sign_in @voter
       expect {

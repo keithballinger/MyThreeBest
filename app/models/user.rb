@@ -38,10 +38,6 @@ class User < ActiveRecord::Base
 
   # - Friends methods
 
-  def registered_friends
-    self.friends.where(User.arel_table[:facebook_token].not_eq(nil))
-  end
-
   def friend(other)
     Friendship.create!(:user_id => self.id, :friend_id => other.id)
     Friendship.create!(:user_id => other.id, :friend_id => self.id)
@@ -59,6 +55,15 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def registered_friends
+    self.friends.where(User.arel_table[:facebook_token].not_eq(nil))
+  end
+
+  def photos_for_friend(friend)
+    sql_literal = Arel::SqlLiteral.new(PhotoPermission.select(:photo_id).where(:owner_id => friend.id, :friend_id => self.id).to_sql)
+    friend.photos.where(Photo.arel_table[:id].in(sql_literal))
   end
 
 
@@ -82,6 +87,9 @@ class User < ActiveRecord::Base
   # - Vote methods
 
   def vote(photo)
+    allowed = PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id,
+                                    :owner_id => photo.user.id).first
+    return unless allowed
     return if voted?(photo.user)
     vote = Vote.create(:photo_id => photo.id, :voter_id => self.id)
   end

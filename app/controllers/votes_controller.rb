@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     @first_voted  = votes[0].photo rescue nil
     @second_voted = votes[1].photo rescue nil
     @third_voted  = votes[2].photo rescue nil
-    @photos = @user.photos
+    @photos = current_user.photos_for_friend(@user)
     respond_to do |format|
       format.html
     end

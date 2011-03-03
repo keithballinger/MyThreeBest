@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe PhotoPermission do
-  before(:all) do
-    user = Factory(:registered_user)
-    photo = Factory(:photo, :user_id => user.id)
-    friend = Factory(:registered_user)
-    @photo_permission = PhotoPermission.create(:owner_id => user.id, :photo_id => photo.id, 
+  before(:each) do
+    user = Factory.create(:registered_user)
+    photo = Factory.create(:photo, :user_id => user.id)
+    friend = Factory.create(:registered_user)
+    @photo_permission = PhotoPermission.create!(:owner_id => user.id, :photo_id => photo.id, 
                                             :friend_id => friend.id)
   end
   it { should validate_presence_of(:photo_id) }
