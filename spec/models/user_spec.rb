@@ -109,6 +109,18 @@ describe User do
 
     @user.voted?(other).should == true
   end
+
+  it "should have registered_friends" do
+    @user = Factory.create(:registered_user)
+    friend1 = Factory.create(:registered_user)
+    friend2 = Factory.create(:user)
+    friend3 = Factory.create(:registered_user)
+    @user.friend(friend1)
+    @user.friend(friend2)
+    @user.friend(friend3)
+
+    @user.registered_friends.should == [friend1, friend3]
+  end
 end
 
 
