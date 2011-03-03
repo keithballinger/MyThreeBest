@@ -7,6 +7,7 @@ class Photo < ActiveRecord::Base
   # - Validations
   validates_presence_of :url
   validates_presence_of :total_votes
+  validates_presence_of :facebook_id
 end
 
 
