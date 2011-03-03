@@ -22,6 +22,22 @@ class User < ActiveRecord::Base
   after_create :load_user_data, :if => :facebook_token?
   after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
+
+  # - Auth methods
+
+  def self.find_or_create_with_omniauth(auth)
+    user = self.find_by_facebook_uid(auth["uid"])
+    if user
+      user.update_attribute(:facebook_token, auth["credentials"]["token"])
+    else
+      user = self.create_with_omniauth(auth)
+    end
+    return user
+  end
+
+
+  # - Friends methods
+
   def registered_friends
     self.friends.where(User.arel_table[:facebook_token].not_eq(nil))
   end
@@ -38,13 +54,15 @@ class User < ActiveRecord::Base
     else
       user = User.find_by_facebook_uid(other)
     end
-
     if user
       return !Friendship.where(:user_id => self.id, :friend_id => user.id).blank?
     else
       return false
     end
   end
+
+
+  # - Invite methods
 
   def invite_all
     job_id = PostInvite.create(:inviter_id => self.id)
@@ -60,6 +78,9 @@ class User < ActiveRecord::Base
     invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
   end
 
+
+  # - Vote methods
+
   def vote(photo)
     return if voted?(photo.user)
     vote = Vote.create(:photo_id => photo.id, :voter_id => self.id)
@@ -70,22 +91,15 @@ class User < ActiveRecord::Base
     return true if vote_count == 3
   end
 
+
+  # Job methods
+
   def friends_list_job
     self.user_jobs.where(:job_type => "friends_list").first
   end
 
   def user_photos_job
     self.user_jobs.where(:job_type => "user_photos").first
-  end
-
-  def self.find_or_create_with_omniauth(auth)
-    user = self.find_by_facebook_uid(auth["uid"])
-    if user
-      user.update_attribute(:facebook_token, auth["credentials"]["token"])
-    else
-      user = self.create_with_omniauth(auth)
-    end
-    return user
   end
 
   private
