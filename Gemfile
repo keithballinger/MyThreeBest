@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
   gem 'steak', '>= 1.1.0'
   gem 'thin', '>= 1.2.7' # To Run development server and integration tests faster (when use Selenium)
+  gem 'interactive_editor', '>= 0.0.6'
 end
 
 
