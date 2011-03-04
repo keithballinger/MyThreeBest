@@ -13,6 +13,7 @@ gem 'omniauth', '>= 0.2.0.beta3'
 
 #- M3B Base
 gem 'koala', '>= 1.0.0.beta'
+gem 'sinatra', '1.1.3'
 gem 'resque', '>= 1.13.0'
 gem 'resque-status', '>= 0.2.2', :require => 'resque/status'
 gem 'typhoeus', '>= 0.2.1'
