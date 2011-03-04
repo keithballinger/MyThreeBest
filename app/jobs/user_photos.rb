@@ -17,10 +17,12 @@ class UserPhotos < Resque::JobWithStatus
       preview = photo["images"][1]["source"]
       url = photo["images"][0]["source"]
       title = photo["name"]
-      Photo.create!(:title => title, :preview_url => preview, :url => url, :user_id => user.id)
+      Photo.create!(:title => title, :preview_url => preview, :url => url, :user_id => user.id, :facebook_id => photo["id"])
       num += 1
     end
     user.user_photos_job.update_attributes(:status => "completed")
+    job_id = UserPhotosPerms.create(:user_id => user.id)
+    UserJob.create!(:job_id => job_id, :user_id => user.id, :job_type => "user_photos_perms", :status => "queued")
     completed
   end
 

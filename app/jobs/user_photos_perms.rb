@@ -1,4 +1,4 @@
-class PhotosPermissions < Resque::JobWithStatus
+class UserPhotosPerms < Resque::JobWithStatus
   @queue = :photos_permissions
 
   def perform
