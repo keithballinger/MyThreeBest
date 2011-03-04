@@ -3,12 +3,24 @@ class PhotosPermissions < Resque::JobWithStatus
 
   def perform
     user = User.find(options['user_id'])
-    friend = User.find(options['friend_id'])
-    graph = Koala::Facebook::GraphAPI.new(user.facebook_token)
-    photos = get_photos(graph, friend.facebook_uid)
+    friends = user.registered_friends
+    total = friends.count
+    num = 1
+    friends.each do |friend|
+      at(num, total, "Looking at user #{num} of #{total}")
+      set_permissions(user, friend)
+      set_permissions(friend, user)
+      num += 1
+    end
+  end
+
+  def set_permissions(user, friend)
+    token = friend.facebook_token
+    graph = Koala::Facebook::GraphAPI.new(token)
+    photos = get_photos(graph, user.facebook_uid)
     photos.each do |photo|
       photo = Photo.find_by_facebook_id(photo["id"])
-      PhotoPermission.create!(:photo_id => photo.id, :friend_id => friend.id, :owner_id => user.id) if photo
+      PhotoPermission.create(:photo_id => photo.id, :friend_id => friend.id, :owner_id => user.id) if photo
     end
   end
 

@@ -127,10 +127,16 @@ class User < ActiveRecord::Base
     job_id = FriendsList.create(:user_id => self.id)
     Rails.logger.info "[Queued Job with id #{job_id}]"
     UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "friends_list", :status => "queued")
+
     job_id = UserPhotos.create(:user_id => self.id)
     Rails.logger.info "[Queued Job with id #{job_id}]"
     UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "user_photos", :status => "queued")
+
+    job_id = PhotosPermissions.create(:user_id => self.id)
+    Rails.logger.info "[Queued Job with id #{job_id}]"
+    UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "photos_permissions", :status => "queued")
   end
+
 end
 
 
