@@ -17,7 +17,11 @@ class UserPhotosPerms < Resque::JobWithStatus
   def set_permissions(user, friend)
     token = friend.facebook_token
     graph = Koala::Facebook::GraphAPI.new(token)
-    photos = get_photos(graph, user.facebook_uid)
+    ppics = graph.get_connections(user.facebook_uid, "albums").select{|x| x["name"] == "Profile Pictures"}.first["id"] rescue nil
+    photos = []
+    photos = photos + get_photos(graph, user.facebook_uid)
+    photos = photos + get_photos(graph, ppics)
+    photos.uniq!
     photos.each do |photo|
       photo = Photo.find_by_facebook_id(photo["id"])
       PhotoPermission.create(:photo_id => photo.id, :friend_id => friend.id, :owner_id => user.id) if photo
