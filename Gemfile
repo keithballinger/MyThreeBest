@@ -29,6 +29,9 @@ group :development do
   gem 'annotate', '>= 2.4.0'
   gem 'hoptoad_notifier', '>= 2.4.6'
   gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
+  gem 'interactive_editor', '>= 0.0.6'
+  gem 'bullet', '>= 2.0.1'
+  gem 'ruby-growl', '>= 3.0'
 end
 
 
@@ -42,8 +45,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
   gem 'steak', '>= 1.1.0'
-  gem 'thin', '>= 1.2.7' # To Run development server and integration tests faster (when use Selenium)
-  gem 'interactive_editor', '>= 0.0.6'
+  gem 'thin', '>= 1.2.7'
 end
 
 
