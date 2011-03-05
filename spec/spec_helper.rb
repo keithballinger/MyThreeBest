@@ -1,10 +1,11 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
 require 'spork'
 
 ENV["RAILS_ENV"] = 'test'
 
 Spork.prefork do
-
-  require 'cover_me'
 
   require "rails/application"
   Spork.trap_method(Rails::Application, :reload_routes!)

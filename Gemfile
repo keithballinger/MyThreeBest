@@ -65,7 +65,7 @@ group :test do
 
   # Code metrics
   gem 'metrical', '>= 0.0.4'
-  gem 'cover_me', '>= 1.0.0.rc6'
+  gem 'simplecov', '>= 0.4.1', :require => false
 
   # Speed up our tests
   gem 'spork', '>= 0.9.0.rc3'

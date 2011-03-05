@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
     else
       user = self.create_with_omniauth(auth)
     end
-    return user
+    user
   end
 
 
@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
     if user
       Friendship.where(:user_id => self.id, :friend_id => user.id).exists?
     else
-      return false
+      false
     end
   end
 
