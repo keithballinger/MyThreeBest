@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   devise :trackable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name, :profile_picture
+  attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name, :profile_picture,
+                  :top_photo_one_id, :top_photo_two_id, :top_photo_three_id
 
   # - Validations
   validates_presence_of :facebook_uid
@@ -79,9 +80,9 @@ class User < ActiveRecord::Base
     invite.send_friends_invite
   end
 
-  def invited?(user)
-    invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
-  end
+  #def invited?(user)
+    #invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
+  #end
 
 
   # - Vote methods
@@ -111,8 +112,11 @@ class User < ActiveRecord::Base
   # Top Photo methods
 
   ['one', 'two', 'three'].each do |number|
-    define_method "top_photo_#{number}" do |method|
-      Photo.find("#{method}_id") rescue nil
+    define_method "top_photo_#{number}" do
+      Photo.find(self.instance_eval("top_photo_#{number}_id")) rescue nil
+    end
+    define_method "top_photo_#{number}=" do |photo|
+      instance_eval("self.top_photo_#{number}_id = photo.id")
     end
   end
 

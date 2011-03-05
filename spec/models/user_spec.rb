@@ -162,8 +162,20 @@ describe User do
     friend.photos_for_friend(@user).should == [photo1, photo3]
   end
 
-  it "should have top photos" do
-    @user.respond_to?(:top_photo_three).should be_true
+  it "should get top photos" do
+    photo = Factory.create(:photo, :user_id => @user.id)
+    @user.top_photo_one_id = photo.id
+    @user.save
+
+    @user.top_photo_one.should == photo
+  end
+
+  it "should set top photos" do
+    photo = Factory.create(:photo, :user_id => @user.id)
+    @user.top_photo_one = photo
+    @user.save
+
+    @user.top_photo_one.should == photo
   end
 end
 
