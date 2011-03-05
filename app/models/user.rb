@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
       user = User.find_by_facebook_uid(other)
     end
     if user
-      return !Friendship.where(:user_id => self.id, :friend_id => user.id).blank?
+      Friendship.where(:user_id => self.id, :friend_id => user.id).exists?
     else
       return false
     end
@@ -88,22 +88,18 @@ class User < ActiveRecord::Base
   # - Vote methods
 
   def vote(photo)
-    allowed = PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id,
-                                    :owner_id => photo.user.id).first
-    return unless allowed
+    return unless PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id, :owner_id => photo.user.id).exists?
     return if voted?(photo.user)
-    vote = Vote.create(:photo_id => photo.id, :voter_id => self.id)
+    Vote.create(:photo_id => photo.id, :voter_id => self.id)
   end
 
   def voted?(user)
     vote_count = user.votes.where(:voter_id => self.id).count
-    return true if vote_count == 3
+    vote_count == 3
   end
 
   def unvote(photo)
-    allowed = PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id,
-                                    :owner_id => photo.user.id).first
-    return unless allowed
+    return unless PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id, :owner_id => photo.user.id).first
     vote = Vote.where(:photo_id => photo.id, :voter_id => self.id).first
     vote.destroy
   end
@@ -158,6 +154,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -175,5 +172,8 @@ end
 #  created_at         :datetime
 #  updated_at         :datetime
 #  profile_picture    :string(255)
+#  top_photo_one_id   :integer
+#  top_photo_two_id   :integer
+#  top_photo_three_id :integer
 #
 

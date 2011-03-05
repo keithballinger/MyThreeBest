@@ -181,6 +181,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -198,5 +199,8 @@ end
 #  created_at         :datetime
 #  updated_at         :datetime
 #  profile_picture    :string(255)
+#  top_photo_one_id   :integer
+#  top_photo_two_id   :integer
+#  top_photo_three_id :integer
 #
 
