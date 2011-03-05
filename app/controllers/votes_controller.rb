@@ -27,8 +27,22 @@ class VotesController < ApplicationController
     end
   end
 
+  def destroy
+    @photo = Photo.find(params[:photo_id])
+    if current_user.unvote(@photo)
+      respond_to do |format|
+        format.js{ render :json => true }
+      end
+    else
+      respond_to do |format|
+        format.js{ render :json => false }
+      end
+    end
+  end
+
 
   private
+
   def authorize_user!
     redirect_to root_path unless current_user.friend?(User.find(params[:user_id]))
   end

@@ -99,6 +99,14 @@ class User < ActiveRecord::Base
     return true if vote_count == 3
   end
 
+  def unvote(photo)
+    allowed = PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id,
+                                    :owner_id => photo.user.id).first
+    return unless allowed
+    vote = Vote.where(:photo_id => photo.id, :voter_id => self.id).first
+    vote.destroy
+  end
+
 
   # Job methods
 

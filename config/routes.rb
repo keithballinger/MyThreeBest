@@ -23,5 +23,6 @@ MyThreeBest::Application.routes.draw do
   # - Vote Routes
   match "/vote/:user_id" => "votes#new", :as => :new_vote
   match "/vote/:user_id/:photo_id" => "votes#create", :as => :save_vote
+  match "/unvote/:user_id/:photo_id" => "votes#destroy", :as => :delete_vote
 
 end

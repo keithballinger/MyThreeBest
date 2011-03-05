@@ -126,6 +126,19 @@ describe User do
     @user.voted?(other).should == true
   end
 
+  it "should unvote a photo" do
+    other = Factory.create(:registered_user)
+    @user.friend(other)
+    photo = Factory.create(:photo, :user_id => other.id)
+    PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
+                           :photo_id => photo.id)
+    @user.vote(photo)
+
+    expect {
+      @user.unvote(photo)
+    }.to change(Vote, :count).by(-1)
+  end
+
   it "should have registered_friends" do
     friend1 = Factory.create(:registered_user)
     friend2 = Factory.create(:user)

@@ -68,6 +68,8 @@ describe VotesController do
       @user.friend(@voter)
       (1..3).each do
         photo = Factory.create(:photo, :user_id => @user.id)
+        PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                               :photo_id => photo.id)
         @voter.vote(photo)
       end
       photo4 = Factory.create(:photo, :user_id => @user.id)
@@ -77,6 +79,21 @@ describe VotesController do
       photo4.votes.count.should == 0
     end
 
+  end
+
+  describe "on #delete" do
+    it "should remove a user vote" do
+      @user.friend(@voter)
+      photo = Factory.create(:photo, :user_id => @user.id)
+      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                             :photo_id => photo.id)
+      @voter.vote(photo)
+
+      sign_in @voter
+      expect {
+        delete 'destroy', :user_id => @user.id, :photo_id => photo.id
+      }.to change(Vote, :count).by(-1)
+    end
   end
 
 end
