@@ -108,6 +108,15 @@ class User < ActiveRecord::Base
   end
 
 
+  # Top Photo methods
+
+  ['one', 'two', 'three'].each do |number|
+    define_method "top_photo_#{number}" do |method|
+      Photo.find("#{method}_id") rescue nil
+    end
+  end
+
+
   # Job methods
 
   def friends_list_job

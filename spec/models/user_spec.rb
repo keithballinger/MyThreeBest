@@ -80,7 +80,7 @@ describe User do
     other = Factory.create(:registered_user)
     photo = Factory.create(:photo, :user_id => other.id)
     PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id, 
-                               :photo_id => photo.id)
+                           :photo_id => photo.id)
     @user.friend(other)
     expect {
       @user.vote(photo)
@@ -160,6 +160,10 @@ describe User do
     PhotoPermission.create(:photo_id => photo3.id, :owner_id => @user.id, :friend_id => friend.id)
 
     friend.photos_for_friend(@user).should == [photo1, photo3]
+  end
+
+  it "should have top photos" do
+    @user.respond_to?(:top_photo_three).should be_true
   end
 end
 

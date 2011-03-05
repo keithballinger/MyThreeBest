@@ -7,6 +7,23 @@ class Vote < ActiveRecord::Base
   # - Validations
   validates_uniqueness_of :voter_id, :scope => :photo_id
 
+  # - Callbacks
+  after_create :update_photo_votes
+  after_destroy :update_photo_votes
+
+  def update_photo_votes
+    photo = self.photo
+    photo.update_attribute(:total_votes, photo.votes.count)
+    perform_top_calculation
+  end
+
+  private
+
+  def perform_top_calculation
+    job_id = TopCalculation.create(:user_id => self.photo.user.id)
+    Rails.logger.info "[Queued Job with id #{job_id}]"
+  end
+
 end
 
 
