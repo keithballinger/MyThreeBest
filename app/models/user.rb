@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   has_many :user_jobs
   has_many :photos
   has_many :votes, :through => :photos
+  has_many :photo_permissions, :foreign_key => 'friend_id'
+  has_many :friend_photos, :through => :photo_permissions, :source => :photo
+
 
   # - Callbacks
   after_create :load_user_data, :if => :facebook_token?
@@ -63,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def photos_for_friend(friend)
-    PhotoPermission.where(:friend_id => self.id, :owner_id => friend.id).includes(:photo).collect(&:photo)
+    self.friend_photos.where(:user_id => friend.id)
     #sql_literal = Arel::SqlLiteral.new(PhotoPermission.select(:photo_id).where(:owner_id => friend.id, :friend_id => self.id).to_sql)
     #friend.photos.where(Photo.arel_table[:id].in(sql_literal))
   end

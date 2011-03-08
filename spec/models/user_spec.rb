@@ -25,6 +25,12 @@ describe User do
 
   it { should have_many(:photos) }
 
+  it { should have_many(:votes) }
+
+  it { should have_many(:photo_permissions) }
+
+  it { should have_many(:friend_photos) }
+
   it "should create a new account using facebook authentication info" do
     stub_facebook_profile
     expect {
