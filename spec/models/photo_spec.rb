@@ -6,6 +6,10 @@ describe Photo do
   it { should validate_presence_of(:facebook_id) }
   it { should belong_to(:user) }
   it { should have_many(:votes) }
+
+  it "should return the highest priority if is a user profile picture"
+  it "should return the second highest priority if the voter is tagged"
+  it "should return the lowest priority if isn't a user profile picture and voter isn't tagged"
 end
 
 

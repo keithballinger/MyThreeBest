@@ -8,5 +8,6 @@ FactoryGirl.define do
     facebook_id "1234567890"
     user
     total_votes 0
+    profile_picture false
   end
 end

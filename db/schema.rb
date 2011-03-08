@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305181007) do
+ActiveRecord::Schema.define(:version => 20110308032204) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -44,13 +44,14 @@ ActiveRecord::Schema.define(:version => 20110305181007) do
 
   create_table "photos", :force => true do |t|
     t.text     "title"
-    t.string   "url",                        :null => false
+    t.string   "url",                                :null => false
     t.string   "preview_url"
-    t.integer  "user_id",                    :null => false
-    t.integer  "total_votes", :default => 0
+    t.integer  "user_id",                            :null => false
+    t.integer  "total_votes",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "facebook_id"
+    t.boolean  "profile_picture", :default => false, :null => false
   end
 
   add_index "photos", ["facebook_id"], :name => "index_photos_on_facebook_id"
