@@ -1,14 +1,21 @@
 class Photo < ActiveRecord::Base
 
-  # - Associations
-  belongs_to :user
-  has_many :votes
-
   # - Validations
   validates_presence_of :url
   validates_presence_of :total_votes
   validates_presence_of :facebook_id
 
+  # - Associations
+  belongs_to :user
+  has_many :votes
+  has_many :photo_tags
+  has_many :tagged_users, :through => :photo_tags, :source => :user
+
+  def priority(friend = nil)
+    return 1 if self.profile_picture
+    return 2 if friend && self.photo_tags.where(:user_id => friend.id).exists
+    return 3
+  end
 end
 
 
