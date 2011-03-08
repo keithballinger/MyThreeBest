@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   end
 
   def photos_for_friend(friend)
-    self.friend_photos.where(:user_id => friend.id)
+    self.friend_photos.where(:user_id => friend.id).sort_by{|photo| photo.priority(self)}
     #sql_literal = Arel::SqlLiteral.new(PhotoPermission.select(:photo_id).where(:owner_id => friend.id, :friend_id => self.id).to_sql)
     #friend.photos.where(Photo.arel_table[:id].in(sql_literal))
   end

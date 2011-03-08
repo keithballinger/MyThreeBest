@@ -156,16 +156,19 @@ describe User do
     @user.registered_friends.should == [friend1, friend3]
   end
 
-  it "should get only allowed photos" do
+  it "should get only allowed photos and prioritized" do
     friend = Factory.create(:registered_user)
     @user.friend(friend)
-    photo1 = Factory.create(:photo, :user_id => @user.id)
+    photo1 = Factory.create(:photo, :user_id => @user.id, :profile_picture => true)
     photo2 = Factory.create(:photo, :user_id => @user.id)
     photo3 = Factory.create(:photo, :user_id => @user.id)
+    photo4 = Factory.create(:photo, :user_id => @user.id)
     PhotoPermission.create(:photo_id => photo1.id, :owner_id => @user.id, :friend_id => friend.id)
     PhotoPermission.create(:photo_id => photo3.id, :owner_id => @user.id, :friend_id => friend.id)
+    PhotoPermission.create(:photo_id => photo4.id, :owner_id => @user.id, :friend_id => friend.id)
+    PhotoTag.create(:photo_id => photo4.id, :user_id => friend.id)
 
-    friend.photos_for_friend(@user).should == [photo1, photo3]
+    friend.photos_for_friend(@user).should == [photo1, photo4, photo3]
   end
 
   it "should get top photos" do
