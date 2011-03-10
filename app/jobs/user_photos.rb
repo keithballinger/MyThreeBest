@@ -17,7 +17,12 @@ class UserPhotos < Resque::JobWithStatus
       preview = photo["images"][1]["source"]
       url = photo["images"][0]["source"]
       title = photo["name"]
-      Photo.create!(:title => title, :preview_url => preview, :url => url, :user_id => user.id, :facebook_id => photo["id"])
+      p = Photo.create!(:title => title, :preview_url => preview, :url => url, :user_id => user.id, :facebook_id => photo["id"])
+      tagged_user_ids = photo["tags"]["data"].map{|tag| tag["id"]} rescue []
+      tagged_user_ids.each do |tagged_user_id|
+        tagged_user = User.find_by_facebook_uid(tagged_user_id)
+        PhotoTag.create!(:user_id => tagged_user.id, :photo_id => p.id) if tagged_user
+      end
       num += 1
     end
     user.user_photos_job.update_attributes(:status => "completed")
