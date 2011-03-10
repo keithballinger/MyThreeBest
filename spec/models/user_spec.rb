@@ -145,6 +145,37 @@ describe User do
     }.to change(Vote, :count).by(-1)
   end
 
+  it "should get voted photos for a specific friend" do
+    other = Factory.create(:registered_user)
+    @user.friend(other)
+    photos = []
+    (1..3).each do
+      photo = Factory.create(:photo, :user_id => other.id)
+      photos << photo
+      PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
+                             :photo_id => photo.id)
+      @user.vote(photo)
+    end
+    @user.votes_for(other).should == photos
+  end
+
+  it "should get their voted photos" do
+    other = Factory.create(:registered_user)
+    @user.friend(other)
+    photos = []
+    (1..5).each do
+      photo = Factory.create(:photo, :user_id => other.id)
+      photos << photo
+      PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
+                             :photo_id => photo.id)
+      @user.vote(photo)
+    end
+    photos[0].update_attribute('total_votes', 10)
+    photos[1].update_attribute('total_votes', 20)
+    photos[2].update_attribute('total_votes', 5)
+    other.voted_photos.should == [photos[1], photos[0], photos[2]]
+  end
+
   it "should have registered_friends" do
     friend1 = Factory.create(:registered_user)
     friend2 = Factory.create(:user)

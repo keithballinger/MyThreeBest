@@ -21,6 +21,8 @@ MyThreeBest::Application.routes.draw do
   resources :invites
 
   # - Vote Routes
+  match "/votes" => "votes#index", :as => :votes
+  match "/votes/:user_id" => "votes#show", :as => :friend_votes
   match "/vote/:user_id" => "votes#new", :as => :new_vote
   match "/vote/:user_id/:photo_id" => "votes#create", :as => :save_vote
   match "/unvote/:user_id/:photo_id" => "votes#destroy", :as => :delete_vote

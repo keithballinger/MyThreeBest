@@ -1,13 +1,28 @@
 class VotesController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :authorize_user!
+  before_filter :authorize_user!, :except => [:index, :show]
+
+  def index
+    @photos = current_user.voted_photos
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def show
+    @user = User.find(params[:user_id])
+    @votes = @user.votes_for(current_user)
+    respond_to do |format|
+      format.html
+    end
+  end
 
   def new
     @user = User.find(params[:user_id])
-    votes = @user.votes.where(:voter_id => current_user.id)
-    @first_voted  = votes[0].photo rescue nil
-    @second_voted = votes[1].photo rescue nil
-    @third_voted  = votes[2].photo rescue nil
+    voted_photos = current_user.votes_for(@user)
+    @first_voted  = voted_photos[0] rescue nil
+    @second_voted = voted_photos[1] rescue nil
+    @third_voted  = voted_photos[2] rescue nil
     @photos = current_user.photos_for_friend(@user)
     respond_to do |format|
       format.html

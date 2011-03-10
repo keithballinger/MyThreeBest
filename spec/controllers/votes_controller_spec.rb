@@ -96,4 +96,12 @@ describe VotesController do
     end
   end
 
+  describe "on #index" do
+    it "should show all my photos with votes"
+  end
+
+  describe "on #show" do
+    it "should display the photos voted by a friend"
+  end
+
 end

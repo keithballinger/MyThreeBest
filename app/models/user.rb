@@ -108,6 +108,14 @@ class User < ActiveRecord::Base
     vote.destroy
   end
 
+  def votes_for(friend)
+    friend.votes.where(:voter_id => self.id).includes(:photo).map(&:photo)
+  end
+
+  def voted_photos
+    self.photos.where('total_votes > 0').order('total_votes DESC').includes(:votes)
+  end
+
 
   # Top Photo methods
 
