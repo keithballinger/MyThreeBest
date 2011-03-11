@@ -8,6 +8,7 @@ class Photo < ActiveRecord::Base
   # - Associations
   belongs_to :user
   has_many :votes
+  has_many :voters, :through => :votes
   has_many :photo_tags
   has_many :tagged_users, :through => :photo_tags, :source => :user
 

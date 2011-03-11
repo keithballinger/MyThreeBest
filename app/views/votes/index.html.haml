@@ -1,0 +1,10 @@
+Your Votes
+- @photos.each do |photo|
+  .photo-voters
+    = image_tag photo.url
+    %p #{pluralize(photo.total_votes, 'Vote')} total
+    - photo.voters.each do |voter|
+      .photo-voter
+        = image_tag voter.profile_picture
+        %p #{voter.first_name} #{voter.last_name}
+

@@ -12,6 +12,7 @@ describe Photo do
   it { should validate_presence_of(:facebook_id) }
   it { should belong_to(:user) }
   it { should have_many(:votes) }
+  it { should have_many(:voters) }
   it { should have_many(:photo_tags) }
   it { should have_many(:tagged_users) }
 
