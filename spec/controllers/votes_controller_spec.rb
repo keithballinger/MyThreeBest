@@ -97,11 +97,30 @@ describe VotesController do
   end
 
   describe "on #index" do
-    it "should show all my photos with votes"
+    it "should show all my photos with votes" do
+      @user.friend(@voter)
+      photo = Factory.create(:photo, :user_id => @user.id)
+      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                             :photo_id => photo.id)
+      @voter.vote(photo)
+      sign_in @user
+      get 'index'
+      assigns[:photos].should == [photo]
+    end
   end
 
   describe "on #show" do
-    it "should display the photos voted by a friend"
+    it "should display the photos voted by a friend" do
+      @user.friend(@voter)
+      photo = Factory.create(:photo, :user_id => @user.id)
+      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
+                             :photo_id => photo.id)
+      @voter.vote(photo)
+      sign_in @user
+      get 'show', :user_id => @voter.id
+      assigns[:user].should == @voter
+      assigns[:votes].should == [photo] 
+    end
   end
 
 end
