@@ -13,9 +13,9 @@ feature "Show User Photos Feature", %q{
   end
 
   scenario "I visit the votes page of a friend" do
-    friend = Factory.create(:registered_user)
+    #pending
+    friend = create_user
     @voter.friend(friend)
-    photos = create_photos_with_permissions(friend, 5, @voter)
     visit vote_user_page(friend)
 
     page.should have_content("Photos of #{friend.first_name}")
@@ -23,13 +23,12 @@ feature "Show User Photos Feature", %q{
   end
 
   scenario "I visit the votes page of a non-friend" do
-    non_friend = Factory.create(:registered_user)
-    other_non_friend = Factory.create(:registered_user)
-    photos = create_photos_with_permissions(non_friend, 5, other_non_friend)
+    #pending
+    non_friend = create_user
+    other_non_friend = create_user
     visit vote_user_page(non_friend)
 
-    page.should_not have_content(non_friend.first_name)
-    page.should_not have_content(photos.first.preview_url)
+    page.should_not have_content("Photos of #{non_friend.first_name}")
+    page.should_not have_content("Select a photo")
   end
-
 end

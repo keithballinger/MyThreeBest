@@ -1,12 +1,9 @@
-module HelperMethods
+module AcceptanceHelperMethods
   # Put helper methods you need to be available in all tests here.
 
   def create_user
-    #User.create_with_omniauth(OmniAuth.config.mock_auth[:facebook])
-    user = Factory(:user)
-    stub_friends
-    return user
+    user = User.create_with_omniauth(OmniAuth.config.mock_auth[:facebook].merge("uid" => rand(1000000000)))
   end
 end
 
-RSpec.configuration.include HelperMethods, :type => :acceptance
+RSpec.configuration.include AcceptanceHelperMethods, :type => :acceptance
