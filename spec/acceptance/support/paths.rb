@@ -12,6 +12,10 @@ module NavigationHelpers
   def logout_page
     "/logout"
   end
+
+  def vote_user_page(user)
+    "/vote/#{user.id}"
+  end
 end
 
 RSpec.configuration.include NavigationHelpers, :type => :acceptance

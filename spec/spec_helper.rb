@@ -26,5 +26,8 @@ end
 
 Spork.each_run do
   require 'factory_girl_rails'
+  require 'helper_methods'
+
+  include HelperMethods
 end
 

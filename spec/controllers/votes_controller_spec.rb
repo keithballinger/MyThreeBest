@@ -11,14 +11,7 @@ describe VotesController do
 
     it "should show vote page to voters if user is friend" do
       @user.friend(@voter)
-      photos = []
-      (1..5).each do 
-        photo = Factory.create(:photo, :user_id => @user.id)
-        photos << photo
-        PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                               :photo_id => photo.id) 
-      end
-
+      photos = create_photos_with_permissions(@user, 5, @voter)
       sign_in @voter
       get 'new', :user_id => @user.id
 
@@ -28,12 +21,8 @@ describe VotesController do
 
     it "should show vote page to voters with their current votes" do
       @user.friend(@voter)
-      (1..3).each do
-        photo = Factory.create(:photo, :user_id => @user.id)
-        PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                               :photo_id => photo.id) 
-        @voter.vote(photo)
-      end
+      photos = create_photos_with_permissions(@user, 3, @voter)
+      photos.each { |photo| @voter.vote(photo) }
       sign_in @voter
       get 'new', :user_id => @user.id
 
@@ -54,10 +43,7 @@ describe VotesController do
 
     it "should create votes for user photos" do
       @user.friend(@voter)
-      photo = Factory.create(:photo, :user_id => @user.id)
-      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                             :photo_id => photo.id)
-
+      photo = create_photos_with_permissions(@user, 1, @voter).first
       sign_in @voter
       expect {
         post 'create', :user_id => @user.id, :photo_id => photo.id
@@ -66,14 +52,9 @@ describe VotesController do
 
     it "shouldn't create more than three votes for a certain user" do
       @user.friend(@voter)
-      (1..3).each do
-        photo = Factory.create(:photo, :user_id => @user.id)
-        PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                               :photo_id => photo.id)
-        @voter.vote(photo)
-      end
-      photo4 = Factory.create(:photo, :user_id => @user.id)
-
+      photos = create_photos_with_permissions(@user, 4, @voter)
+      photos.each { |photo| @voter.vote(photo) }
+      photo4 = photos.last
       sign_in @voter
       post 'create', :user_id => @user.id, :photo_id => photo4.id
       photo4.votes.count.should == 0
@@ -84,9 +65,7 @@ describe VotesController do
   describe "on #delete" do
     it "should remove a user vote" do
       @user.friend(@voter)
-      photo = Factory.create(:photo, :user_id => @user.id)
-      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                             :photo_id => photo.id)
+      photo = create_photos_with_permissions(@user, 1, @voter).first
       @voter.vote(photo)
 
       sign_in @voter
@@ -99,9 +78,7 @@ describe VotesController do
   describe "on #index" do
     it "should show all my photos with votes" do
       @user.friend(@voter)
-      photo = Factory.create(:photo, :user_id => @user.id)
-      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                             :photo_id => photo.id)
+      photo = create_photos_with_permissions(@user, 1, @voter).first
       @voter.vote(photo)
       sign_in @user
       get 'index'
@@ -112,9 +89,7 @@ describe VotesController do
   describe "on #show" do
     it "should display the photos voted by a friend" do
       @user.friend(@voter)
-      photo = Factory.create(:photo, :user_id => @user.id)
-      PhotoPermission.create(:owner_id => @user.id, :friend_id => @voter.id, 
-                             :photo_id => photo.id)
+      photo = create_photos_with_permissions(@user, 1, @voter).first
       @voter.vote(photo)
       sign_in @user
       get 'show', :user_id => @voter.id
