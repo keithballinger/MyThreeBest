@@ -1,0 +1,10 @@
+Your Current Three Best
+.top-photo
+  - if current_user.top_photo_one
+    = image_tag current_user.top_photo_one.preview_url
+.top-photo
+  - if current_user.top_photo_two
+    = image_tag current_user.top_photo_two.preview_url
+.top-photo
+  - if current_user.top_photo_three
+    = image_tag current_user.top_photo_three.preview_url
