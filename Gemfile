@@ -7,8 +7,8 @@ gem 'jquery-rails', '>= 0.2.7'
 
 
 #- Authentication
-gem 'devise', '>= 1.2.rc'
-gem 'omniauth', '>= 0.2.0.beta3'
+gem 'devise', '>= 1.2.rc2'
+gem 'omniauth', '>= 0.2.0'
 
 
 #- M3B Base
