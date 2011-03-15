@@ -94,7 +94,7 @@ describe VotesController do
       sign_in @user
       get 'show', :user_id => @voter.id
       assigns[:user].should == @voter
-      assigns[:votes].should == [photo] 
+      assigns[:voted_photos].should == [photo] 
     end
   end
 

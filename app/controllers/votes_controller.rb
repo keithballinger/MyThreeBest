@@ -11,7 +11,7 @@ class VotesController < ApplicationController
 
   def show
     @user = User.find(params[:user_id])
-    @votes = @user.votes_for(current_user)
+    @voted_photos = @user.votes_for(current_user)
     respond_to do |format|
       format.html
     end
