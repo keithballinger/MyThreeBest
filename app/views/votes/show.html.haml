@@ -1,7 +1,8 @@
+= render "shared/three_best"
 %p
   = image_tag @user.profile_picture
 %p
-  = "#{@user.first_name} votes for #{current_user.first_name} (YOU!)"
+  = "#{@user.full_name} votes for #{current_user.full_name} (YOU!)"
 #photos
   - @voted_photos.each do |photo|
     = image_tag photo.url
