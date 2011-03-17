@@ -31,6 +31,10 @@ describe User do
 
   it { should have_many(:friend_photos) }
 
+  it "should have a full name" do
+    @user.full_name.should == "#{@user.first_name} #{@user.last_name}"
+  end
+
   it "should create a new account using facebook authentication info" do
     stub_facebook_profile
     expect {

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :facebook_uid, :facebook_token, :first_name, :last_name, :profile_picture,
-                  :top_photo_one_id, :top_photo_two_id, :top_photo_three_id
+                  :top_photo_one_id, :top_photo_two_id, :top_photo_three_id, :public_page
 
   # - Validations
   validates_presence_of :facebook_uid
@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
   after_create :load_user_data, :if => :facebook_token?
   after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 
   # - Auth methods
 

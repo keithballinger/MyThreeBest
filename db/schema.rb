@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110308041022) do
+ActiveRecord::Schema.define(:version => 20110317045134) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(:version => 20110308041022) do
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "facebook_uid",                      :null => false
+    t.string   "facebook_uid",                         :null => false
     t.string   "facebook_token"
     t.integer  "sign_in_count",      :default => 0
     t.datetime "current_sign_in_at"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20110308041022) do
     t.integer  "top_photo_one_id"
     t.integer  "top_photo_two_id"
     t.integer  "top_photo_three_id"
+    t.boolean  "public_page",        :default => true
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid", :unique => true

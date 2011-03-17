@@ -1,0 +1,10 @@
+= "#{@user.full_name} Three Best Photos"
+.top-photo
+  - if @user.top_photo_one
+    = image_tag @user.top_photo_one.preview_url
+.top-photo
+  - if @user.top_photo_two
+    = image_tag @user.top_photo_two.preview_url
+.top-photo
+  - if @user.top_photo_three
+    = image_tag @user.top_photo_three.preview_url
