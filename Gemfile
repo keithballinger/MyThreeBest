@@ -44,7 +44,6 @@ end
 # - Testing libraries with generators and rake tasks
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
-  gem 'steak', '>= 1.1.0'
   gem 'thin', '>= 1.2.7'
 end
 
@@ -58,7 +57,7 @@ group :test do
   gem 'resque_spec', '>= 0.4.2'
 
   # Acceptance tests
-  gem 'capybara', '>= 0.4.1.2'
+  gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git'
   gem 'launchy', '>= 0.3.7'
   gem 'database_cleaner', '>= 0.6.3'
   gem 'fakeweb', '>= 1.3.0'
