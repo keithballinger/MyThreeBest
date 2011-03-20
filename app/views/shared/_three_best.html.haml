@@ -9,5 +9,15 @@ Your Current Three Best
   - if current_user.top_photo_three
     = image_tag current_user.top_photo_three.preview_url
 
+%p
+  Show the world:
+  = link_to "mythreebest.com/#{current_user.public_page_url}", public_profile_url(current_user.public_page_url)
 = simple_form_for current_user, :remote => true do |f|
-  = f.input :public_page_url, :label => 'Disable Show to the world'
+  = f.input :public_page, :label => 'Enable Show to the world'
+
+:javascript
+  $(document).ready(function() {
+      $("#user_public_page").click(function() {
+          $(".simple_form").submit();
+      });
+  });

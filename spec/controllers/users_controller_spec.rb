@@ -25,20 +25,18 @@ describe UsersController do
 
   describe "on #update" do
     it "should set public page" do
-      pending
       @user.update_attribute(:public_page, false)
       sign_in @user
-      xhr :put, 'update', :public_page => true
+      xhr :put, 'update', :id => @user.id, :user => {:public_page => true}
 
-      @user.public_page.should be_true
+      @user.reload.public_page.should be_true
     end
 
     it "should unset public page" do
-      pending
       sign_in @user
-      xhr :put, 'update', :public_page => false
+      xhr :put, 'update', :id => @user.id, :user => {:public_page => false}
 
-      @user.public_page.should be_false
+      @user.reload.public_page.should be_false
     end
   end
 

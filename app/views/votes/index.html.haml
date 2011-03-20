@@ -1,11 +1,17 @@
-= render "shared/three_best"
+#three-best
+  = render "shared/three_best"
+%br
 Your Votes
-- @photos.each do |photo|
-  .photo-voters
-    = image_tag photo.url
-    %p #{pluralize(photo.total_votes, 'Vote')} total
-    - photo.voters.each do |voter|
-      .photo-voter
-        = image_tag voter.profile_picture
-        %p #{voter.first_name} #{voter.last_name}
+- if @photos.empty?
+  %p
+    You don't have photos yet, lets invite more friends
+- else
+  - @photos.each do |photo|
+    .photo-voters
+      = image_tag photo.url
+      %p #{pluralize(photo.total_votes, 'Vote')} total
+      - photo.voters.each do |voter|
+        .photo-voter
+          = image_tag voter.profile_picture
+          %p #{voter.first_name} #{voter.last_name}
 

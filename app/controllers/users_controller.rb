@@ -14,6 +14,10 @@ class UsersController < ApplicationController
   end
 
   def update
+    current_user.update_attribute(:public_page, params[:user][:public_page])
+    respond_to do |format|
+      format.js
+    end
   end
 
 end
