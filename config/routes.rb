@@ -13,7 +13,7 @@ MyThreeBest::Application.routes.draw do
 
   # - Friends
   #resources :friends
-  match "/friends" => "friends#index", :as => :friends_show
+  #match "/friends" => "friends#index", :as => :friends_show
 
   # -  Invites routes
   match "/invite/all" => "invites#all", :as => :invite_all
@@ -27,7 +27,8 @@ MyThreeBest::Application.routes.draw do
   match "/vote/:user_id/:photo_id" => "votes#create", :as => :save_vote
   match "/unvote/:user_id/:photo_id" => "votes#destroy", :as => :delete_vote
 
-  match "/users/:id" => "users#update", :as => :user
+  resources :users, :only => [:index, :update]
+  #match "/users/:id" => "users#update", :as => :user
 
   match "/:public_page_url" => "users#show", :as => :public_profile
 end

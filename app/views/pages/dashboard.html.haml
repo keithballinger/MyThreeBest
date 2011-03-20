@@ -5,6 +5,7 @@
 %a{ :href => 'javascript:inviteAll()' }
   %p
     Invite all my friends on my wall
+
 #loading
   =image_tag "/images/loading.gif"
 %table
@@ -21,8 +22,7 @@
           %tr
             %th 
             %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: right_row }'}}
-            
-            
+
 %script#friendRowTemplate{:type => "text/html"}
   %tr
     %td
@@ -34,6 +34,11 @@
             ${ name }
             %br
             %a.fg-button.ui-state-default.ui-corner-all{"data-remote" => "true", :href => "/vote/", :id => "invitation_${vote_id}"} Invite
-                
+
+:javascript
+  $(document).ready(function() {
+      getFriends();
+      window.getFriendsInterval = window.setInterval(getFriends, 3000);
+  });
 
 

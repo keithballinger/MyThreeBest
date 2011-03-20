@@ -6,9 +6,19 @@ describe UsersController do
     @user = Factory.create(:registered_user)
   end
 
+  describe "GET 'index'" do
+    it "should return friends list" do
+      user = Factory.create(:registered_user)
+      sign_in user
+      get 'index'
+      response.should be_success
+    end
+  end
+
   describe "on #show" do
 
     it "should render user public page if user is showing photos to world" do
+      sign_in @user
       get 'show', :public_page_url => @user.public_page_url
 
       assigns[:user].should == @user
@@ -17,6 +27,7 @@ describe UsersController do
 
     it "should redirect to index if user isn't showing photos to world" do
       @user.update_attribute(:public_page, false)
+      sign_in @user
       get 'show', :public_page_url => @user.public_page_url
 
       response.should redirect_to(root_path)
