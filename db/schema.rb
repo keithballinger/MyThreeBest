@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110317045134) do
+ActiveRecord::Schema.define(:version => 20110320032002) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -92,9 +92,11 @@ ActiveRecord::Schema.define(:version => 20110317045134) do
     t.integer  "top_photo_two_id"
     t.integer  "top_photo_three_id"
     t.boolean  "public_page",        :default => true
+    t.string   "public_page_url"
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid", :unique => true
+  add_index "users", ["public_page_url"], :name => "index_users_on_public_page_url"
 
   create_table "votes", :force => true do |t|
     t.integer  "voter_id",   :null => false

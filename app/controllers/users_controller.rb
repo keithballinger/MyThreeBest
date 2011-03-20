@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
 
   def show
-    names = params[:full_name].split("_")
-    @user = User.where('lower(first_name) = :first_name and lower(last_name) = :last_name', 
-                       :first_name => names.first.downcase, :last_name => names.last.downcase).first
+    @user = User.find_by_public_page_url(params[:public_page_url])
     if @user.public_page?
       respond_to do |format|
         format.html { render :show }

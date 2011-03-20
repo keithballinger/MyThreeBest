@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_presence_of :facebook_uid
   validates_uniqueness_of :facebook_uid
   validates_presence_of :profile_picture
+  validates_presence_of :public_page_url
 
   # - Associations
   has_many :friendships
@@ -23,13 +24,10 @@ class User < ActiveRecord::Base
 
 
   # - Callbacks
+  before_validation :generate_public_page_url, :on => :create
   after_create :load_user_data, :if => :facebook_token?
   after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
-
-  def full_name
-    "#{self.first_name} #{self.last_name}"
-  end
 
   # - Auth methods
 
@@ -41,6 +39,28 @@ class User < ActiveRecord::Base
       user = self.create_with_omniauth(auth)
     end
     user
+  end
+
+  def self.create_with_omniauth(auth)
+    create! do |user|
+      user.facebook_uid = auth["uid"]
+      user.facebook_token = auth["credentials"]["token"]
+      user.first_name = auth["user_info"]["first_name"]
+      user.last_name = auth["user_info"]["last_name"]
+      graph = Koala::Facebook::GraphAPI.new(auth["credentials"]["token"])
+      user.profile_picture = graph.get_picture(auth["uid"])
+    end
+  end
+
+
+  # - Public Page methods
+
+  def generate_public_page_url
+    self.public_page_url = self.full_name.parameterize.underscore
+  end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
   end
 
 
@@ -143,19 +163,6 @@ class User < ActiveRecord::Base
     self.user_jobs.where(:job_type => "user_photos").first
   end
 
-  private
-
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.facebook_uid = auth["uid"]
-      user.facebook_token = auth["credentials"]["token"]
-      user.first_name = auth["user_info"]["first_name"]
-      user.last_name = auth["user_info"]["last_name"]
-      graph = Koala::Facebook::GraphAPI.new(auth["credentials"]["token"])
-      user.profile_picture = graph.get_picture(auth["uid"])
-    end
-  end
-
   def load_user_data
     job_id = FriendsList.create(:user_id => self.id)
     Rails.logger.info "[Queued Job with id #{job_id}]"
@@ -165,6 +172,9 @@ class User < ActiveRecord::Base
     Rails.logger.info "[Queued Job with id #{job_id}]"
     UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "user_photos", :status => "queued")
   end
+
+
+  private :load_user_data, :generate_public_page_url
 
 end
 

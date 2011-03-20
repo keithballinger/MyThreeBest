@@ -17,6 +17,8 @@ describe User do
 
   it { should validate_presence_of(:profile_picture) }
 
+  it { should validate_presence_of(:public_page_url) }
+
   it { should have_many(:friendships) }
 
   it { should have_many(:friends) }
