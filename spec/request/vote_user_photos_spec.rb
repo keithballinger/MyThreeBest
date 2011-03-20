@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + '/request_helper')
 
 feature "Vote User Photos", %q{
   In order to know best friends photos

@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + '/request_helper')
 
 feature "Users Logout", %q{
   In order to finish using the page

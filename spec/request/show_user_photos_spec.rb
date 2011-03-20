@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + '/request_helper')
 
 feature "Show User Photos Feature", %q{
   In order to vote in friends photos
@@ -8,12 +8,11 @@ feature "Show User Photos Feature", %q{
 
   background do
     stub_facebook_profile
-    visit login_page
-    @voter = User.first
+    @voter = create_user
+    login_as @voter
   end
 
   scenario "I visit the votes page of a friend" do
-    #pending
     friend = create_user
     @voter.friend(friend)
     visit vote_user_page(friend)
@@ -23,9 +22,7 @@ feature "Show User Photos Feature", %q{
   end
 
   scenario "I visit the votes page of a non-friend" do
-    #pending
     non_friend = create_user
-    other_non_friend = create_user
     visit vote_user_page(non_friend)
 
     page.should_not have_content("Photos of #{non_friend.first_name}")

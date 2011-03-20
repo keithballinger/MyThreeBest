@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
+require File.expand_path(File.dirname(__FILE__) + '/request_helper')
 
 feature "Invite Friends", %q{
   In order to know Friends votes
