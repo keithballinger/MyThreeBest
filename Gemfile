@@ -13,7 +13,6 @@ gem 'omniauth', '>= 0.2.0'
 
 #- M3B Base
 gem 'koala', '>= 1.0.0.beta'
-gem 'sinatra', '1.1.3'
 gem 'resque', '>= 1.13.0'
 gem 'resque-status', '>= 0.2.2', :require => 'resque/status'
 gem 'typhoeus', '>= 0.2.1'
@@ -21,6 +20,7 @@ gem 'yajl-ruby', '>= 0.8.1', :require => 'yajl/json_gem'
 gem 'dalli', '>= 1.0.2'
 gem 'will_paginate', '>= 3.0.pre2'
 gem 'hoptoad_notifier', '>= 2.4.6'
+gem 'simple_form', '>= 1.3.1'
 
 # - Only used in development
 group :development do
