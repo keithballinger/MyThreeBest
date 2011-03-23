@@ -1,0 +1,12 @@
+= form_tag invite_friend_path(@invited), :remote => true do
+  %ul
+    %li
+      = label_tag 'email', 'Friend E-mail'
+      = email_field_tag 'email'
+    %li
+      = label_tag 'subject', 'Subject'
+      = text_field_tag 'subject'
+    %li
+      = label_tag 'message', 'Your Message'
+      = text_area_tag 'message'
+  = submit_tag 'Send'

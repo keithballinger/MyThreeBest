@@ -17,8 +17,9 @@ MyThreeBest::Application.routes.draw do
 
   # -  Invites routes
   match "/invite/all" => "invites#all", :as => :invite_all
-  match "/invite/:user_id" => "invites#create", :as => :invite_friend
-  resources :invites
+  match "/invite/:user_id" => "invites#create", :as => :invite_friend, :via => :post
+  match "/invite/:user_id" => "invites#new", :as => :new_invite, :via => :get
+  #resources :invites
 
   # - Vote Routes
   match "/votes" => "votes#index", :as => :votes
