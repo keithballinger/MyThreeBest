@@ -23,6 +23,10 @@
             %th 
             %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: right_row }'}}
 
+
+#inviteDialog{:title => "Invite Friend"}
+  %iframe{:id => "inviteIframe", :width => "100%", :height => "100%"}
+
 %script#friendRowTemplate{:type => "text/html"}
   %tr
     %td
@@ -33,10 +37,21 @@
           %td{:valign => "top"}
             ${ name }
             %br
-            %a.fg-button.ui-state-default.ui-corner-all{"data-remote" => "true", :href => "${ link_url }"} ${ link_text }
+            %a.fg-button.ui-state-default.ui-corner-all{:href => "${ link_url }"} ${ link_text }
 
 :javascript
   $(document).ready(function() {
+      $("a[href*='invite']").live('click', function(evt) {
+          evt.preventDefault();
+          $("#inviteDialog").dialog("open");
+          $("#inviteIframe").attr("src",$(this).attr("href"));
+      });
+      $("#inviteDialog").dialog({
+           autoOpen: false,
+           modal: true,
+           height: 500,
+           width: 500
+       });
       getFriends();
       window.getFriendsInterval = window.setInterval(getFriends, 3000);
   });
