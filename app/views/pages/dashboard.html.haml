@@ -33,7 +33,7 @@
           %td{:valign => "top"}
             ${ name }
             %br
-            %a.fg-button.ui-state-default.ui-corner-all{"data-remote" => "true", :href => "/vote/", :id => "invitation_${vote_id}"} Invite
+            %a.fg-button.ui-state-default.ui-corner-all{"data-remote" => "true", :href => "${ link_url }"} ${ link_text }
 
 :javascript
   $(document).ready(function() {

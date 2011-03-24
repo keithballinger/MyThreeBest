@@ -7,13 +7,12 @@ class UsersController < ApplicationController
     @left_row = []
     @right_row = []
 
-    @friends.each_with_index do |f, i|
-      friend = FriendViewModel.new(:name => f.full_name, :profile_image_url => f.profile_picture, 
-                                   :has_voted => current_user.voted?(f))
+    @friends.each_with_index do |friend, i|
+      friend_view_model = FriendViewModel.new(friend, friend.voted?(current_user))
       if i % 2 == 0 then
-        @left_row << friend
+        @left_row << friend_view_model
       else
-        @right_row << friend
+        @right_row << friend_view_model
       end
     end
 
