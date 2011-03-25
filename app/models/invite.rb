@@ -1,5 +1,6 @@
 class Invite < ActiveRecord::Base
 
+  attr_accessor :invite
   # - Validations
   validates_presence_of :inviter_id
   validates_presence_of :invited_id
@@ -7,10 +8,10 @@ class Invite < ActiveRecord::Base
   validates_uniqueness_of :invited_id, :scope => :inviter_id
 
   # - Callbacks
-  #after_create :send_friends_invite
+  after_create :send_friends_invite
 
   def send_friends_invite
-    job_id = FriendsInvite.create(:inviter_id => self.inviter_id, :invited_id => self.invited_id)
+    job_id = FriendsInvite.create(:inviter_id => self.inviter_id, :invited_id => self.invited_id, :invite => self.invite)
     UserJob.create(:job_id => job_id, :user_id => self.inviter_id, :job_type => "friends_invite")
   end
 

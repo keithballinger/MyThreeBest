@@ -103,9 +103,9 @@ class User < ActiveRecord::Base
     UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "post_invite", :status => "queued")
   end
 
-  def invite(user)
-    invite = Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
-    invite.send_friends_invite
+  def invite(user, invite_info)
+    invite = Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited", :invite => invite_info)
+    #invite.send_friends_invite(invite_info)
   end
 
   #def invited?(user)
@@ -181,6 +181,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -201,5 +202,7 @@ end
 #  top_photo_one_id   :integer
 #  top_photo_two_id   :integer
 #  top_photo_three_id :integer
+#  public_page        :boolean         default(TRUE)
+#  public_page_url    :string(255)
 #
 

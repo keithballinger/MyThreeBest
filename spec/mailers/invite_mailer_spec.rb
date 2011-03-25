@@ -4,7 +4,9 @@ describe InviteMailer do
   it "should send a invitation email" do
     inviter = Factory.create(:registered_user)
     invited = Factory.create(:registered_user)
-    email = InviteMailer.invite_email(inviter, invited, "user@facebook.com").deliver
+    invite = {:email => "user@facebook.com", :subject => "Vote My Three Best Photos!!",
+      :message => "Hi #{invited.first_name}: mythreebest.com/vote/#{inviter.id}"}
+    email = InviteMailer.invite_email(inviter, invited, invite).deliver
 
     ActionMailer::Base.deliveries.should_not be_empty
     email.to.should == ["user@facebook.com"]

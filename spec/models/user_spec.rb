@@ -77,8 +77,10 @@ describe User do
   it "should invite to friends to vote" do
     other = Factory.create(:user)
     @user.friend(other)
+    invite = {:email => "user@facebook.com", :subject => "Vote My Three Best Photos!!",
+      :message => "Hi #{other.first_name}: mythreebest.com/vote/#{@user.id}"}
     expect {
-      @user.invite(other)
+      @user.invite(other, invite)
     }.to change(Invite, :count).by(1)
   end
 
@@ -228,6 +230,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -248,5 +251,7 @@ end
 #  top_photo_one_id   :integer
 #  top_photo_two_id   :integer
 #  top_photo_three_id :integer
+#  public_page        :boolean         default(TRUE)
+#  public_page_url    :string(255)
 #
 

@@ -2,7 +2,7 @@ class InvitesController < ApplicationController
   before_filter :authenticate_user!
 
   def new
-    @invited = User.find(params[:user_id])
+    @invited = current_user.friends.find(params[:user_id])
     respond_to do |format|
       format.html { render :layout => false }
     end
@@ -15,7 +15,7 @@ class InvitesController < ApplicationController
 
   def create
     @friend = current_user.friends.find(params[:user_id])
-    invite = current_user.invite(@friend)
+    invite = current_user.invite(@friend, params[:invite])
 
     respond_to do |format|
       format.js

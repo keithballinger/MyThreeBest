@@ -10,15 +10,12 @@ describe InvitesController do
   describe "on #new" do
 
     it "should retrieve a friend list" do
-      @friends = []
-      (0...5).each { u = Factory.create(:user) ; @user.friend(u) ; @friends << u}
-      @user_job = @user.friends_list_job
-      @user_job.stubs(:status).returns("completed")
-      UserJob.any_instance.stubs(:first).returns(@user_job)
+      friend = Factory.create(:user)
+      @user.friend(friend)
 
-      xhr :get, :new
-      assigns(:friends).should == @friends
-      #assigns(:status).should == "completed"
+      get 'new', :user_id => friend.id
+      assigns(:friends).should == @invited
+      response.should render_template('new')
     end
 
   end
