@@ -3,7 +3,7 @@
   %ul
     %li
       = label_tag 'invitation[email]', 'Friend E-mail'
-      = email_field_tag 'invitation[email]'
+      = email_field_tag 'invitation[email]', @invited.email
     %li
       = label_tag 'invitation[subject]', 'Subject'
       = text_field_tag 'invitation[subject]', "Vote My Three Best Photos!!"
