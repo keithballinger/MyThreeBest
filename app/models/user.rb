@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   # - Auth methods
 
   def self.find_or_create_with_omniauth(auth)
+    Rails.logger.info auth.inspect
     user = self.find_by_facebook_uid(auth["uid"])
     if user
       user.update_attribute(:facebook_token, auth["credentials"]["token"])
@@ -47,6 +48,7 @@ class User < ActiveRecord::Base
       user.facebook_token = auth["credentials"]["token"]
       user.first_name = auth["user_info"]["first_name"]
       user.last_name = auth["user_info"]["last_name"]
+      user.email = auth["user_info"]["email"]
       graph = Koala::Facebook::GraphAPI.new(auth["credentials"]["token"])
       user.profile_picture = graph.get_picture(auth["uid"])
     end
@@ -187,6 +189,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -209,5 +212,6 @@ end
 #  top_photo_three_id :integer
 #  public_page        :boolean         default(TRUE)
 #  public_page_url    :string(255)
+#  email              :string(255)
 #
 

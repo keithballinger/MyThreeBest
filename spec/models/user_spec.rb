@@ -242,6 +242,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -264,5 +265,6 @@ end
 #  top_photo_three_id :integer
 #  public_page        :boolean         default(TRUE)
 #  public_page_url    :string(255)
+#  email              :string(255)
 #
 
