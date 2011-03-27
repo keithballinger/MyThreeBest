@@ -6,8 +6,8 @@
       = email_field_tag 'invitation[email]'
     %li
       = label_tag 'invitation[subject]', 'Subject'
-      = text_field_tag 'invitation[subject]'
+      = text_field_tag 'invitation[subject]', "Vote My Three Best Photos!!"
     %li
       = label_tag 'invitation[message]', 'Your Message'
-      = text_area_tag 'invitation[message]'
+      = text_area_tag 'invitation[message]', "Hi #{@invited.first_name}. Vote for My Three Best Photos: #{new_vote_url(current_user)}"
   = submit_tag 'Send'
