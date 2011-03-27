@@ -48,10 +48,6 @@ class VotesController < ApplicationController
       respond_to do |format|
         format.js{ render :json => true }
       end
-    else
-      respond_to do |format|
-        format.js{ render :json => false }
-      end
     end
   end
 

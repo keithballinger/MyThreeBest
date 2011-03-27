@@ -84,6 +84,17 @@ describe User do
     }.to change(Invite, :count).by(1)
   end
 
+  it "should re-invite to friends to vote" do
+     other = Factory.create(:user)
+    @user.friend(other)
+    invite = {:email => "user@facebook.com", :subject => "Vote My Three Best Photos!!",
+      :message => "Hi #{other.first_name}: mythreebest.com/vote/#{@user.id}"}
+    @user.invite(other, invite)
+    expect {
+      @user.invite(other, invite)
+    }.to_not change(Invite, :count)
+  end
+
   it "should invite to all friends with a facebook wall post" do
     expect {
       @user.invite_all

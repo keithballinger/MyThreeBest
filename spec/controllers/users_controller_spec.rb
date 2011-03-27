@@ -8,10 +8,14 @@ describe UsersController do
 
   describe "GET 'index'" do
     it "should return friends list" do
-      user = Factory.create(:registered_user)
-      sign_in user
+      friend1 = Factory.create(:user)
+      friend2 = Factory.create(:user)
+      @user.friend(friend1)
+      @user.friend(friend2)
+      sign_in @user
       get 'index'
       response.should be_success
+      assigns[:result].should_not be_nil
     end
   end
 

@@ -104,13 +104,18 @@ class User < ActiveRecord::Base
   end
 
   def invite(user, invite_info)
-    invite = Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited", :invite => invite_info)
-    #invite.send_friends_invite(invite_info)
+    invite = self.invited?(user)
+    unless invite
+      invite = Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited", :invite => invite_info)
+    else
+      invite.invite = invite_info
+      invite.send_friends_invite
+    end
   end
 
-  #def invited?(user)
-    #invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
-  #end
+  def invited?(user)
+    invite = Invite.where(:inviter_id => self.id, :invited_id => user.id, :status => "invited").first
+  end
 
 
   # - Vote methods
