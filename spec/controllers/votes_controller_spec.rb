@@ -22,7 +22,7 @@ describe VotesController do
     it "should show vote page to voters with their current votes" do
       @user.friend(@voter)
       photos = create_photos_with_permissions(@user, 3, @voter)
-      photos.each { |photo| @voter.vote(photo) }
+      @voter.vote(photos)
       sign_in @voter
       get 'new', :user_id => @user.id
 
@@ -46,27 +46,16 @@ describe VotesController do
       photo = create_photos_with_permissions(@user, 1, @voter).first
       sign_in @voter
       expect {
-        post 'create', :user_id => @user.id, :photo_id => photo.id
+        post 'create', :user_id => @user.id, :vote => [photo.id]
       }.to change(photo.votes, :count).by(1)
     end
-
-    it "shouldn't create more than three votes for a certain user" do
-      @user.friend(@voter)
-      photos = create_photos_with_permissions(@user, 4, @voter)
-      photos.each { |photo| @voter.vote(photo) }
-      photo4 = photos.last
-      sign_in @voter
-      post 'create', :user_id => @user.id, :photo_id => photo4.id
-      photo4.votes.count.should == 0
-    end
-
   end
 
   describe "on #delete" do
     it "should remove a user vote" do
       @user.friend(@voter)
       photo = create_photos_with_permissions(@user, 1, @voter).first
-      @voter.vote(photo)
+      @voter.vote([photo])
 
       sign_in @voter
       expect {
@@ -79,7 +68,7 @@ describe VotesController do
     it "should show all my photos with votes" do
       @user.friend(@voter)
       photo = create_photos_with_permissions(@user, 1, @voter).first
-      @voter.vote(photo)
+      @voter.vote([photo])
       sign_in @user
       get 'index'
       assigns[:photos].should == [photo]
@@ -90,7 +79,7 @@ describe VotesController do
     it "should display the photos voted by a friend" do
       @user.friend(@voter)
       photo = create_photos_with_permissions(@user, 1, @voter).first
-      @voter.vote(photo)
+      @voter.vote([photo])
       sign_in @user
       get 'show', :user_id => @voter.id
       assigns[:user].should == @voter

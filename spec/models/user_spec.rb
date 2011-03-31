@@ -108,7 +108,7 @@ describe User do
                            :photo_id => photo.id)
     @user.friend(other)
     expect {
-      @user.vote(photo)
+      @user.vote([photo])
     }.to change(Vote, :count).by(1)
   end
 
@@ -118,35 +118,37 @@ describe User do
 
     @user.friend(other)
     expect {
-      @user.vote(photo)
+      @user.vote([photo])
     }.not_to change(Vote, :count)
   end
 
   it "shouldn't vote to more than three photos of a friend" do
     other = Factory.create(:registered_user)
     @user.friend(other)
-    (1..3).each do
+    photos = []
+    (1..4).each do
       photo = Factory.create(:photo, :user_id => other.id)
       PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
                              :photo_id => photo.id)
-      @user.vote(photo)
+      photos << photo
     end
-    photo4 = Factory.create(:photo, :user_id => other.id)
 
     expect {
-      @user.vote(photo4)
-    }.not_to change(Vote, :count)
+      @user.vote(photos)
+    }.to change(Vote, :count).by(3)
   end
 
   it "should respond if friend had voted to other" do
     other = Factory.create(:registered_user)
     @user.friend(other)
+    photos = []
     (1..3).each do
       photo = Factory.create(:photo, :user_id => other.id)
       PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
                              :photo_id => photo.id)
-      @user.vote(photo)
+      photos << photo
     end
+    @user.vote(photos)
 
     @user.voted?(other).should == true
   end
@@ -157,7 +159,7 @@ describe User do
     photo = Factory.create(:photo, :user_id => other.id)
     PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
                            :photo_id => photo.id)
-    @user.vote(photo)
+    @user.vote([photo])
 
     expect {
       @user.unvote(photo)
@@ -173,8 +175,8 @@ describe User do
       photos << photo
       PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
                              :photo_id => photo.id)
-      @user.vote(photo)
     end
+    @user.vote(photos)
     @user.votes_for(other).should == photos
   end
 
@@ -187,8 +189,8 @@ describe User do
       photos << photo
       PhotoPermission.create(:owner_id => other.id, :friend_id => @user.id,
                              :photo_id => photo.id)
-      @user.vote(photo)
     end
+    @user.vote(photos)
     photos[0].update_attribute('total_votes', 10)
     photos[1].update_attribute('total_votes', 20)
     photos[2].update_attribute('total_votes', 5)

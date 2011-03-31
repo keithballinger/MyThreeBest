@@ -122,10 +122,15 @@ class User < ActiveRecord::Base
 
   # - Vote methods
 
-  def vote(photo)
-    return unless PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id, :owner_id => photo.user.id).exists?
-    return if voted?(photo.user)
-    Vote.create(:photo_id => photo.id, :voter_id => self.id)
+  def vote(photos)
+    photos = photos[0..2]
+    unless photos.empty?
+      Vote.destroy_all(:voter_id => self.id)
+      photos.each do |photo|
+        permited = PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id, :owner_id => photo.user.id).exists?
+        Vote.create(:photo_id => photo.id, :voter_id => self.id) if permited
+      end
+    end
   end
 
   def voted?(user)

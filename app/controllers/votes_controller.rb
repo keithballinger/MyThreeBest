@@ -30,8 +30,9 @@ class VotesController < ApplicationController
   end
 
   def create
-    @photo = Photo.find(params[:photo_id])
-    if current_user.vote(@photo)
+    photos_ids = params[:vote].delete_if{|id| id == ""}
+    @photos = photos_ids.map{|id| Photo.find(id)}
+    if current_user.vote(@photos)
       respond_to do |format|
         format.js{ render :json => true }
       end

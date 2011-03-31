@@ -14,24 +14,34 @@
         .position
   %a{:href => "#", :id => "select-photo"} Select photo
 
-.selected-photo{:class => (@first_voted.nil? ? "free": "used")}
+.selected-photo{:class => (@first_voted.nil? ? "free": "used"), :id => "first_photo"}
   - if @first_voted
     = image_tag @first_voted.preview_url
     = link_to "Remove", delete_vote_path(@user.id, @first_voted.id), :class => "unvote-photo"
   - else
     %p Select a photo
-.selected-photo{:class => (@second_voted.nil? ? "free": "used")}
+.selected-photo{:class => (@second_voted.nil? ? "free": "used"), :id => "second_photo"}
   - if @second_voted
     = image_tag @second_voted.preview_url
     = link_to "Remove", delete_vote_path(@user.id, @second_voted.id), :class => "unvote-photo"
   - else
     %p Select a photo
-.selected-photo{:class => (@third_voted.nil? ? "free": "used")}
+.selected-photo{:class => (@third_voted.nil? ? "free": "used"), :id => "third_photo"}
   - if @third_voted
     = image_tag @third_voted.preview_url
     = link_to "Remove", delete_vote_path(@user.id, @third_voted.id), :class => "unvote-photo"
   - else
     %p Select a photo
+
+#fb-root
+%script{:src => "http://connect.facebook.net/en_US/all.js#appId=#{FacebookConfig['app_id']}&amp;xfbml=1"}
+%fb:comments{:href => request.fullpath, :num_posts => "2", :width => "500"}
+
+= form_tag(save_vote_path, :remote => true) do
+  = hidden_field_tag "vote[]", (@first_voted.id rescue nil), :id => "first_photo_vote"
+  = hidden_field_tag "vote[]", (@second_voted.id rescue nil), :id => "second_photo_vote"
+  = hidden_field_tag "vote[]", (@third_voted.id rescue nil), :id => "third_photo_vote"
+  = submit_tag 'Submit'
 
 #repeated-photo{:class => "alert-dialog simplemodal-data"}
   %p Photo already selected!!
@@ -51,10 +61,11 @@
           var alreadySelected = $(".selected-photo img[src='"+photo+"']");
           if (freePos.length > 0) {
               if (alreadySelected.length == 0) {
-                  $.get("/vote/"+#{@user.id}+"/"+photoId);
+                  //$.get("/vote/"+#{@user.id}+"/"+photoId);
                   $(freePos[0]).html("<img src='"+photo+"' />"+
-                                     "<a class='unvote-photo' id='"+photoId+"'href='/unvote/"+#{@user.id}+"/"+photoId+"'>Remove</a>");
+                                     "<a class='unvote-photo' id='"+photoId+"' href='/unvote/"+#{@user.id}+"/"+photoId+"'>Remove</a>");
                   $(freePos[0]).removeClass("free");
+                  $("#"+$(freePos[0]).attr('id')+'_vote').val(photoId);
               } else {
                   $("#repeated-photo").modal();
               }
@@ -65,10 +76,11 @@
       $(".unvote-photo").live('click', function(e){
           e.preventDefault();
           var url = $(this).attr("href");
-          $.get(url);
+          //$.get(url);
           var parentDiv = $(this).parent();
           parentDiv.html("<p>Select a photo</p>");
           parentDiv.addClass("free");
+          $("#"+parentDiv.attr('id')+'_vote').val('');
       });
   });
 
