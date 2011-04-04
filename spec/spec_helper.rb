@@ -17,7 +17,7 @@ Spork.prefork do
 
   RSpec.configure do |config|
     config.mock_with :mocha
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
     config.include Devise::TestHelpers, :type => :controller
     config.include KoalaHelpers
   end

@@ -68,7 +68,6 @@
           var alreadySelected = $(".selected-photo img[src='"+photo+"']");
           if (freePos.length > 0) {
               if (alreadySelected.length == 0) {
-                  //$.get("/vote/"+#{@user.id}+"/"+photoId);
                   $(freePos[0]).html("<img src='"+photo+"' />"+
                                      "<a class='unvote-photo' id='"+photoId+"' href='/unvote/"+#{@user.id}+"/"+photoId+"'>Remove</a>");
                   $(freePos[0]).removeClass("free");
@@ -83,7 +82,6 @@
       $(".unvote-photo").live('click', function(e){
           e.preventDefault();
           var url = $(this).attr("href");
-          //$.get(url);
           var parentDiv = $(this).parent();
           parentDiv.html("<p>Select a photo</p>");
           parentDiv.addClass("free");
