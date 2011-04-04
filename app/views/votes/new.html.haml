@@ -37,11 +37,11 @@
 %script{:src => "http://connect.facebook.net/en_US/all.js#appId=#{FacebookConfig['app_id']}&amp;xfbml=1"}
 %fb:comments{:href => request.fullpath, :num_posts => "2", :width => "500"}
 
-= form_tag(save_vote_path, :remote => true) do
+= form_tag(save_vote_path, :remote => true, :id => "save-vote") do
   = hidden_field_tag "vote[]", (@first_voted.id rescue nil), :id => "first_photo_vote"
   = hidden_field_tag "vote[]", (@second_voted.id rescue nil), :id => "second_photo_vote"
   = hidden_field_tag "vote[]", (@third_voted.id rescue nil), :id => "third_photo_vote"
-  = submit_tag 'Submit'
+  = submit_tag 'Click Here When Finished'
 
 #repeated-photo{:class => "alert-dialog simplemodal-data"}
   %p Photo already selected!!
@@ -50,6 +50,13 @@
 #vote-limit{:class => "alert-dialog simplemodal-data"}
   %p Three photos selected already!!
   %a{:href => "#", :class => "simplemodal-close"} Accept
+
+#popup-vote{:class => "alert-dialog simplemodal-data"}
+  %p Thanks! Would you like to invite your friends to choose your three best photos
+  %p
+    = link_to "Yes!", root_path
+  %p
+    = link_to "Skip - Take me to Facebook", "http://facebook.com"
 
 :javascript
   $(document).ready(function() {
@@ -81,6 +88,10 @@
           parentDiv.html("<p>Select a photo</p>");
           parentDiv.addClass("free");
           $("#"+parentDiv.attr('id')+'_vote').val('');
+      });
+
+      $("#save-vote").bind("ajax:success", function(event, data, status, xhr) {
+          $("#popup-vote").modal();
       });
   });
 
