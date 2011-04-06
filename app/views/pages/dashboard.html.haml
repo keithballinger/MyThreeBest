@@ -41,7 +41,7 @@
 
 :javascript
   $(document).ready(function() {
-      $("a[href*='invite']").live('click', function(evt) {
+      $("a[href*='/invite']").live('click', function(evt) {
           evt.preventDefault();
           $("#inviteDialog").dialog("open");
           $("#inviteIframe").attr("src",$(this).attr("href"));
