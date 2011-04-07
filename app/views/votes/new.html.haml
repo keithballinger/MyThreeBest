@@ -93,3 +93,5 @@
       });
   });
 
+%script#photoTemplate{:type => "text/html"}
+  %img{:src => "${ preview_url }", :id => "${ id }", :class => "item", :title => "${ title }"}
