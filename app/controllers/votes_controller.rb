@@ -30,9 +30,10 @@ class VotesController < ApplicationController
   end
 
   def photos
-    @photos = current_user.photos_for_friend(@user).paginate(:page => params[:page], :per_page => 15)
+    photos = current_user.photos_for_friend(@user).paginate(:page => params[:page], :per_page => 15)
+    photos_view_model = PhotosViewModel.new(photos)
     respond_to do |format|
-      format.json{ render :json => @photos }
+      format.json{ render :json => photos_view_model }
     end
   end
 
