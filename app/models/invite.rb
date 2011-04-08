@@ -11,8 +11,7 @@ class Invite < ActiveRecord::Base
   after_create :send_friends_invite
 
   def send_friends_invite
-    job_id = FriendsInvite.create(:inviter_id => self.inviter_id, :invited_id => self.invited_id, :invite => self.invite)
-    UserJob.create(:job_id => job_id, :user_id => self.inviter_id, :job_type => "friends_invite")
+    InviteMailer.invite_email(self.inviter, self.invited, self.invite).deliver
   end
 
 end

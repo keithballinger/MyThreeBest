@@ -1,4 +1,6 @@
 class InviteMailer < ActionMailer::Base
+  include Resque::Mailer
+
   default :from => "no-reply@mythreebest.com"
 
   def invite_email(inviter, invited, invite)
