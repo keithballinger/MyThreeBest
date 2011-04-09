@@ -2,7 +2,8 @@
 %p #{current_user.first_name}
 =image_tag current_user.profile_picture
 =link_to "Logout", logout_path
-=link_to 'Invite all my friends on my wall', invite_all_path, :remote => true
+%p
+  =link_to 'Invite all my friends on my wall', invite_all_path, :remote => true
 
 #loading
   =image_tag "/images/loading.gif"
@@ -51,7 +52,7 @@
            width: 500
       });
       $("#invite-all").bind("ajax:success", function(event, data, status, xhr) {
-        alert('Invite posted to your wall');
+          alert('Invite posted to your wall');
       });
       getFriends();
       window.getFriendsInterval = window.setInterval(getFriends, 3000);
