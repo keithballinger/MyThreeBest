@@ -4,7 +4,10 @@ describe Invite do
   before(:each) do
    user1 = Factory.create(:registered_user)
    user2 = Factory.create(:user)
-   @invite = Invite.create(:inviter_id => user1.id, :invited_id => user2.id, :status => "pending")
+   @invite = Invite.new(:inviter_id => user1.id, :invited_id => user2.id, :status => "pending")
+   @invite.invite = {:email => "user@facebook.com", :subject => "Vote My Three Best Photos!!",
+                     :message => "Hi #{user2.first_name}: mythreebest.com/vote/#{user1.id}"}
+   @invite.save
   end
 
   it { should validate_presence_of(:inviter_id) }

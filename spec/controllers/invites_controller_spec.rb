@@ -26,7 +26,8 @@ describe InvitesController do
       friend = Factory.create(:user)
       @user.friend(friend)
       expect {
-        xhr :post, :create, :user_id => friend.id
+        xhr :post, :create, {:user_id => friend.id, :invite => { :email => "user@facebook.com", :subject => "Vote My Three Best Photos!!",
+                             :message => "Hi #{friend.first_name}: mythreebest.com/vote/#{@user.id}"}}
       }.to change(Invite, :count).by(1)
     end
 
