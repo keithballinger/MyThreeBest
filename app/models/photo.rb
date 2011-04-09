@@ -7,9 +7,9 @@ class Photo < ActiveRecord::Base
 
   # - Associations
   belongs_to :user
-  has_many :votes
+  has_many :votes, :dependent => :destroy
   has_many :voters, :through => :votes
-  has_many :photo_tags
+  has_many :photo_tags, :dependent => :destroy
   has_many :tagged_users, :through => :photo_tags, :source => :user
 
   def priority(friend = nil)

@@ -14,12 +14,12 @@ class User < ActiveRecord::Base
   validates_presence_of :public_page_url
 
   # - Associations
-  has_many :friendships
+  has_many :friendships, :dependent => :destroy
   has_many :friends, :through => :friendships
-  has_many :user_jobs
-  has_many :photos
+  has_many :user_jobs, :dependent => :destroy
+  has_many :photos, :dependent => :destroy
   has_many :votes, :through => :photos
-  has_many :photo_permissions, :foreign_key => 'friend_id'
+  has_many :photo_permissions, :foreign_key => 'friend_id', :dependent => :destroy
   has_many :friend_photos, :through => :photo_permissions, :source => :photo
 
 
