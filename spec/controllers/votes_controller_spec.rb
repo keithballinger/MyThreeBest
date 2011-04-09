@@ -87,4 +87,8 @@ describe VotesController do
     end
   end
 
+  describe "on #photos" do
+    it "should return photos of a user"
+  end
+
 end

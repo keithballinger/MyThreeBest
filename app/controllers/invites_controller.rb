@@ -10,7 +10,9 @@ class InvitesController < ApplicationController
 
   def all
     current_user.invite_all
-    render :json => true
+    respond_to do |format|
+      format.json { render :json => true }
+    end
   end
 
   def create
