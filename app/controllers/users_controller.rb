@@ -16,7 +16,8 @@ class UsersController < ApplicationController
       end
     end
 
-    @result = FriendsViewModel.new(:job_status => @job.status, :left_row => left_row, :right_row => right_row)
+    @result = FriendsViewModel.new(:job_status => @job.status, :left_row => left_row, 
+                                   :right_row => right_row, :count => @friends.count, :page => params[:page])
     render :json  => @result
   end
 
