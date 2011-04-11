@@ -6,15 +6,18 @@ feature "Invite Friends", %q{
   I want to Invite my Friends
 } do
 
-  scenario "Invite friends with a wall posts in their walls" do
+  background do
+    @user = create_user
+    login_as @user 
+  end
+
+  scenario "Invite friends with a post in my wall" do
     pending
+    #visit homepage
+    #click_link 'Invite all my friends on my wall'
   end
 
   scenario "Invite friends with a email messages" do
-    pending
-  end
-
-  scenario "Invite all friends with a post in my wall" do
     pending
   end
 
