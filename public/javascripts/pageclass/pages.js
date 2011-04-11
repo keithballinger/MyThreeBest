@@ -1,5 +1,8 @@
-function getFriends(){
-    $.getJSON('/users', function(response) {
+function getFriends(page){
+    if(page == null){
+        page = 1;
+    }
+    $.getJSON('/users?page='+page, function(response) {
         if( response.job_status == "completed" ) {
             loadFriends(response);
             window.clearInterval(window.getFriendsInterval);
@@ -14,17 +17,20 @@ function loadFriends(response){
     };
     ko.applyBindings(friendsViewModel);
     $('#loading').hide();
+    ajaxPagination(response.count);
 }
 
-function ajaxPagination() {
-    $(".pagination a").click(function() {
-        $.ajax({
-          type: "GET",
-          url: $(this).attr("href"),
-          dataType: "script"
-        });
-        return false;
+function ajaxPagination(count) {
+    $("#pagination").pagination(count, {
+        items_per_page: 20,
+        callback: ajaxPaginationClick
     });
+}
+
+function ajaxPaginationClick(new_page_index, pagination_container) {
+    $('#loading').show();
+    getFriends(new_page_index);
+    window.getFriendsInterval = window.setInterval(function () { getFriends(new_page_index); }, 3000);
 }
 
 function ajaxInvite(){

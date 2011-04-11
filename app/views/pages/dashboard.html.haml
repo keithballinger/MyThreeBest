@@ -21,7 +21,7 @@
           %tr
             %th 
             %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: right_row }'}}
-.pagination
+#pagination
 
 #inviteDialog{:title => "Invite Friend"}
   %iframe{:id => "inviteIframe", :width => "100%", :height => "100%"}
@@ -46,7 +46,6 @@
       });
       getFriends();
       window.getFriendsInterval = window.setInterval(getFriends, 3000);
-      ajaxPagination();
   });
 
 
