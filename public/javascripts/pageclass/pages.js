@@ -16,6 +16,31 @@ function loadFriends(response){
     $('#loading').hide();
 }
 
+function ajaxPagination() {
+    $(".pagination a").click(function() {
+        $.ajax({
+          type: "GET",
+          url: $(this).attr("href"),
+          dataType: "script"
+        });
+        return false;
+    });
+}
+
+function ajaxInvite(){
+    $("a[href*='/invite']").live('click', function(evt) {
+        evt.preventDefault();
+        $("#inviteDialog").dialog("open");
+        $("#inviteIframe").attr("src",$(this).attr("href"));
+    });
+    $("#inviteDialog").dialog({
+        autoOpen: false,
+        modal: true,
+        height: 500,
+        width: 500
+    });
+}
+
 function inviteAll(){
     //TODO - prompt user for text to post to wall
     $.getJSON('/invite/all', function(response) {
