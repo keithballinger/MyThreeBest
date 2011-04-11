@@ -15,7 +15,8 @@ class Invite < ActiveRecord::Base
   after_create :send_friends_invite
 
   def send_friends_invite
-    InviteMailer.invite_email(self.inviter, self.invited, self.invite).deliver
+    InviteMailer.invite_email(self.inviter.id, self.invited.id, 
+                              self.invite[:message], self.invite[:email], self.invite[:subject]).deliver
   end
 
 end
