@@ -3,9 +3,11 @@ function getFriends(page){
         page = 1;
     }
     $.getJSON('/users?page='+page, function(response) {
-        if( response.job_status == "completed" ) {
+        if( response.job_status == "completed" || response.count == 20 ) {
             loadFriends(response);
-            window.clearInterval(window.getFriendsInterval);
+            if( response.job_status == "completed") {
+                window.clearInterval(window.getFriendsInterval);
+            }
         }
     });
 }
