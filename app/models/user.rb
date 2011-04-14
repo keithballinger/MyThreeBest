@@ -108,7 +108,9 @@ class User < ActiveRecord::Base
   def invite(user, invite_info)
     invite = self.invited?(user)
     unless invite
-      invite = Invite.create!(:inviter_id => self.id, :invited_id => user.id, :status => "invited", :invite => invite_info)
+      invite = Invite.new(:inviter_id => self.id, :invited_id => user.id, :status => "invited")
+      invite.invite = invite_info
+      invite.save!
     else
       invite.invite = invite_info
       invite.send_friends_invite
