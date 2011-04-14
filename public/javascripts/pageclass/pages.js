@@ -23,6 +23,8 @@ function loadFriends(response){
 }
 
 function ajaxPagination(count, page) {
+    console.log("Count: "+count);
+    console.log("Page: "+page);
     $("#pagination").pagination(count, {
         items_per_page: 20,
         current: page,
