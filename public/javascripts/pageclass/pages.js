@@ -17,12 +17,13 @@ function loadFriends(response){
     };
     ko.applyBindings(friendsViewModel);
     $('#loading').hide();
-    ajaxPagination(response.count);
+    ajaxPagination(response.count, response.page);
 }
 
-function ajaxPagination(count) {
+function ajaxPagination(count, page) {
     $("#pagination").pagination(count, {
         items_per_page: 20,
+        current: page,
         callback: ajaxPaginationClick
     });
 }
