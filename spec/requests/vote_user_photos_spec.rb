@@ -15,7 +15,7 @@ feature "Vote User Photos", %q{
     login_as @voter
   end
 
-  scenario "I vote photos of a friend", :driver => :selenium do
+  scenario "I vote photos of a friend", :driver => :webkit do
     visit vote_user_page(@friend)
     click_link 'Select photo'
     click_button 'Click Here When Finished'

@@ -61,6 +61,7 @@ group :development, :test do
 
   # Acceptance tests
   gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git'
+  gem 'capybara-webkit', '>= 0.1.4'
   gem 'launchy', '>= 0.3.7'
   gem 'database_cleaner', '>= 0.6.6'
   gem 'fakeweb', '>= 1.3.0'
