@@ -17,7 +17,7 @@ class InvitesController < ApplicationController
 
   def create
     @friend = current_user.friends.find(params[:user_id])
-    invite = current_user.invite(@friend, params[:invite])
+    invite = current_user.invite(@friend, params[:invitation])
     respond_to do |format|
       format.js
     end
