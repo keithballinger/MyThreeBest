@@ -9,4 +9,10 @@ class ApplicationController < ActionController::Base
     end
     warden.custom_failure! if performed?
   end
+
+  protected
+
+  def authorize_user!
+    redirect_to root_path unless current_user.friend?(User.find(params[:user_id]))
+  end
 end

@@ -29,14 +29,6 @@ class VotesController < ApplicationController
     end
   end
 
-  def photos
-    photos = current_user.photos_for_friend(@user).paginate(:page => params[:page], :per_page => 15)
-    photos_view_model = PhotosViewModel.new(photos)
-    respond_to do |format|
-      format.json{ render :json => photos_view_model }
-    end
-  end
-
   def create
     photos_ids = params[:vote].delete_if{|id| id == ""}
     @photos = photos_ids.map{|id| Photo.find(id)}
@@ -55,12 +47,4 @@ class VotesController < ApplicationController
       end
     end
   end
-
-
-  private
-
-  def authorize_user!
-    redirect_to root_path unless current_user.friend?(User.find(params[:user_id]))
-  end
-
 end

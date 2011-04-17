@@ -28,7 +28,9 @@ MyThreeBest::Application.routes.draw do
   match "/vote/:user_id/save" => "votes#create", :as => :save_vote
   match "/unvote/:user_id/:photo_id" => "votes#destroy", :as => :delete_vote
 
-  resources :users, :only => [:index, :update]
+  resources :users, :only => [:index, :update] do
+    resources :photos, :only => [:index]
+  end
   #match "/users/:id" => "users#update", :as => :user
 
   match "/:public_page_url" => "users#show", :as => :public_profile
