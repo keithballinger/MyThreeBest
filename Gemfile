@@ -7,7 +7,7 @@ gem 'jquery-rails', '>= 0.2.7'
 
 
 #- Authentication
-gem 'devise', '>= 1.2.1'
+gem 'devise', '>= 1.3.0'
 gem 'omniauth', '>= 0.2.0'
 
 
@@ -43,34 +43,32 @@ end
 
 
 # - Testing libraries with generators and rake tasks
-#group :development, :test do
-#  gem 'rspec-rails', '>= 2.5.0'
-#  gem 'thin', '>= 1.2.7'
-#end
-
-
-#- For Testing
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
   gem 'thin', '>= 1.2.7'
+end
+
+
+#- For Testing
+group :test do
   gem 'shoulda-matchers', '>= 1.0.0.beta1'
   gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
   gem 'mocha', '>= 0.9.11'
   gem 'ffaker', '>= 1.2.0'
   gem 'resque_spec', '>= 0.4.2'
 
-  # Acceptance tests
+  #- Acceptance tests
   gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git'
   gem 'capybara-webkit', '>= 0.1.4'
   gem 'launchy', '>= 0.3.7'
   gem 'database_cleaner', '>= 0.6.6'
   gem 'fakeweb', '>= 1.3.0'
 
-  # Code metrics
+  #- Code metrics
   gem 'metrical', '>= 0.0.4'
   gem 'simplecov', '>= 0.4.1', :require => false
 
-  # Speed up our tests
+  #- Speed up our tests
   gem 'spork', '>= 0.9.0.rc4'
   gem 'guard-spork', '>= 0.1.6'
   gem 'rb-fsevent', '>= 0.4.0'
