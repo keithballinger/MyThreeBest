@@ -38,7 +38,7 @@ class UserPhotos < Resque::JobWithStatus
     return partial_photos if partial_photos.next_page.nil?
     old_photo_count = 0
     photo_count = nil
-    until old_photo_count == photo_count
+    until old_photo_count == photo_count || partial_photos == []
       old_photo_count = photos.size
       photos = photos + partial_photos
       photos.uniq!
