@@ -1,7 +1,7 @@
 source :rubygems
 
 #- Basic Rails App
-gem 'rails', '>= 3.0.7.rc2'
+gem 'rails', '>= 3.0.7'
 gem 'haml-rails', '>= 0.3.4'
 gem 'jquery-rails', '>= 0.2.7'
 
