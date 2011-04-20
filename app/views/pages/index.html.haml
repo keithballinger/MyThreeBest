@@ -1,2 +1,102 @@
-%h1 Something cool is happening here
-%a{:href => "/auth/facebook"} Login with Facebook
+%body
+  #layout
+    #header
+      %span.logo
+        = link_to image_tag("logo.gif"), root_path
+      .login
+        = link_to image_tag("login_icon.gif"), "/auth/facebook"
+        = link_to "login", "/auth/facebook"
+      %h2 Invite your friends to select your three best photos!
+    #crousal
+      .belt
+        %div
+          .next
+            = link_to image_tag("next_arrow.png"), "#"
+        %div
+          .prev
+            = link_to image_tag("prev_arrow.png"), "#"
+        .panel
+          %ul
+            %li.first
+              = image_tag "pict01.jpg"
+            %li
+              = image_tag "pict02.jpg"
+            %li
+              = image_tag "pict03.jpg"
+    .facebook_login
+      %a{:href => "/auth/facebook"}
+        = image_tag "facebook_icon.gif"
+        %span.blue_bg
+          %span.blue_bg_right
+            %strong Login with Facebook and Start now!
+    .bottom_box
+      .box_bg_repeat
+        .box_bg_top
+          .box_bg_bottom
+            .box_main
+              %ul
+                %li.first
+                  .common_box_bg
+                    .common_box_top
+                      .common_box_bottom
+                        .common_box_main
+                          .common_box_inner
+                            %h2 Invite your friends
+                            %p
+                              %strong Kelly
+                              is inviting her 130
+                              %br
+                              friends to vote her 3 best
+                            %ul
+                              %li.last
+                                = image_tag "small_img01.gif"
+                              %li
+                                = image_tag "small_img02.gif"
+                              %li
+                                = image_tag "small_img03.gif"
+                              %li
+                                = image_tag "small_img04.gif"
+                              %li
+                                = image_tag "small_img05.gif"
+                              %li
+                                = image_tag "small_img06.gif"
+                          %span.clear
+                %li
+                  .common_box_bg
+                    .common_box_top
+                      .common_box_bottom
+                        .common_box_main
+                          .common_box_inner
+                            %h2.head02 Viewing Photos
+                            %p.text
+                              Graphics in progress
+                %li
+                  .common_box_bg
+                    .common_box_top
+                      .common_box_bottom
+                        .common_box_main
+                          .common_box_inner.inner_bg01
+                            %h2.head03 Vote Your Best 3
+                            .vote
+                              .vote_img
+                                .vote_bg
+                                  = image_tag "img01.gif"
+                              .vote_img02
+                                .vote_bg
+                                  = image_tag "img02.gif"
+                              .vote_img03
+                                .vote_bg
+                                  = image_tag "img03.gif"
+                          %span.clear
+                %li
+                  .common_box_bg
+                    .common_box_top
+                      .common_box_bottom
+                        .common_box_main
+                          .inner_bg_repeat
+                            .common_box_inner.inner_bg
+                              %h2.head04 See Friends Vote
+                              %p.text
+                                Graphics in progress
+      %span.clear
+    = render "layouts/footer"
