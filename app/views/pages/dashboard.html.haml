@@ -1,42 +1,82 @@
-%h1 Welcome to MyThreeBest
-%p #{current_user.first_name}
-=image_tag current_user.profile_picture
-=link_to "Logout", logout_path
-%p
-  =link_to 'Invite all my friends on my wall', invite_all_path, :remote => true
+- content_for :javascripts do
+  = javascript_include_tag "jquery-ui.min"
+  = javascript_include_tag "jquery.simplemodal.min"
+  = javascript_include_tag "jquery.tmpl"
+  = javascript_include_tag "knockout"
+  = javascript_include_tag "jquery.pagination"
+  = javascript_include_tag "pageclass/#{controller.controller_name}"
+
+%body
+  #layout
+    = render "shared/header"
+    #body_container
+      .work_container
+        .work_bg_repeat
+          .work_bg_top
+            .work_bg_bottom
+              .work_main
+                = render "shared/menu"
+                .invite_left
+                  = render "shared/user_avatar"
+                  = render "shared/three_best"
+                .invite_right
+                  .invite_right_bg
+                    .invite_right_top
+                      .invite_right_bottom
+                        .invite_outer
+                          .banner
+                            %img{:alt => "", :src => "/images/banner.jpg"}/
+                          .search_area
+                            %form{:action => "", :method => "post"}
+                              .search_bg
+                                %input{:name => "", :type => "text", :value => "Search"}/
+                              %input.search_btn{:name => "", :type => "button", :value => ""}/
+                          #rows{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: rows }'}}
+                          .paging
+                            %ul
+                              %li
+                                %a.active{:href => "#"} 1
+                              %li
+                                %a{:href => "#"} 2
+                              %li
+                                %a{:href => "#"} 3
+                              %li
+                                %a{:href => "#"} 4
+                              %li
+                                %a{:href => "#"} 5
+                              %li
+                                %a{:href => "#"} 6
+                              %li ....
+                              %li
+                                %a{:href => "#"} 12
+                              %li
+                                %a{:href => "#"} >
+                      %span.clear
+        %span.clear
+    = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
+
+  %script#friendRowTemplate{:type => "text/html"}
+    .row
+      %ul
+        %li.first
+          %img{:alt => "", :src => "${ left_profile_image_url }"}/
+          %a{:href =>"${ left_link_url }", :class => "invite"} ${ left_link_text }
+          %h3
+            %a{:href => "#"} ${ left_name }
+        %li
+          %img{:alt => "", :src => "${ right_profile_image_url }"}/
+          %a{:href =>"${ right_link_url }", :class => "invite"} ${ right_link_text }
+          %h3
+            %a{:href => "#"} ${ right_name }
+
+=link_to 'Invite all my friends on my wall', invite_all_path, :remote => true
 
 #loading
-  =image_tag "/images/loading.gif"
-%table
-  %tr
-    %td{:valign => "top"}
-      %table
-        %thead
-          %tr
-            %th 
-            %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: left_row }'}}
-    %td{:valign => "top"}
-      %table
-        %thead
-          %tr
-            %th 
-            %tbody{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: right_row }'}}
+=image_tag "/images/loading.gif"
 #pagination
 
 #inviteDialog{:title => "Invite Friend"}
   %iframe{:id => "inviteIframe", :width => "100%", :height => "100%"}
-
-%script#friendRowTemplate{:type => "text/html"}
-  %tr
-    %td
-      %table
-        %tr
-          %td
-            %img{:src => "${ profile_image_url }"}/
-          %td{:valign => "top"}
-            ${ name }
-            %br
-            %a.fg-button.ui-state-default.ui-corner-all{:href => "${ link_url }"} ${ link_text }
 
 :javascript
   $(document).ready(function() {

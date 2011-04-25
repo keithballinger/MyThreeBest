@@ -1,0 +1,9 @@
+.frame
+  - if photo
+    = image_tag photo.preview_url
+  - else
+    = image_tag "question_mark.png"
+- if photo
+  %a{:href => "#"} See Votes
+- else
+  %a{:href => "#", :style => "opacity:0.4;filter:alpha(opacity=40)"} See Votes

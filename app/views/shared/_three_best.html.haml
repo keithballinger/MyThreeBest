@@ -1,19 +1,20 @@
-Your Current Three Best
-.top-photo
-  - if current_user.top_photo_one
-    = image_tag current_user.top_photo_one.preview_url
-.top-photo
-  - if current_user.top_photo_two
-    = image_tag current_user.top_photo_two.preview_url
-.top-photo
-  - if current_user.top_photo_three
-    = image_tag current_user.top_photo_three.preview_url
-
-%p
-  Show the world:
-  = link_to "mythreebest.com/#{current_user.public_page_url}", public_profile_url(current_user.public_page_url)
-= simple_form_for current_user, :remote => true do |f|
-  = f.input :public_page, :label => 'Enable Show to the world'
+.invite_bg_repeat.pad02
+  .invite_top
+    .invite_bottom
+      .invite_main
+        %h2 My Current Three Best
+        %ul
+          %li.first
+            = render :partial => "shared/best_photo", :locals => {:photo => current_user.top_photo_one}
+          %li
+            = render :partial => "shared/best_photo", :locals => {:photo => current_user.top_photo_two}
+          %li
+            = render :partial => "shared/best_photo", :locals => {:photo => current_user.top_photo_three}
+        %h2 Show the World
+        = link_to "mythreebest.com/#{current_user.public_page_url}", public_profile_url(current_user.public_page_url), :class => "link"
+        %span.world
+          = simple_form_for current_user, :remote => true do |f|
+            = f.input :public_page, :label => 'Enable Show to the world'
 
 :javascript
   $(document).ready(function() {

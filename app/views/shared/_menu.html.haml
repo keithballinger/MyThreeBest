@@ -1,6 +1,21 @@
-#menu
-  = link_to "Invite Friends", root_path
-  |
-  = link_to "Your Friends Votes", votes_path 
-  |
-  = link_to "Your World Page", public_profile_path(current_user.public_page_url)
+.work_menu
+  .work_menu_bg
+    .work_menu_left
+      .work_menu_right
+        %ul
+          %li.first
+            %a.active{:href => root_path}
+              %span Invite Friends
+          %li
+            %a{:href => "#"}
+              %span Vote
+          %li
+            %a{:href => votes_path}
+              %span See Friends Votes
+          %li
+            %a{:href => public_profile_path(current_user.public_page_url)}
+              %span Show the World
+          %li
+            %a{:href => "#"}
+              %span See Vote
+

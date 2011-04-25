@@ -14,12 +14,11 @@ function getFriends(page){
 
 function loadFriends(response){
     var friendsViewModel = {
-        left_row: ko.observableArray(response.left_row),
-        right_row: ko.observableArray(response.right_row)
+        rows: ko.observableArray(response.rows),
     };
     ko.applyBindings(friendsViewModel);
     $('#loading').hide();
-    ajaxPagination(response.count, response.page);
+    //ajaxPagination(response.count, response.page);
 }
 
 function ajaxPagination(count, page) {

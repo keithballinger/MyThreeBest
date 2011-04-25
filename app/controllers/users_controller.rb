@@ -4,20 +4,15 @@ class UsersController < ApplicationController
   def index
     @job = current_user.friends_list_job
     @friends = current_user.friends.paginate(:page => params[:page], :per_page => 20, :order => 'id ASC')
-    left_row = []
-    right_row = []
+    rows = []
 
-    @friends.each_with_index do |friend, i|
-      friend_view_model = FriendViewModel.new(current_user, friend)
-      if i % 2 == 0 then
-        left_row << friend_view_model
-      else
-        right_row << friend_view_model
-      end
+    @friends.each_slice(2) do |friends|
+      friend_view_model = FriendViewModel.new(current_user, friends[0], friends[1])
+      rows << friend_view_model
     end
 
-    @result = FriendsViewModel.new(:job_status => @job.status, :left_row => left_row, 
-                                   :right_row => right_row, :count => @friends.count, :page => params[:page])
+    @result = FriendsViewModel.new(:job_status => @job.status, :rows => rows,
+                                   :count => @friends.count, :page => params[:page])
     render :json  => @result
   end
 

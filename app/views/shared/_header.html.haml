@@ -1,0 +1,10 @@
+#header
+  %span.logo
+    = link_to image_tag("logo.gif"), root_path
+  .work_top
+    %ul
+      %li.first Hi, #{current_user.first_name}!
+      %li
+        %a{:href => "#"} How it works
+      %li.last
+        = link_to "Log Out", logout_path
