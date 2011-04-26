@@ -1,0 +1,8 @@
+.question_mark {
+  margin-left: 40px !important;
+}
+
+.disabled_button {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}

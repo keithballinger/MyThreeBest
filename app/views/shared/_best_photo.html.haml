@@ -1,9 +1,9 @@
 .frame
   - if photo
-    = image_tag photo.preview_url
+    = image_tag photo.preview_url, :width => "212"
   - else
-    = image_tag "question_mark.png"
+    = image_tag "question_mark.png", :class => "question_mark"
 - if photo
   %a{:href => "#"} See Votes
 - else
-  %a{:href => "#", :style => "opacity:0.4;filter:alpha(opacity=40)"} See Votes
+  %a{:href => "#", :class => "disabled_button"} See Votes

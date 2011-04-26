@@ -25,12 +25,14 @@
                       .invite_right_bottom
                         .invite_outer
                           .banner
-                            %img{:alt => "", :src => "/images/banner.jpg"}/
+                            = link_to image_tag("banner.jpg"), invite_all_path, :remote => true
                           .search_area
                             %form{:action => "", :method => "post"}
                               .search_bg
                                 %input{:name => "", :type => "text", :value => "Search"}/
                               %input.search_btn{:name => "", :type => "button", :value => ""}/
+                          .row
+                            %h2 My Friends
                           #rows{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: rows }'}}
                           .paging
                             %ul
@@ -69,14 +71,12 @@
           %h3
             %a{:href => "#"} ${ right_name }
 
-=link_to 'Invite all my friends on my wall', invite_all_path, :remote => true
-
 #loading
 =image_tag "/images/loading.gif"
 #pagination
 
 #inviteDialog{:title => "Invite Friend"}
-  %iframe{:id => "inviteIframe", :width => "100%", :height => "100%"}
+  %iframe{:id => "inviteIframe", :scrolling => "no"}
 
 :javascript
   $(document).ready(function() {
