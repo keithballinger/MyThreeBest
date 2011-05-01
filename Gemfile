@@ -58,8 +58,8 @@ group :test do
   gem 'resque_spec', '>= 0.4.2'
 
   #- Acceptance tests
-  gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git'
-  gem 'capybara-webkit', '>= 0.1.4'
+  gem 'capybara', '~> 1.0.0.beta1'
+  gem 'capybara-webkit', '>= 0.2.0', :git => 'https://github.com/guilleiguaran/capybara-webkit.git', :branch => 'capybara-1.0.0.beta1'
   gem 'launchy', '>= 0.3.7'
   gem 'database_cleaner', '>= 0.6.6'
   gem 'fakeweb', '>= 1.3.0'
