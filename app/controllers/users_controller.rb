@@ -3,17 +3,10 @@ class UsersController < ApplicationController
 
   def index
     @job = current_user.friends_list_job
-    @friends = current_user.friends.paginate(:page => params[:page], :per_page => 20, :order => 'id ASC')
-    rows = []
-
-    @friends.each_slice(2) do |friends|
-      friend_view_model = FriendViewModel.new(current_user, friends[0], friends[1])
-      rows << friend_view_model
+    @friends = current_user.votes.order("created_at desc").limit(18).map(&:voter).uniq[0..6]
+    respond_to do |format|
+      format.html { render :show }
     end
-
-    @result = FriendsViewModel.new(:job_status => @job.status, :rows => rows,
-                                   :count => @friends.count, :page => params[:page])
-    render :json  => @result
   end
 
   def show

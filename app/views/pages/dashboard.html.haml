@@ -25,67 +25,45 @@
                       .invite_right_bottom
                         .invite_outer
                           .banner
-                            = link_to image_tag("banner.jpg"), invite_all_path, :remote => true
-                          .search_area
-                            %form{:action => "", :method => "post"}
-                              .search_bg
-                                %input{:name => "", :type => "text", :value => "Search"}/
-                              %input.search_btn{:name => "", :type => "button", :value => ""}/
+                            %h2 Invite your friend to vote on your photos
+                            %br
+                            %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
+                            %fb:send{:href => "example.com", :font => "segoe ui"}
+                            a personal invitation
+                            %br
+                            = link_to "Post on your wall to invite everyone", invite_all_path, :remote => true
                           .row
-                            %h2 My Friends
-                          #rows{:data => {:bind => 'template: { name: "friendRowTemplate", foreach: rows }'}}
-                          .paging
-                            %ul
-                              %li
-                                %a.active{:href => "#"} 1
-                              %li
-                                %a{:href => "#"} 2
-                              %li
-                                %a{:href => "#"} 3
-                              %li
-                                %a{:href => "#"} 4
-                              %li
-                                %a{:href => "#"} 5
-                              %li
-                                %a{:href => "#"} 6
-                              %li ....
-                              %li
-                                %a{:href => "#"} 12
-                              %li
-                                %a{:href => "#"} >
+                            - if @friends.empty?
+                              %h2 You don't have any votes yet, invite more friends to vote!!!
+                            - else
+                              %h2 Recent Votes
+                          #rows
+                            - @friends.each_slice(2) do |friend|
+                              .row
+                                %ul
+                                  %li.first
+                                    %img{:src => friend[0].profile_picture}
+                                    %a{:href => "/votes/#{friend[0].id}", :class => "invite"} View Votes
+                                    %h3
+                                      %a{:href => "#"}= friend[0].full_name
+                                  - if friend[1]
+                                    %li
+                                      %img{:src => friend[1].profile_picture}
+                                      %a{:href => "/votes/#{friend[1].id}", :class => "invite"} View Votes
+                                      %h3
+                                        %a{:href => "#"}= friend[1].full_name
                       %span.clear
         %span.clear
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
 
-  %script#friendRowTemplate{:type => "text/html"}
-    .row
-      %ul
-        %li.first
-          %img{:alt => "", :src => "${ left_profile_image_url }"}/
-          %a{:href =>"${ left_link_url }", :class => "invite"} ${ left_link_text }
-          %h3
-            %a{:href => "#"} ${ left_name }
-        %li
-          %img{:alt => "", :src => "${ right_profile_image_url }"}/
-          %a{:href =>"${ right_link_url }", :class => "invite"} ${ right_link_text }
-          %h3
-            %a{:href => "#"} ${ right_name }
-
-#loading
-=image_tag "/images/loading.gif"
-#pagination
-
-#inviteDialog{:title => "Invite Friend"}
-  %iframe{:id => "inviteIframe", :scrolling => "no"}
-
 :javascript
   $(document).ready(function() {
-      ajaxInvite();
+      //ajaxInvite();
       $("#invite-all").bind("ajax:success", function(event, data, status, xhr) {
           alert('Invite posted to your wall');
       });
-      getFriends();
-      window.getFriendsInterval = window.setInterval(getFriends, 3000);
+      //getFriends();
+      //window.getFriendsInterval = window.setInterval(getFriends, 3000);
   });
 
 

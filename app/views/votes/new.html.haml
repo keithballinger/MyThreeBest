@@ -1,3 +1,78 @@
+- content_for :javascripts do
+  = javascript_include_tag "contentflow"
+
+- content_for :stylesheets do
+  = stylesheet_link_tag "contentflow"
+
+%body
+  #layout
+    = render "shared/header"
+    #body_container
+      .work_container
+        .work_bg_repeat
+          .work_bg_top
+            .work_bg_bottom
+              .work_main
+                %h4
+                  Choose
+                  %strong #{@user.full_name}
+                  Three Best Photos
+                %p.head_text
+                  Sed dapibus convallis molestie &middot;
+                  %em Nullam et neque eu dolor eleifend faucibus.
+                .black_box
+                  .black_box_bg
+                    .black_box_top
+                      .black_box_bottom
+                        .black_box_main
+                          .photos_box
+                            .ContentFlow
+                              .loadIndicator
+                                .indicator
+                              .flow
+                                - @photos.each do |photo|
+                                  = image_tag photo.preview_url, :id => photo.id, :class => "item", :title => photo.title
+                              .globalCaption
+                              .scrollbar
+                                .slider
+                                  .position
+                          .choose_img_sec
+                            = form_tag(save_vote_path, :remote => true, :id => "save-vote") do
+                              %ul
+                                %li.first
+                                  %a.active{:href => "#"}
+                                    %span Replace
+                                  .img_frame
+                                    %img{:alt => "", :src => "common/images/vote_img01.jpg"}/
+                                %li
+                                  %a{:href => "#"}
+                                    %span Choose
+                                  %img{:alt => "", :src => "common/images/vote_img02.gif"}/
+                                %li
+                                  %a{:href => "#"}
+                                    %span Choose
+                                  %img{:alt => "", :src => "common/images/vote_img03.gif"}/
+                            .tool_tip
+                              %a{:href => "#"}
+                                %img{:alt => "", :src => "common/images/icon01.gif"}/
+                              .tool_tip_input
+                                %input{:name => "", :type => "text", :value => "What's on your mind?"}/
+                          %a.finished{:href => "#"} Click Here When Finished
+                      %span.clear
+        %span.clear
+    = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
+
+
+
+
+
+
+
+
+
+
+
+
 =javascript_include_tag 'contentflow'
 =javascript_include_tag 'jquery.simplemodal.min'
 %p Photos of #{@user.first_name}
