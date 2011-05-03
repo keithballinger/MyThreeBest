@@ -18,7 +18,7 @@ class VotesController < ApplicationController
   end
 
   def new
-    if params[:token]
+    if params[:token] && !request.env["HTTP_REFERER"].include?("facebook.com")
       @user = User.find(params[:user_id])
       respond_to do |format|
         format.html{ render :facebook, :layout => false }
