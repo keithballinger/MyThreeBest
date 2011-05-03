@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   # - Callbacks
   before_validation :generate_public_page_url, :on => :create
   after_create :load_user_data, :if => :facebook_token?
+  before_create :generate_token
   after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
 
@@ -65,6 +66,9 @@ class User < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
+  def generate_token
+    self.token = rand(36**8).to_s(36)
+  end
 
   # - Friends methods
 

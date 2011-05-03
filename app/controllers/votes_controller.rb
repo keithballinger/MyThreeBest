@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :new
   before_filter :authorize_user!, :except => [:index, :show]
 
   def index
@@ -18,14 +18,22 @@ class VotesController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user_id])
-    voted_photos = current_user.votes_for(@user)
-    @first_voted  = voted_photos[0] rescue nil
-    @second_voted = voted_photos[1] rescue nil
-    @third_voted  = voted_photos[2] rescue nil
-    @photos = current_user.photos_for_friend(@user).paginate(:page => params[:page], :per_page => 20)
-    respond_to do |format|
-      format.html
+    if params[:token]
+      @user = User.find(params[:user_id])
+      respond_to do |format|
+        format.html{ render :facebook, :layout => false }
+      end
+    else
+      authenticate_user!
+      @user = User.find(params[:user_id])
+      voted_photos = current_user.votes_for(@user)
+      @first_voted  = voted_photos[0] rescue nil
+      @second_voted = voted_photos[1] rescue nil
+      @third_voted  = voted_photos[2] rescue nil
+      @photos = current_user.photos_for_friend(@user).paginate(:page => params[:page], :per_page => 20)
+      respond_to do |format|
+        format.html
+      end
     end
   end
 

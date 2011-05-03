@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110327201154) do
+ActiveRecord::Schema.define(:version => 20110503032803) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20110327201154) do
     t.boolean  "public_page",        :default => true
     t.string   "public_page_url"
     t.string   "email"
+    t.string   "token"
   end
 
   add_index "users", ["facebook_uid"], :name => "index_users_on_facebook_uid", :unique => true

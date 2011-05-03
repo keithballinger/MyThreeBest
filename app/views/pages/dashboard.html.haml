@@ -28,7 +28,7 @@
                             %h2 Invite your friend to vote on your photos
                             %br
                             %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
-                            %fb:send{:href => public_profile_url(current_user.public_page_url), :font => "segoe ui"}
+                            %fb:send{:href => new_vote_url(current_user)+"?token="+current_user.token, :font => "segoe ui"}
                             a personal invitation
                             %br
                             = link_to "Post on your wall to invite everyone", invite_all_path, :remote => true
