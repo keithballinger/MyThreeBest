@@ -5,6 +5,7 @@
     %meta{:property => "og:title", :content => "My Three Best"}/
     %meta{:property => "og:image", :content => @user.profile_picture}/
     %meta{:property => "og:description", :content => "Vote My Three Best Photos!!!"}
+    %meta{:property => "og:url", :content => new_vote_url(@user)+"?token="+@user.token}
     %title MyThreeBest
     = csrf_meta_tag
   %body
