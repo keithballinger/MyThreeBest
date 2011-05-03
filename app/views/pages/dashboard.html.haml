@@ -28,7 +28,7 @@
                             %h2 Invite your friend to vote on your photos
                             %br
                             %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
-                            %fb:send{:href => "example.com", :font => "segoe ui"}
+                            %fb:send{:href => new_vote_url(current_user), :font => "segoe ui"}
                             a personal invitation
                             %br
                             = link_to "Post on your wall to invite everyone", invite_all_path, :remote => true
@@ -43,15 +43,17 @@
                                 %ul
                                   %li.first
                                     %img{:src => friend[0].profile_picture}
-                                    %a{:href => "/votes/#{friend[0].id}", :class => "invite"} View Votes
                                     %h3
                                       %a{:href => "#"}= friend[0].full_name
+                                      %p
+                                        = link_to "View #{friend[0].first_name}'s votes »", friend_votes_path(friend[0].id)
                                   - if friend[1]
                                     %li
                                       %img{:src => friend[1].profile_picture}
-                                      %a{:href => "/votes/#{friend[1].id}", :class => "invite"} View Votes
                                       %h3
                                         %a{:href => "#"}= friend[1].full_name
+                                        %p
+                                          = link_to "View #{friend[1].first_name}'s votes »", friend_votes_path(friend[1].id)
                       %span.clear
         %span.clear
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
