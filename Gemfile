@@ -8,11 +8,11 @@ gem 'jquery-rails', '>= 0.2.7'
 
 #- Authentication
 gem 'devise', '>= 1.3.0'
-gem 'omniauth', '>= 0.2.0'
-
+gem 'oa-core', '>= 0.2.1', :require => 'omniauth/core'
+gem 'oa-oauth', '>= 0.2.1', :require => 'omniauth/oauth'
 
 #- M3B Base
-gem 'koala', '>= 1.0.0.beta'
+gem 'koala', '>= 1.0.0'
 gem 'resque', '>= 1.15.0'
 gem 'resque-status', '>= 0.2.2', :require => 'resque/status'
 gem 'resque_mailer', '>= 1.0.1'
