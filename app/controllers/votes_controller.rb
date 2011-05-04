@@ -20,8 +20,14 @@ class VotesController < ApplicationController
   def new
     if params[:token] && (!request.env["HTTP_REFERER"].include?("facebook.com") rescue true)
       @user = User.find(params[:user_id])
-      respond_to do |format|
-        format.html{ render :facebook, :layout => false }
+      if current_user == @user
+        respond_to do |format|
+          format.html{ redirect_to root_path}
+        end
+      else
+        respond_to do |format|
+          format.html{ render :facebook, :layout => false }
+        end
       end
     else
       authenticate_user!
