@@ -1,5 +1,6 @@
 - content_for :javascripts do
   = javascript_include_tag "contentflow"
+  = javascript_include_tag "jquery.simplemodal.min"
 
 - content_for :stylesheets do
   = stylesheet_link_tag "contentflow"
@@ -40,21 +41,15 @@
                             = form_tag(save_vote_path, :remote => true, :id => "save-vote") do
                               %ul
                                 %li.first
-                                  %a.active{:href => "#"}
-                                    %span Replace
-                                  .img_frame
-                                    %img{:alt => "", :src => "common/images/vote_img01.jpg"}/
+                                  = render :partial => "selected_photo", :locals => {:photo => @first_voted, :class_name => "first_photo_vote"}
                                 %li
-                                  %a{:href => "#"}
-                                    %span Choose
-                                  %img{:alt => "", :src => "common/images/vote_img02.gif"}/
+                                  = render :partial => "selected_photo", :locals => {:photo => @second_voted, :class_name => "second_photo_vote"}
                                 %li
-                                  %a{:href => "#"}
-                                    %span Choose
-                                  %img{:alt => "", :src => "common/images/vote_img03.gif"}/
+                                  = render :partial => "selected_photo", :locals => {:photo => @third_voted, :class_name => "third_photo_vote"}
+                              = submit_tag 'Click Here When Finished'
                             .tool_tip
                               %a{:href => "#"}
-                                %img{:alt => "", :src => "common/images/icon01.gif"}/
+                                = image_tag "icon01.gif"
                               .tool_tip_input
                                 %input{:name => "", :type => "text", :value => "What's on your mind?"}/
                           %a.finished{:href => "#"} Click Here When Finished
@@ -63,98 +58,39 @@
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
 
 
-
-
-
-
-
-
-
-
-
-
-=javascript_include_tag 'contentflow'
-=javascript_include_tag 'jquery.simplemodal.min'
-%p Photos of #{@user.first_name}
-.photos-box
-  .ContentFlow
-    .loadIndicator
-      .indicator
-    .flow
-      - @photos.each do |photo|
-        = image_tag photo.preview_url, :id => photo.id, :class => "item", :title => photo.title
-    .globalCaption
-    .scrollbar
-      .slider
-        .position
-
-= form_tag(save_vote_path, :remote => true, :id => "save-vote") do
-  .selected-photo
-    = hidden_field_tag "vote[]", (@first_voted.id rescue nil), :id => "first_photo_vote"
-    - if @first_voted
-      %a{:href => "#", :class => "select-photo"} Replace
-      .selected-photo-img
-        = image_tag @first_voted.preview_url
-    - else
-      %a{:href => "#", :class => "select-photo"} Choose
-      .selected-photo-img
-
-  .selected-photo
-    = hidden_field_tag "vote[]", (@second_voted.id rescue nil), :id => "second_photo_vote"
-    - if @second_voted
-      %a{:href => "#", :class => "select-photo"} Replace
-      .selected-photo-img
-        = image_tag @second_voted.preview_url
-    - else
-      %a{:href => "#", :class => "select-photo"} Choose
-      .selected-photo-img
-
-  .selected-photo
-    = hidden_field_tag "vote[]", (@third_voted.id rescue nil), :id => "third_photo_vote"
-    - if @third_voted
-      %a{:href => "#", :class => "select-photo"} Replace
-      .selected-photo-img
-        = image_tag @third_voted.preview_url
-    - else
-      %a{:href => "#", :class => "select-photo"} Choose
-      .selected-photo-img
-
   #fb-root
   %script{:src => "http://connect.facebook.net/en_US/all.js#appId=#{FacebookConfig['app_id']}&amp;xfbml=1"}
   %fb:comments{:href => request.fullpath, :num_posts => "2", :width => "500"}
 
-  = submit_tag 'Click Here When Finished'
+  #repeated-photo{:class => "alert-dialog simplemodal-data"}
+    %p Photo already selected!!
+    %a{:href => "#", :class => "simplemodal-close"} Accept
 
+  #popup-vote{:class => "alert-dialog simplemodal-data"}
+    %p Thanks! Would you like to invite your friends to choose your three best photos
+    %p
+      = link_to "Yes!", root_path
+    %p
+      = link_to "Skip - Take me to Facebook", "http://facebook.com"
 
-#repeated-photo{:class => "alert-dialog simplemodal-data"}
-  %p Photo already selected!!
-  %a{:href => "#", :class => "simplemodal-close"} Accept
-
-#popup-vote{:class => "alert-dialog simplemodal-data"}
-  %p Thanks! Would you like to invite your friends to choose your three best photos
-  %p
-    = link_to "Yes!", root_path
-  %p
-    = link_to "Skip - Take me to Facebook", "http://facebook.com"
-
-:javascript
-  $(document).ready(function() {
-      $(".select-photo").click(function() {
-          var selected = $(".active canvas");
-          var photoId = selected.attr('id');
-          var photo = selected.attr('src');
-          var alreadySelected = $(".selected-photo img[src='"+photo+"']");
-          if (alreadySelected.length == 0) {
-              $(this).parent().find(".selected-photo-img").html("<img src='"+photo+"' />");
-              $(this).parent().find("input").val(photoId);
-              $(this).text("Replace");
-          } else {
-              $("#repeated-photo").modal();
-          }
-      });
-      $("#save-vote").bind("ajax:success", function(event, data, status, xhr) {
-          $("#popup-vote").modal();
-      });
-      
-  });
-
+  :javascript
+    $(document).ready(function() {
+        $(".select-photo").click(function() {
+            var selected = $(".active canvas");
+            var photoId = selected.attr('id');
+            var photo = selected.attr('src');
+            var alreadySelected = $(".selected-photo-img[src='"+photo+"']");
+            if (alreadySelected.length == 0) {
+                $(this).parent().find(".selected-photo-img").attr("src", photo);
+                $(this).find(".selected-photo-img").wrap('<div class="img_frame" />');
+                $(this).parent().find("input").val(photoId);
+                $(this).find("span").text("Replace");
+                $(this).addClass("active");
+            } else {
+                $("#repeated-photo").modal();
+            }
+        });
+        $("#save-vote").bind("ajax:success", function(event, data, status, xhr) {
+            $("#popup-vote").modal();
+        });
+    });

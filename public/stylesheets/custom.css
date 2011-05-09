@@ -15,3 +15,7 @@
 .banner h2 {
   color: #32b9ea;
 }
+
+.alert-dialog {
+  display: none;
+}

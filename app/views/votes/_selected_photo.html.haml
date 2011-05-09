@@ -1,0 +1,10 @@
+= hidden_field_tag "vote[]", (photo.id rescue nil), :id => class_name
+- if photo
+  %a.active{:href => "#", :class => "select-photo"}
+    %span Replace
+  .img_frame
+    = image_tag photo.preview_url, :class => "selected-photo-img", :width => "169"
+- else
+  %a{:href => "#", :class => "select-photo"}
+    %span Choose
+  = image_tag "vote_img02.gif", :class => "selected-photo-img"
