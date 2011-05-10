@@ -75,7 +75,8 @@
 
   :javascript
     $(document).ready(function() {
-        $(".select-photo").click(function() {
+        $(".select-photo").click(function(event) {
+            event.preventDefault();
             var selected = $(".active canvas");
             var photoId = selected.attr('id');
             var photo = selected.attr('src');
