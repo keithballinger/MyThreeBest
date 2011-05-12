@@ -1,6 +1,5 @@
 - content_for :javascripts do
   = javascript_include_tag "contentflow"
-  = javascript_include_tag "jquery.simplemodal.min"
 
 - content_for :stylesheets do
   = stylesheet_link_tag "contentflow"
@@ -60,24 +59,16 @@
                                   = render :partial => "selected_photo", :locals => {:photo => @second_voted, :class_name => "second_photo_vote"}
                                 %li
                                   = render :partial => "selected_photo", :locals => {:photo => @third_voted, :class_name => "third_photo_vote"}
+                              = hidden_field_tag 'vote_comment'
                             .tool_tip
                               %a{:href => "#"}
                                 = image_tag "icon01.gif"
                               .tool_tip_input
-                                %input{:name => "", :type => "text", :value => "What's on your mind?"}/
+                                %input{:name => "message", :type => "text", :value => "What's on your mind?"}/
                           %a.finished{:href => "#"} Click Here When Finished
                       %span.clear
         %span.clear
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
-
-
-  #fb-root
-  %script{:src => "http://connect.facebook.net/en_US/all.js#appId=#{FacebookConfig['app_id']}&amp;xfbml=1"}
-  %fb:comments{:href => request.fullpath, :num_posts => "2", :width => "500"}
-
-  #repeated-photo{:class => "alert-dialog simplemodal-data"}
-    %p Photo already selected!!
-    %a{:href => "#", :class => "simplemodal-close"} Accept
 
   :javascript
     $(document).ready(function() {
@@ -94,7 +85,7 @@
                 $(this).find("span").text("Replace");
                 $(this).addClass("active");
             } else {
-                $("#repeated-photo").modal();
+                alert("The photo is selected already!!");
             }
         });
         $(".finished").click(function(event) {
@@ -107,5 +98,13 @@
         $(".close").click(function(event) {
             event.preventDefault();
             $("#try_container").css('display', 'none');
+        });
+        $(".tool_tip_input input").click(function(event) {
+            $(this).val("");
+        });
+        $(".tool_tip_input input").blur(function() {
+            if($(this).val() == "") {
+                $(this).val("What's on your mind?");
+            }
         });
     });
