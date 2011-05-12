@@ -19,3 +19,7 @@
 .alert-dialog {
   display: none;
 }
+
+#try_container {
+  display: none;
+}

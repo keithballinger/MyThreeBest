@@ -38,6 +38,20 @@
                                 .slider
                                   .position
                           .choose_img_sec
+                            #try_container
+                              .try_outer
+                                .try_top{:class => "png"}
+                                  %span{:class => "clear"}
+                                .try_bg{:class => "png"}
+                                  .try_main
+                                    %a{:href => "#", :class => "close"}
+                                    %h2 Thanks! Would you like to invite your friends to choose your <strong>Three Best</strong> Photos?
+                                    %ul
+                                      %li{:class => "first"}
+                                        = link_to "Yes", root_path, :class => "yes"
+                                      %li
+                                        = link_to "Skip - Take me to Facebook", "https://facebook.com", :class => "skip"
+                                .try_bottom{:class => "png"}
                             = form_tag(save_vote_path, :remote => true, :id => "save-vote") do
                               %ul
                                 %li.first
@@ -46,7 +60,6 @@
                                   = render :partial => "selected_photo", :locals => {:photo => @second_voted, :class_name => "second_photo_vote"}
                                 %li
                                   = render :partial => "selected_photo", :locals => {:photo => @third_voted, :class_name => "third_photo_vote"}
-                              = submit_tag 'Click Here When Finished'
                             .tool_tip
                               %a{:href => "#"}
                                 = image_tag "icon01.gif"
@@ -66,13 +79,6 @@
     %p Photo already selected!!
     %a{:href => "#", :class => "simplemodal-close"} Accept
 
-  #popup-vote{:class => "alert-dialog simplemodal-data"}
-    %p Thanks! Would you like to invite your friends to choose your three best photos
-    %p
-      = link_to "Yes!", root_path
-    %p
-      = link_to "Skip - Take me to Facebook", "http://facebook.com"
-
   :javascript
     $(document).ready(function() {
         $(".select-photo").click(function(event) {
@@ -91,7 +97,15 @@
                 $("#repeated-photo").modal();
             }
         });
+        $(".finished").click(function(event) {
+            event.preventDefault();
+            $("#save-vote").submit();
+        });
         $("#save-vote").bind("ajax:success", function(event, data, status, xhr) {
-            $("#popup-vote").modal();
+            $("#try_container").css('display', 'block');
+        });
+        $(".close").click(function(event) {
+            event.preventDefault();
+            $("#try_container").css('display', 'none');
         });
     });
