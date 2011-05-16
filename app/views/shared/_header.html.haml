@@ -3,8 +3,14 @@
     = link_to image_tag("logo.gif"), root_path
   .work_top
     %ul
-      %li.first Hi, #{current_user.first_name}!
+      - if signed_in?
+        %li.first Hi, #{current_user.first_name}!
+      - else
+        %li.first Hi, Visitor!
       %li
         %a{:href => "#"} How it works
       %li.last
-        = link_to "Log Out", logout_path
+        - if signed_in?
+          = link_to "Log Out", logout_path
+        - else
+          = link_to "Log in", new_user_session_path
