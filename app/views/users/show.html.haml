@@ -1,10 +1,42 @@
-= "#{@user.full_name} Three Best Photos"
-.top-photo
-  - if @user.top_photo_one
-    = image_tag @user.top_photo_one.preview_url
-.top-photo
-  - if @user.top_photo_two
-    = image_tag @user.top_photo_two.preview_url
-.top-photo
-  - if @user.top_photo_three
-    = image_tag @user.top_photo_three.preview_url
+%body
+  #layout
+    = render "shared/header"
+    #body_container
+      .work_container
+        .work_bg_repeat
+          .work_bg_top
+            .work_bg_bottom
+              .work_main
+                = render "shared/menu"
+                .work_main_bg
+                  .work_main_top
+                    .work_main_bottom
+                      .world_outer
+                        .show_world
+                          = image_tag current_user.profile_picture
+                          %h2
+                            #{current_user.full_name}
+                            %strong Three Best
+                          %p= Time.now.strftime("%B %d at %I:%M%p")
+                          .world_banner_sec
+                            %div
+                              .showing
+                                %a{:href => "#"}
+                                  = image_tag "showing_img.png"
+                            %ul
+                              %li.first
+                                = render :partial => "shared/public_page_photo", :locals => {:photo => @user.top_photo_one}
+                              %li
+                                = render :partial => "shared/public_page_photo", :locals => {:photo => @user.top_photo_two}
+                              %li
+                                = render :partial => "shared/public_page_photo", :locals => {:photo => @user.top_photo_three}
+                        .comment_sec
+                          %fb-root
+                          %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
+                          %fb:comments{:href => "mythreebest.com/#{@user.public_page_url}", :num_posts => "2", :width => "628"}
+                        .bottom_logo.pad_bot01
+                          .add_area
+                            %a{:href => "#"}
+                              %img{:alt => "", :src => "images/add_banner01.gif"}/
+        %span.clear
+    = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
