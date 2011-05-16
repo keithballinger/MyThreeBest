@@ -33,7 +33,6 @@ class User < ActiveRecord::Base
   # - Auth methods
 
   def self.find_or_create_with_omniauth(auth)
-    Rails.logger.info auth.inspect
     user = self.find_by_facebook_uid(auth["uid"])
     if user
       user.update_attribute(:facebook_token, auth["credentials"]["token"])
