@@ -1,17 +1,67 @@
-#three-best
-  = render "shared/three_best"
-%br
-Your Votes
-- if @photos.empty?
-  %p
-    You don't have photos yet, lets invite more friends
-- else
-  - @photos.each do |photo|
-    .photo-voters
-      = image_tag photo.url
-      %p #{pluralize(photo.total_votes, 'Vote')} total
-      - photo.voters.each do |voter|
-        .photo-voter
-          = image_tag voter.profile_picture
-          %p #{voter.first_name} #{voter.last_name}
-
+%body
+  #layout
+    = render "shared/header"
+    #body_container
+      .work_container
+        .work_bg_repeat
+          .work_bg_top
+            .work_bg_bottom
+              .work_main
+                = render "shared/menu"
+                .invite_left
+                  = render "shared/user_avatar"
+                  .invite_bg_repeat.pad02
+                    .invite_top
+                      .invite_bottom
+                        .see_vote_left
+                          .crousal
+                            .belt
+                              .panel
+                                %h2 My Current Three Best
+                                %ul
+                                  %li.first
+                                    = render :partial => "shared/best_photo_small", :locals => {:photo => current_user.top_photo_one}
+                                  %li
+                                    = render :partial => "shared/best_photo_small", :locals => {:photo => current_user.top_photo_two}
+                                  %li
+                                    = render :partial => "shared/best_photo_small", :locals => {:photo => current_user.top_photo_three}
+                          %span.clear
+                          %h3 BEST CAMERA DEALS
+                          %span.add_sec
+                            %a{:href => "#"}
+                              %img{:alt => "", :src => "/images/add_banner.jpg"}/
+                .invite_right
+                  .invite_right_bg
+                    .invite_right_top
+                      .invite_right_bottom
+                        .invite_outer01
+                          - if @photos.empty?
+                            .friends_votes
+                              %h2 You don't have votes yet, invite more friends!!!
+                          - else
+                            .friends_votes
+                              %h2 Your Votes from Friends
+                              - @photos.each do |photo|
+                                = render :partial => "shared/photo_vote", :locals => {:css_class => "pad03", :photo => photo}
+                            .paging
+                              %ul
+                                %li
+                                  %a.active{:href => "#"} 1
+                                %li
+                                  %a{:href => "#"} 2
+                                %li
+                                  %a{:href => "#"} 3
+                                %li
+                                  %a{:href => "#"} 4
+                                %li
+                                  %a{:href => "#"} 5
+                                %li
+                                  %a{:href => "#"} 6
+                                %li ....
+                                %li
+                                  %a{:href => "#"} 12
+                                %li
+                                  %a{:href => "#"} >
+                      %span.clear
+        %span.clear
+    = render :partial => "shared/footer", :locals => {:css_class => "pad1"}

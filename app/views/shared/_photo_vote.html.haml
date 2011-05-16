@@ -1,0 +1,17 @@
+.friends_row{:class => css_class}
+  .friends_col01
+    = image_tag photo.preview_url, :width => 109
+  .friends_col02
+    %h3
+      %strong= photo.voters.first.full_name
+      - if photo.voters.count > 1
+        and
+        %strong= (photo.voters.count - 1)
+        others vote this!
+      - else
+        vote this!
+      - photo.voters.each_slice(11) do |row|
+        %ul
+          - row.each do |voter|
+            %li
+              = image_tag voter.profile_picture, :width => 35, :height => 35

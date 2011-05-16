@@ -1,0 +1,6 @@
+- if photo
+  = image_tag photo.preview_url, :width => 66
+  %a{:href => "#"} See Votes
+- else
+  = image_tag "question_mark.png", :width => 66
+  %a{:href => "#", :class => "disabled_button"} See Votes
