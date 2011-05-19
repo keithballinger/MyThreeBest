@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :user_jobs, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   has_many :votes, :through => :photos
+  has_many :voters, :through => :votes, :uniq => true
   has_many :photo_permissions, :foreign_key => 'friend_id', :dependent => :destroy
   has_many :friend_photos, :through => :photo_permissions, :source => :photo
 
@@ -94,8 +95,8 @@ class User < ActiveRecord::Base
     self.friends.where(User.arel_table[:facebook_token].not_eq(nil))
   end
 
-  def photos_for_friend(friend)
-    self.friend_photos.where(:user_id => friend.id).sort_by{|photo| photo.priority(self)}
+  def photos_for_friend(friend, page_number = 1)
+    self.friend_photos.where(:user_id => friend.id).page(page_number).per(20).sort_by{|photo| photo.priority(self)}
     #sql_literal = Arel::SqlLiteral.new(PhotoPermission.select(:photo_id).where(:owner_id => friend.id, :friend_id => self.id).to_sql)
     #friend.photos.where(Photo.arel_table[:id].in(sql_literal))
   end
@@ -149,8 +150,14 @@ class User < ActiveRecord::Base
     vote.destroy
   end
 
+  def voters_with_votes(page_number = 1)
+    voters.page(page_number).per(5).map do |voter|
+      { voter => voter.votes_for(self) }
+    end
+  end
+
   def votes_for(friend)
-    friend.votes.where(:voter_id => self.id).includes(:photo).map(&:photo)
+    friend.votes.where(:voter_id => self.id).includes(:photo)
   end
 
   def voted_photos

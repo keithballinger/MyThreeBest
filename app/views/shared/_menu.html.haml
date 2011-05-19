@@ -7,7 +7,7 @@
             %a{:href => root_path, :class => ((active == "dashboard") ? "active" : "" )}
               %span Invite Friends
           %li
-            %a{:href => "#", :class => ((active == "friend_votes") ? "active" : "" )}
+            %a{:href => "/votes/friends", :class => ((active == "friend_votes") ? "active" : "" )}
               %span See Friends Votes
           %li
             %a{:href => public_profile_path(current_user.public_page_url), :class => ((active == "public_page") ? "active" : "" )}

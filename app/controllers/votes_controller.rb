@@ -10,8 +10,7 @@ class VotesController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:user_id])
-    @voted_photos = @user.votes_for(current_user)
+    @voters_with_votes = current_user.voters_with_votes(params[:page])
     respond_to do |format|
       format.html
     end
@@ -36,7 +35,7 @@ class VotesController < ApplicationController
       @first_voted  = voted_photos[0] rescue nil
       @second_voted = voted_photos[1] rescue nil
       @third_voted  = voted_photos[2] rescue nil
-      @photos = current_user.photos_for_friend(@user).paginate(:page => params[:page], :per_page => 20)
+      @photos = current_user.photos_for_friend(@user, params[:page])
       respond_to do |format|
         format.html
       end
