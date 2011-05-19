@@ -12,9 +12,9 @@ Resque::Status.expire_in = (24 * 60 * 60)
 
 
 # Failure notifications
-Resque::Failure::Hoptoad.configure do |config|
-  config.api_key = config.api_key = ENV['HOPTOAD_API_KEY']
-  config.secure = true
-end
-Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Hoptoad]
-Resque::Failure.backend = Resque::Failure::Multiple
+#Resque::Failure::Hoptoad.configure do |config|
+#  config.api_key = config.api_key = ENV['HOPTOAD_API_KEY']
+#  config.secure = true
+#end
+#Resque::Failure::Multiple.classes = [Resque::Failure::Redis, Resque::Failure::Hoptoad]
+#Resque::Failure.backend = Resque::Failure::Multiple

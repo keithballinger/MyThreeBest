@@ -8,7 +8,8 @@ Resque::Server.use Rack::Auth::Basic do |username, password|
   password == "m3b-staging"
 end
 
-run Rack::URLMap.new \
-  "/"       => MyThreeBest::Application,
-  "/resque" => Resque::Server.new
+run MyThreeBest::Application
+#run Rack::URLMap.new \
+#  "/"       => MyThreeBest::Application,
+#  "/resque" => Resque::Server.new
 

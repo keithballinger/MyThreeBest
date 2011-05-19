@@ -1,7 +1,7 @@
 source :rubygems
 
 #- Basic Rails App
-gem 'rails', '>= 3.0.7'
+gem 'rails', '3.1.0.beta1'
 gem 'haml-rails', '>= 0.3.4'
 gem 'jquery-rails', '>= 0.2.7'
 
@@ -19,7 +19,7 @@ gem 'resque_mailer', '>= 1.0.1'
 gem 'typhoeus', '>= 0.2.4'
 gem 'yajl-ruby', '>= 0.8.2', :require => 'yajl/json_gem'
 gem 'dalli', '>= 1.0.3'
-gem 'will_paginate', '>= 3.0.pre2'
+#gem 'will_paginate', '>= 3.0.pre2'
 gem 'hoptoad_notifier', '>= 2.4.9'
 gem 'simple_form', '>= 1.3.1'
 gem 'kaminari', '>= 0.10.4'
@@ -31,7 +31,7 @@ group :development do
   gem 'annotate', '>= 2.4.0'
   gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
   gem 'interactive_editor', '>= 0.0.8'
-  gem 'bullet', '>= 2.0.1'
+  #gem 'bullet', '>= 2.0.1'
   gem 'ruby-growl', '>= 3.0'
 end
 
