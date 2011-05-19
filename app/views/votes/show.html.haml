@@ -1,3 +1,124 @@
+%body
+  #layout
+    = render "shared/header"
+    #body_container
+      .work_container
+        .work_bg_repeat
+          .work_bg_top
+            .work_bg_bottom
+              .work_main
+                = render "shared/menu"
+                = render :partial => "shared/menu", :locals => {:active => "friend_votes"}
+                .invite_left
+                  = render "shared/user_avatar"
+                  = render "shared/three_best"
+                .invite_right
+                  .invite_right_bg
+                    .invite_right_top
+                      .invite_right_bottom
+                        .invite_outer
+                          .votes
+                            
+                            .votes_row
+                              .top_sec
+                                %img{:alt => "", :src => "common/images/small_thumb01.jpg"}/
+                                %h2
+                                  Amy Bond
+                                  %strong Votes You
+                                %em 2 days ago
+                              %ul
+                                %li.first
+                                  %img{:alt => "", :src => "common/images/friends_small_pict01.jpg"}/
+                                %li
+                                  %img{:alt => "", :src => "common/images/friends_small_pict02.jpg"}/
+                                %li
+                                  %img{:alt => "", :src => "common/images/friends_small_pict03.jpg"}/
+                            .votes_row
+                              .top_sec
+                                %img{:alt => "", :src => "common/images/small_thumb02.jpg"}/
+                                %h2
+                                  Adam Michael Anderson
+                                  %strong Votes You
+                                %em 1 week ago
+                              %ul
+                                %li.first.none
+                                  %img{:alt => "", :src => "common/images/friends_small_pict04.jpg"}/
+                                %li.second
+                                  %img{:alt => "", :src => "common/images/friends_small_pict05.jpg"}/
+                                %li.second
+                                  %img{:alt => "", :src => "common/images/friends_small_pict06.jpg"}/
+                            .votes_row
+                              .top_sec
+                                %img{:alt => "", :src => "common/images/small_thumb03.jpg"}/
+                                %h2
+                                  Bryan Costanich
+                                  %strong Votes You
+                                %em March 14 at 6:30pm
+                              %ul
+                                %li.first
+                                  %img{:alt => "", :src => "common/images/friends_small_pict07.jpg"}/
+                                %li.none
+                                  %img{:alt => "", :src => "common/images/friends_small_pict08.jpg"}/
+                                %li
+                                  %img{:alt => "", :src => "common/images/friends_small_pict09.jpg"}/
+                            .votes_row
+                              .top_sec
+                                %img{:alt => "", :src => "common/images/small_thumb04.jpg"}/
+                                %h2
+                                  Amanda Bond Mitchell
+                                  %strong Votes You
+                                %em March 14 at 6:30pm
+                              %ul
+                                %li.first.top_pad
+                                  %img{:alt => "", :src => "common/images/friends_small_pict10.jpg"}/
+                                %li.top_pad
+                                  %img{:alt => "", :src => "common/images/friends_small_pict11.jpg"}/
+                                %li
+                                  %img{:alt => "", :src => "common/images/friends_small_pict12.jpg"}/
+                            .votes_row
+                              .top_sec
+                                %img{:alt => "", :src => "common/images/small_thumb02.jpg"}/
+                                %h2
+                                  Elizabeth Ballinger-Dix
+                                  %strong Votes You
+                                %em 1 week ago
+                              %ul
+                                %li.first
+                                  %img{:alt => "", :src => "common/images/friends_small_pict13.jpg"}/
+                                %li.none
+                                  %img{:alt => "", :src => "common/images/friends_small_pict14.jpg"}/
+                                %li
+                                  %img{:alt => "", :src => "common/images/friends_small_pict15.jpg"}/
+                          .paging
+                            %ul
+                              %li
+                                %a.active{:href => "#"} 1
+                              %li
+                                %a{:href => "#"} 2
+                              %li
+                                %a{:href => "#"} 3
+                              %li
+                                %a{:href => "#"} 4
+                              %li
+                                %a{:href => "#"} 5
+                              %li
+                                %a{:href => "#"} 6
+                              %li ....
+                              %li
+                                %a{:href => "#"} 12
+                              %li
+                                %a{:href => "#"} >
+                      %span.clear
+        %span.clear
+    = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
+
+
+
+
+
+
+
+
 #three-best
   = render "shared/three_best"
 %br

@@ -4,18 +4,15 @@
       .work_menu_right
         %ul
           %li.first
-            %a.active{:href => root_path}
+            %a{:href => root_path, :class => ((active == "dashboard") ? "active" : "" )}
               %span Invite Friends
           %li
-            %a{:href => "#"}
-              %span Vote
-          %li
-            %a{:href => votes_path}
+            %a{:href => "#", :class => ((active == "friend_votes") ? "active" : "" )}
               %span See Friends Votes
           %li
-            %a{:href => public_profile_path(current_user.public_page_url)}
+            %a{:href => public_profile_path(current_user.public_page_url), :class => ((active == "public_page") ? "active" : "" )}
               %span Show the World
           %li
-            %a{:href => "#"}
+            %a{:href => "/votes", :class => ((active == "see_votes") ? "active" : "" )}
               %span See Vote
 

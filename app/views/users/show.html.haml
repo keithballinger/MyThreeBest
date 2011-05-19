@@ -8,7 +8,7 @@
             .work_bg_bottom
               .work_main
                 - if signed_in?
-                  = render "shared/menu"
+                  = render :partial => "shared/menu", :locals => {:active => "public_page"}
                 .work_main_bg
                   .work_main_top
                     .work_main_bottom
