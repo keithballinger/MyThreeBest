@@ -2,6 +2,12 @@ require 'resque/job_with_status'
 require 'resque/failure/multiple'
 require 'resque/failure/hoptoad'
 require 'resque/failure/redis'
+require 'resque/server'
+require 'resque/status_server'
+
+Resque::Server.use Rack::Auth::Basic do |username, password|
+  password == "m3b-staging"
+end
 
 redis_config = YAML.load_file(File.join(Rails.root, 'config', 'redis.yml'))[Rails.env]
 redis_url = ENV["REDISTOGO_URL"] || redis_config['redis_url']

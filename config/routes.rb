@@ -1,5 +1,7 @@
 MyThreeBest::Application.routes.draw do
 
+  mount Resque::Server => "/resque"
+
   # - Homepage
   root :to => "pages#index"
 
