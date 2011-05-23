@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :authenticate_user!, :except => :new
+  before_filter :authenticate_user!
   before_filter :authorize_user!, :except => [:index, :show]
 
   def index
@@ -17,19 +17,6 @@ class VotesController < ApplicationController
   end
 
   def new
-    if params[:token] && (!request.env["HTTP_REFERER"].include?("facebook.com") rescue true)
-      @user = User.find(params[:user_id])
-      if current_user == @user
-        respond_to do |format|
-          format.html{ redirect_to root_path}
-        end
-      else
-        respond_to do |format|
-          format.html{ render :facebook, :layout => false }
-        end
-      end
-    else
-      authenticate_user!
       @user = User.find(params[:user_id])
       voted_photos = current_user.votes_for(@user)
       @first_voted  = voted_photos[0] rescue nil
@@ -39,7 +26,6 @@ class VotesController < ApplicationController
       respond_to do |format|
         format.html
       end
-    end
   end
 
   def create
@@ -59,5 +45,10 @@ class VotesController < ApplicationController
         format.js{ render :json => true }
       end
     end
+  end
+
+  def facebook
+    @user = User.find(params[:user_id])
+    render :facebook, :layout => false
   end
 end

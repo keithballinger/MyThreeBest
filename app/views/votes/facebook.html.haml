@@ -7,6 +7,8 @@
     %meta{:property => "og:description", :content => "Vote My Three Best Photos!!!"}
     %title MyThreeBest
     = csrf_meta_tag
+    :javascript
+      window.location = "/vote/#{@user.id}";
   %body
     #content
       %p Vote My Three Best Photos!!!

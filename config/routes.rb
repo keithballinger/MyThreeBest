@@ -27,7 +27,7 @@ MyThreeBest::Application.routes.draw do
   #resources :invites
 
   # - Vote Routes
-  match "/vote/token/:user_id/:token" => "votes#new", :as => :new_vote_token
+  match "/vote/token/:user_id/:token" => "votes#facebook", :as => :new_vote_token
   match "/votes" => "votes#index", :as => :votes
   match "/votes/:user_id" => "votes#show", :as => :friend_votes
   match "/vote/:user_id" => "votes#new", :as => :new_vote
