@@ -8,7 +8,7 @@
       - else
         %li.first Hi, Visitor!
       %li
-        %a{:href => "#"} How it works
+        = link_to "How it works", how_it_works_path
       %li.last
         - if signed_in?
           = link_to "Log Out", logout_path

@@ -12,4 +12,6 @@ class PagesController < ApplicationController
 
   def dashboard ; end
 
+  def how_it_works ; end
+
 end

@@ -5,6 +5,9 @@ MyThreeBest::Application.routes.draw do
   # - Homepage
   root :to => "pages#index"
 
+  # - How it works
+  match "/how_it_works" => "pages#how_it_works"
+
   # - Auth Routes
   devise_for :users do
     get "/login", :to => redirect("/auth/facebook"), :as => :new_user_session
