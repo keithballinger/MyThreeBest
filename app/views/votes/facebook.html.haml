@@ -8,7 +8,9 @@
     %title MyThreeBest
     = csrf_meta_tag
     :javascript
-      window.location = "/vote/#{@user.id}";
+      if(navigator.platform != "unknown"){
+          window.location = "/vote/#{@user.id}";
+      }
   %body
     #content
       %p Vote My Three Best Photos!!!
