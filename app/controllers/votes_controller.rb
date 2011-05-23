@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_filter :authenticate_user!, :except => :facebook
-  before_filter :authorize_user!, :except => [:index, :show]
+  before_filter :authorize_user!, :except => [:index, :show, :facebook]
 
   def index
     @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
