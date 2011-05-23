@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :facebook
   before_filter :authorize_user!, :except => [:index, :show]
 
   def index
