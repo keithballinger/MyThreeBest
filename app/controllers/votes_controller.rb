@@ -3,7 +3,7 @@ class VotesController < ApplicationController
   before_filter :authorize_user!, :except => [:index, :show]
 
   def index
-    @photos = current_user.voted_photos.includes(:voters)
+    @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
     respond_to do |format|
       format.html
     end

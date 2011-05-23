@@ -44,6 +44,7 @@
                               - @photos.each do |photo|
                                 = render :partial => "shared/photo_vote", :locals => {:css_class => "pad03", :photo => photo}
                             .paging
+                              = paginate @photos, :left => 6, :right => 1
                               %ul
                                 %li
                                   %a.active{:href => "#"} 1
