@@ -108,7 +108,7 @@ GEM
       railties (~> 3.0)
     hike (1.0.0)
     hirb (0.4.5)
-    hoptoad_notifier (2.4.9)
+    hoptoad_notifier (2.4.10)
       activesupport
       builder
     i18n (0.6.0)
@@ -159,7 +159,7 @@ GEM
     mocha (0.9.12)
     multi_json (1.0.3)
     multi_xml (0.2.2)
-    multipart-post (1.1.1)
+    multipart-post (1.1.2)
     nokogiri (1.4.4)
     notifiers (1.1.0)
     oa-core (0.2.6)
@@ -242,7 +242,7 @@ GEM
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
       rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.2)
+    rspec-core (2.6.3)
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
