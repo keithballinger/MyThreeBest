@@ -24,6 +24,7 @@ gem 'hoptoad_notifier', '>= 2.4.9'
 gem 'simple_form', '>= 1.3.1'
 gem 'kaminari', '>= 0.10.4'
 gem 'resque-heroku-autoscaler', '>= 0.2.3'
+gem 'hirefireapp'
 
 # - Only used in development
 group :development do
