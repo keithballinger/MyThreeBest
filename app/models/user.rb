@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   # - Validations
   validates_presence_of :facebook_uid
   validates_uniqueness_of :facebook_uid
-  validates_presence_of :public_page_url
 
   # - Associations
   has_many :friendships, :dependent => :destroy
