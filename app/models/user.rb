@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   # - Validations
   validates_presence_of :facebook_uid
   validates_uniqueness_of :facebook_uid
-  validates_presence_of :profile_picture
   validates_presence_of :public_page_url
 
   # - Associations
