@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => :show
 
-  def index
-    @job = current_user.friends_list_job
+  def index #TODO: I think we don't need this anymore
     @friends = current_user.votes.order("created_at desc").limit(18).map(&:voter).uniq[0..6]
     respond_to do |format|
       format.html { render :show }

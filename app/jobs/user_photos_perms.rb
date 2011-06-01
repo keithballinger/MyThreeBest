@@ -29,7 +29,7 @@ class UserPhotosPerms < Resque::JobWithStatus
   end
 
   def get_photos(graph, object)
-    return [] if object.nil?
+    return [] unless object
     photos = []
     partial_photos = graph.get_connections(object, "photos") || []
     return partial_photos if partial_photos.next_page.nil?
@@ -42,7 +42,7 @@ class UserPhotosPerms < Resque::JobWithStatus
       photo_count = photos.size
       partial_photos = partial_photos.next_page || []
     end
-    return photos.uniq
+    photos
   end
 
 end

@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
 
   # - Validations
   validates_presence_of :facebook_uid
+  validates_presence_of :profile_picture
+  validates_presence_of :public_page_url
   validates_uniqueness_of :facebook_uid
 
   # - Associations
@@ -26,7 +28,6 @@ class User < ActiveRecord::Base
   before_validation :generate_public_page_url, :on => :create
   after_create :load_user_data, :if => :facebook_token?
   before_create :generate_token
-  after_update :load_user_data, :if => lambda { |user| user.sign_in_count == 0 }
 
 
   # - Auth methods
@@ -168,33 +169,25 @@ class User < ActiveRecord::Base
   ['one', 'two', 'three'].each do |number|
     define_method "top_photo_#{number}" do
       Photo.find(self.instance_eval("top_photo_#{number}_id")) rescue nil
+      #Photo.find(send("self.top_photo_#{number}_id")) rescue nil
     end
     define_method "top_photo_#{number}=" do |photo|
       instance_eval("self.top_photo_#{number}_id = photo.id")
+      #send("self.top_photo_#{number}_id=", photo.id)
     end
   end
 
 
   # Job methods
-
-  def friends_list_job
-    self.user_jobs.where(:job_type => "friends_list").first
-  end
-
   def user_photos_job
     self.user_jobs.where(:job_type => "user_photos").first
   end
 
   def load_user_data
-    job_id = FriendsList.create(:user_id => self.id)
-    Rails.logger.info "[Queued Job with id #{job_id}]"
-    UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "friends_list", :status => "queued")
-
     job_id = UserPhotos.create(:user_id => self.id)
     Rails.logger.info "[Queued Job with id #{job_id}]"
     UserJob.create!(:job_id => job_id, :user_id => self.id, :job_type => "user_photos", :status => "queued")
   end
-
 
   private :load_user_data, :generate_public_page_url
 

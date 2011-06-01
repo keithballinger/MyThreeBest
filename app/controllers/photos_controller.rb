@@ -4,7 +4,7 @@ class PhotosController < ApplicationController
 
   def index
     user = User.find(params[:user_id])
-    photos = current_user.photos_for_friend(user).paginate(:page => params[:page], :per_page => 20)
+    photos = current_user.photos_for_friend(user, params[:page])
     respond_to do |format|
       format.json{ render :json => photos }
     end
