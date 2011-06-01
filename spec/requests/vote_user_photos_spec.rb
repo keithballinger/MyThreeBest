@@ -16,6 +16,7 @@ feature "Vote User Photos", %q{
   end
 
   scenario "I vote photos of a friend", :driver => :webkit do
+    pending
     visit vote_user_page(@friend)
     click_link 'Select photo'
     click_button 'Click Here When Finished'

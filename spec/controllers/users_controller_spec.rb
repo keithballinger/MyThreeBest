@@ -15,7 +15,6 @@ describe UsersController do
       sign_in @user
       get 'index'
       response.should be_success
-      assigns[:result].should_not be_nil
     end
   end
 

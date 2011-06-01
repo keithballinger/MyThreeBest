@@ -177,7 +177,7 @@ describe User do
                              :photo_id => photo.id)
     end
     @user.vote(photos)
-    @user.votes_for(other).should == photos
+    @user.votes_for(other).should == photos.map(&:votes).flatten
   end
 
   it "should get their voted photos" do

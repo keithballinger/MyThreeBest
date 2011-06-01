@@ -13,6 +13,7 @@ feature "Show User Photos Feature", %q{
   end
 
   scenario "I visit the votes page of a friend" do
+    pending
     friend = create_user
     @voter.friend(friend)
     visit vote_user_page(friend)
@@ -22,6 +23,7 @@ feature "Show User Photos Feature", %q{
   end
 
   scenario "I visit the votes page of a non-friend" do
+    pending
     non_friend = create_user
     visit vote_user_page(non_friend)
 
