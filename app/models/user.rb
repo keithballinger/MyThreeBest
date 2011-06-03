@@ -133,7 +133,7 @@ class User < ActiveRecord::Base
       Vote.destroy_all(:voter_id => self.id)
       photos.each do |photo|
         #permited = PhotoPermission.where(:photo_id => photo.id, :friend_id => self.id, :owner_id => photo.user.id).exists?
-        Vote.create(:photo_id => photo.id, :voter_id => self.id) #if permited
+        Vote.create!(:photo_id => photo.id, :voter_id => self.id) #if permited
       end
     end
   end
