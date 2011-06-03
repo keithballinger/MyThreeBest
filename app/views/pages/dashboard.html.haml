@@ -30,7 +30,7 @@
                             %br
                             %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
                             .send_button
-                              %fb:send{:href => new_vote_url(current_user, current_user.token), :font => "segoe ui"}
+                              %fb:send{:href => root_url, :oldhref => new_vote_url(current_user, current_user.token), :font => "segoe ui"}
                               a personal message to your friends
                             %br
                             = link_to image_tag("postWall.png"), invite_all_path, :remote => true, :id => "invite-all"
