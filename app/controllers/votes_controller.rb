@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
-  before_filter :authenticate_user!, :except => :facebook
-  before_filter :authorize_user!, :except => [:index, :show, :facebook]
+  before_filter :authenticate_user!
+  before_filter :authorize_user!, :only => :vote
 
   def index
     @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
@@ -45,10 +45,5 @@ class VotesController < ApplicationController
         format.js{ render :json => true }
       end
     end
-  end
-
-  def facebook
-    @user = User.find(params[:user_id])
-    render :facebook, :layout => false
   end
 end

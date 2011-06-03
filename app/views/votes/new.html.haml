@@ -4,6 +4,12 @@
 - content_for :stylesheets do
   = stylesheet_link_tag "contentflow"
 
+- content_for :meta do
+  %meta{:property => "og:title", :content => "My Three Best"}/
+  %meta{:property => "og:image", :content => @user.profile_picture}/
+  %meta{:property => "og:description", :content => "Vote My Three Best Photos!!!"}
+
+
 %body
   #layout
     = render "shared/header"
