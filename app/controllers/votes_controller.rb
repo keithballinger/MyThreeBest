@@ -17,9 +17,6 @@ class VotesController < ApplicationController
   end
 
   def new
-      Rails.logger.info "*"*50
-      Rails.logger.info request.env['HTTP_USER_AGENT']
-      Rails.logger.info "*"*50
       @user = User.find(params[:user_id])
       voted_photos = current_user.votes_for(@user)
       @first_voted  = voted_photos[0] rescue nil
