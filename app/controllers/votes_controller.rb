@@ -49,6 +49,8 @@ class VotesController < ApplicationController
   end
 
   def facebook_request?
-    request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
+    Rails.logger.info "*"*50
+    Rails.logger.info request.env['HTTP_USER_AGENT']
+    request.env['HTTP_USER_AGENT'] == "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)"
   end
 end
