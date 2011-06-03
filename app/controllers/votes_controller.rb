@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
-  before_filter :authenticate_user!
   before_filter :authorize_user!, :only => :vote
+  before_filter :authenticate_user!
 
   def index
     @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
