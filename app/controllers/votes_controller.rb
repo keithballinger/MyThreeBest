@@ -57,5 +57,5 @@ class VotesController < ApplicationController
   def facebook_request?
     request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
   end
-  protected :facebook_request?, :detect_browser
+  protected :facebook_request?, :adetect_browser
 end
