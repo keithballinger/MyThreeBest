@@ -13,9 +13,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def authorize_user!
-    Rails.logger.info "*"*50
-    Rails.logger.info request.env['HTTP_USER_AGENT']
-    Rails.logger.info "*"*50
     user = User.find(params[:user_id])
     redirect_to root_path unless user.token == params[:token]
   rescue

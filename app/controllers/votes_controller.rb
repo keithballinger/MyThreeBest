@@ -1,6 +1,7 @@
 class VotesController < ApplicationController
+  before_filter :detect_browser
   before_filter :authorize_user!, :only => :vote
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :unless => :facebook_request?
 
   def index
     @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
@@ -47,15 +48,14 @@ class VotesController < ApplicationController
     end
   end
 
-  def authenticate!
+  def detect_browser
     Rails.logger.info "*"*50
     Rails.logger.info request.env['HTTP_USER_AGENT']
     Rails.logger.info "*"*50
-    super unless request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
   end
 
   def facebook_request?
     request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
   end
-  protected :facebook_request?, :authenticate!
+  protected :facebook_request?, :detect_browser
 end
