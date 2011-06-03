@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
   end
 
   def photos_for_friend(friend, page_number = 1)
-    self.friend_photos.where(:user_id => friend.id).page(page_number).per(20).sort_by{|photo| photo.priority(self)}
+    self.friend_photos.where(:user_id => friend.id).page(page_number).per(20).sort_by{|photo| photo.priority}
     #sql_literal = Arel::SqlLiteral.new(PhotoPermission.select(:photo_id).where(:owner_id => friend.id, :friend_id => self.id).to_sql)
     #friend.photos.where(Photo.arel_table[:id].in(sql_literal))
   end

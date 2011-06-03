@@ -26,7 +26,8 @@ class VotesController < ApplicationController
       @first_voted  = voted_photos[0] rescue nil
       @second_voted = voted_photos[1] rescue nil
       @third_voted  = voted_photos[2] rescue nil
-      @photos = current_user.photos_for_friend(@user, params[:page])
+      #@photos = current_user.photos_for_friend(@user, params[:page])
+      @photos = @user.photos.page(params[:page]).per(20).sort_by{|photo| photo.priority}
       respond_to do |format|
         format.html
       end
