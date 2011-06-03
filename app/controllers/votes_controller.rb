@@ -1,6 +1,5 @@
 class VotesController < ApplicationController
-  before_filter :adetect_browser
-  before_filter :authorize_user!, :only => :vote
+  before_filter :authorize_user!, :only => :new
   before_filter :authenticate_user!, :unless => :facebook_request?
 
   def index
@@ -48,14 +47,7 @@ class VotesController < ApplicationController
     end
   end
 
-  def adetect_browser
-    Rails.logger.info "*"*50
-    Rails.logger.info request.env['HTTP_USER_AGENT']
-    Rails.logger.info "*"*50
-  end
-
   def facebook_request?
     request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
   end
-  protected :facebook_request?, :adetect_browser
 end
