@@ -48,6 +48,9 @@ class VotesController < ApplicationController
   end
 
   def authenticate!
+    Rails.logger.info "*"*50
+    Rails.logger.info request.env['HTTP_USER_AGENT']
+    Rails.logger.info "*"*50
     super unless request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
   end
 
