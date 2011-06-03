@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_filter :authorize_user!, :only => :new
-  before_filter :authenticate_user!, :unless => :facebook_request?
+  before_filter :authenticate_user!, :except => :new
 
   def index
     @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
@@ -17,15 +17,16 @@ class VotesController < ApplicationController
   end
 
   def new
-      @user = User.find(params[:user_id])
-      voted_photos = current_user.votes_for(@user)
-      @first_voted  = voted_photos[0] rescue nil
-      @second_voted = voted_photos[1] rescue nil
-      @third_voted  = voted_photos[2] rescue nil
-      @photos = current_user.photos_for_friend(@user, params[:page])
-      respond_to do |format|
-        format.html
-      end
+    authenticate_user! unless facebook_request?
+    @user = User.find(params[:user_id])
+    voted_photos = current_user.votes_for(@user)
+    @first_voted  = voted_photos[0] rescue nil
+    @second_voted = voted_photos[1] rescue nil
+    @third_voted  = voted_photos[2] rescue nil
+    @photos = current_user.photos_for_friend(@user, params[:page])
+    respond_to do |format|
+      format.html
+    end
   end
 
   def create
