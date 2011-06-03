@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   before_filter :authorize_user!, :only => :vote
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :unless => :facebook_request?
 
   def index
     @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
@@ -46,4 +46,9 @@ class VotesController < ApplicationController
       end
     end
   end
+
+  def facebook_request?
+    request.env['HTTP_USER_AGENT'] =~ /^facebookexternalhit/
+  end
+  protected :facebook_request?
 end
