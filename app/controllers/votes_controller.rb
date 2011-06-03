@@ -17,15 +17,19 @@ class VotesController < ApplicationController
   end
 
   def new
-    authenticate_user! unless facebook_request?
     @user = User.find(params[:user_id])
-    voted_photos = current_user.votes_for(@user)
-    @first_voted  = voted_photos[0] rescue nil
-    @second_voted = voted_photos[1] rescue nil
-    @third_voted  = voted_photos[2] rescue nil
-    @photos = current_user.photos_for_friend(@user, params[:page])
-    respond_to do |format|
-      format.html
+    if facebook_request?
+      render :facebook
+    else
+      authenticate_user! unless facebook_request?
+      voted_photos = current_user.votes_for(@user)
+      @first_voted  = voted_photos[0] rescue nil
+      @second_voted = voted_photos[1] rescue nil
+      @third_voted  = voted_photos[2] rescue nil
+      @photos = current_user.photos_for_friend(@user, params[:page])
+      respond_to do |format|
+        format.html
+      end
     end
   end
 
