@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   def authorize_user!
     user = User.find(params[:user_id])
-    redirect_to root_path unless current_user.friend?(user)
+    redirect_to root_path unless user.token == params[:token]
   rescue
     redirect_to root_path
   end
