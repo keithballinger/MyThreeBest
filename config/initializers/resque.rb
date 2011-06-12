@@ -31,7 +31,7 @@ Resque::Plugins::HerokuAutoscaler.config do |c|
     c.new_worker_count do |pending|
       (pending/1).ceil.to_i
     end
-    c.wait_time = 10
+    #c.wait_time = 10
   else
     c.scaling_disabled = true
   end
