@@ -14,7 +14,6 @@ gem 'oa-oauth', '>= 0.2.1', :require => 'omniauth/oauth'
 gem 'koala', '>= 1.0.0'
 gem 'resque', '>= 1.15.0'
 gem 'resque-status', '>= 0.2.2', :require => 'resque/status'
-gem 'resque_mailer', '>= 1.0.1'
 gem 'typhoeus', '>= 0.2.4'
 gem 'yajl-ruby', '>= 0.8.2', :require => 'yajl/json_gem'
 gem 'dalli', '>= 1.0.3'
@@ -31,7 +30,6 @@ group :development do
   gem 'annotate', '>= 2.4.0'
   gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
   gem 'interactive_editor', '>= 0.0.8'
-  #gem 'bullet', '>= 2.0.1'
   gem 'ruby-growl', '>= 3.0'
 end
 
@@ -51,8 +49,6 @@ end
 
 #- For Testing
 group :test do
-  #gem 'rspec-rails', '>= 2.5.0'
-  #gem 'thin', '>= 1.2.7'
   gem 'shoulda-matchers', '>= 1.0.0.beta1'
   gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
   gem 'mocha', '>= 0.9.11'
