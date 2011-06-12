@@ -337,6 +337,7 @@ DEPENDENCIES
   ffaker (>= 1.2.0)
   guard-spork (>= 0.1.6)
   haml-rails (>= 0.3.4)
+  heroku
   hirefireapp
   hoptoad_notifier (>= 2.4.9)
   infinity_test (>= 1.0.2)
