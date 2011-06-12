@@ -22,18 +22,13 @@ Run any pending migration
 
 Running App
 ============
-Before run application you must start Redis server and Resque worker: 
+Before run application you must start Redis server, ex.:
 
      $ redis-server
-     $ rake jobs:work
 
-Start application using rails command:
+Start application using Foreman:
 
-     rails s
-
-You can use also Thin instead of default WEBRick:
-
-     rails s thin
+     foreman start
 
 Running Tests
 ==============
