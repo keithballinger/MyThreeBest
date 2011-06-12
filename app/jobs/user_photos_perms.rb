@@ -1,4 +1,5 @@
 class UserPhotosPerms < Resque::JobWithStatus
+  extend Resque::Plugins::HerokuAutoscaler
   @queue = :photos_permissions
 
   def perform

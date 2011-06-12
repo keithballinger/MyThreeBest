@@ -1,4 +1,5 @@
 class PostInvite < Resque::JobWithStatus
+  extend Resque::Plugins::HerokuAutoscaler
   @queue = :post_invite
 
   def perform

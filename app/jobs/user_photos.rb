@@ -1,4 +1,5 @@
 class UserPhotos < Resque::JobWithStatus
+  extend Resque::Plugins::HerokuAutoscaler
   @queue = :user_photos
 
   def perform

@@ -1,4 +1,5 @@
 class TopCalculation < Resque::JobWithStatus
+  extend Resque::Plugins::HerokuAutoscaler
   @queue = :top_calculation
 
   def perform
