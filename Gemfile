@@ -29,7 +29,6 @@ group :development do
   gem 'sqlite3', '>= 1.3.3'
   gem 'rails3-generators', '>= 0.17.4'
   gem 'annotate', '>= 2.4.0'
-  gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
   gem 'interactive_editor', '>= 0.0.8'
   gem 'ruby-growl', '>= 3.0'
   gem 'foreman', '>= 0.18.0'
@@ -46,6 +45,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
   gem 'thin', '>= 1.2.7'
+  gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
 end
 
 
