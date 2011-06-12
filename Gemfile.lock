@@ -298,8 +298,6 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.3)
-    sqlite3-ruby (1.3.3)
-      sqlite3 (>= 1.3.3)
     syntax (1.0.0)
     term-ansicolor (1.0.5)
     thin (1.2.11)
@@ -338,11 +336,11 @@ DEPENDENCIES
   factory_girl_rails (>= 1.1.beta1)
   fakeweb (>= 1.3.0)
   ffaker (>= 1.2.0)
-  foreman
+  foreman (>= 0.18.0)
   guard-spork (>= 0.1.6)
   haml-rails (>= 0.3.4)
-  heroku
-  hirefireapp
+  heroku (>= 2.2.8)
+  hirefireapp (>= 0.0.1)
   hoptoad_notifier (>= 2.4.9)
   infinity_test (>= 1.0.2)
   interactive_editor (>= 0.0.8)
@@ -369,7 +367,7 @@ DEPENDENCIES
   simple_form (>= 1.3.1)
   simplecov (>= 0.4.1)
   spork (>= 0.9.0.rc4)
-  sqlite3-ruby (>= 1.3.3)
+  sqlite3 (>= 1.3.3)
   thin (>= 1.2.7)
   typhoeus (>= 0.2.4)
   yajl-ruby (>= 0.8.2)

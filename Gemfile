@@ -21,13 +21,13 @@ gem 'hoptoad_notifier', '>= 2.4.9'
 gem 'simple_form', '>= 1.3.1'
 gem 'kaminari', '>= 0.10.4'
 gem 'resque-heroku-autoscaler', '>= 0.2.3'
-gem 'heroku'
-gem 'foreman'
-gem 'hirefireapp'
+gem 'heroku', '>= 2.2.8'
+gem 'foreman', '>= 0.18.0'
+gem 'hirefireapp', '>= 0.0.1'
 
 # - Only used in development
 group :development do
-  gem 'sqlite3-ruby', '>= 1.3.3', :require => 'sqlite3'
+  gem 'sqlite3', '>= 1.3.3'
   gem 'rails3-generators', '>= 0.17.4'
   gem 'annotate', '>= 2.4.0'
   gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
