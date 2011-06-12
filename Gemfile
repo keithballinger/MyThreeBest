@@ -23,7 +23,7 @@ gem 'kaminari', '>= 0.10.4'
 gem 'resque-heroku-autoscaler', '>= 0.2.3'
 gem 'heroku', '>= 2.2.8'
 gem 'foreman', '>= 0.18.0'
-gem 'hirefireapp', '>= 0.0.1'
+#gem 'hirefireapp', '>= 0.0.1'
 
 # - Only used in development
 group :development do

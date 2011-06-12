@@ -109,7 +109,6 @@ GEM
       term-ansicolor (~> 1.0.5)
     hike (1.0.0)
     hirb (0.4.5)
-    hirefireapp (0.0.1)
     hoptoad_notifier (2.4.11)
       activesupport
       builder
@@ -340,7 +339,6 @@ DEPENDENCIES
   guard-spork (>= 0.1.6)
   haml-rails (>= 0.3.4)
   heroku (>= 2.2.8)
-  hirefireapp (>= 0.0.1)
   hoptoad_notifier (>= 2.4.9)
   infinity_test (>= 1.0.2)
   interactive_editor (>= 0.0.8)
