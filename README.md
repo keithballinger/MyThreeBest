@@ -26,6 +26,10 @@ Before run application you must start Redis server, ex.:
 
      $ redis-server
 
+Copy .Procfile to Procfile
+
+     $ cp .Procfile Procfile
+
 Start application using Foreman:
 
      foreman start
