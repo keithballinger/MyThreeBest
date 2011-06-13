@@ -32,7 +32,7 @@ Resque::Plugins::HerokuAutoscaler.config do |c|
       (pending/1).ceil.to_i
     end
     #c.wait_time = 10
-    c.scaling_disabled = true
+    #c.scaling_disabled = true
   else
     c.scaling_disabled = true
   end
