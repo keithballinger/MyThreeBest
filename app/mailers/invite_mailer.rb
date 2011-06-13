@@ -1,5 +1,4 @@
 class InviteMailer < ActionMailer::Base
-  include Resque::Mailer
 
   default :from => "no-reply@mythreebest.com"
 
