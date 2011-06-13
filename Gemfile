@@ -4,6 +4,7 @@ source :rubygems
 gem 'rails', '3.1.0.rc4'
 gem 'haml-rails', '>= 0.3.4'
 gem 'jquery-rails', '>= 0.2.7'
+gem 'rake', '0.8.7'
 
 #- Authentication
 gem 'devise', '>= 1.3.0'
