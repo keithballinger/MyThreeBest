@@ -32,7 +32,7 @@
                             .send_button
                               %p
                                 = link_to image_tag("sendPersonalInvite.png"),
-                                  "https://www.facebook.com/dialog/send?app_id=#{FacebookConfig['app_id']}&name=My%20Three%20Best&link=#{new_vote_url(current_user, current_user.token)}&redirect_uri=#{root_url}&picture=#{current_user.profile_picture}&description=Hey!!!%20Vote%20for%20My%20Three%20Best%20photos%20now!!!&display=popup",
+                                  "https://www.facebook.com/dialog/send?app_id=#{FacebookConfig['app_id']}&name=My%20Three%20Best&link=#{new_vote_url(current_user, current_user.token)}&picture=#{current_user.profile_picture}&description=Hey!!!%20Vote%20for%20My%20Three%20Best%20photos%20now!!!&display=popup",
                                   :class => "popup"
                             %br
                             %p
@@ -74,7 +74,7 @@
 
       $(".popup").click(function(evt) {
           evt.preventDefault();
-          popip = window.open($(this).attr('href'),'My Three Best','height=320,width=480');
+          popip = window.open($(this).attr('href'),'My Three Best','height=320,width=580');
       });
   });
 
