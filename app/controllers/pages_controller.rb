@@ -13,4 +13,8 @@ class PagesController < ApplicationController
 
   def how_it_works ; end
 
+  def facebook_callback
+    render :layout => false
+  end
+
 end

@@ -5,6 +5,7 @@ MyThreeBest::Application.routes.draw do
 
   # - How it works
   match "/how_it_works" => "pages#how_it_works"
+  match "/invite_sent" => "pages#facebook_callback", :as => :facebook_callback
 
   # - Auth Routes
   devise_for :users do
