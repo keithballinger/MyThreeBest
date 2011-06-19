@@ -37,32 +37,14 @@
                         .invite_outer01
                           - if @photos.empty?
                             .friends_votes
-                              %h2 You don't have votes yet, invite more friends!!!
+                              %h2{:class => "brown_text"} You don't have votes yet, invite more friends!!!
                           - else
                             .friends_votes
-                              %h2 Your Votes from Friends
+                              %h2{:class => "brown_text"} Your Votes from Friends
                               - @photos.each do |photo|
                                 = render :partial => "shared/photo_vote", :locals => {:css_class => "pad03", :photo => photo}
                             .paging
                               = paginate @photos, :left => 6, :right => 1
-                              %ul
-                                %li
-                                  %a.active{:href => "#"} 1
-                                %li
-                                  %a{:href => "#"} 2
-                                %li
-                                  %a{:href => "#"} 3
-                                %li
-                                  %a{:href => "#"} 4
-                                %li
-                                  %a{:href => "#"} 5
-                                %li
-                                  %a{:href => "#"} 6
-                                %li ....
-                                %li
-                                  %a{:href => "#"} 12
-                                %li
-                                  %a{:href => "#"} >
                       %span.clear
         %span.clear
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}

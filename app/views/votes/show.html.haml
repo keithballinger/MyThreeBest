@@ -17,41 +17,27 @@
                       .invite_right_bottom
                         .invite_outer
                           .votes
-                            - @voters_with_votes.each do |voter_with_vote|
-                              - voter_with_vote.each do |voter, votes|
-                                .votes_row
-                                  .top_sec
-                                    = image_tag voter.profile_picture, :width => 32, :height => 32
-                                    %h2
-                                      = voter.full_name
-                                      %strong Votes You
-                                    %em= "#{time_ago_in_words(votes.first.created_at)} ago"
-                                  %ul
-                                    %li.first
-                                      = image_tag votes[0].photo.preview_url, :width => 130
-                                    %li
-                                      = image_tag votes[1].photo.preview_url, :width => 130
-                                    %li
-                                      = image_tag votes[2].photo.preview_url, :width => 130
+                            - if @voters_with_votes.empty?
+                              %h2{:class => "brown_text"} You don't have votes yet, invite more friends!!!
+                            - else
+                              - @voters_with_votes.each do |voter_with_vote|
+                                - voter_with_vote.each do |voter, votes|
+                                  .votes_row
+                                    .top_sec
+                                      = image_tag voter.profile_picture, :width => 32, :height => 32
+                                      %h2
+                                        = voter.full_name
+                                        %strong Votes You
+                                      %em= "#{time_ago_in_words(votes.first.created_at)} ago"
+                                    %ul
+                                      %li.first
+                                        = image_tag votes[0].photo.preview_url, :width => 130
+                                      %li
+                                        = image_tag votes[1].photo.preview_url, :width => 130
+                                      %li
+                                        = image_tag votes[2].photo.preview_url, :width => 130
                           .paging
-                            %ul
-                              %li
-                                %a.active{:href => "#"} 1
-                              %li
-                                %a{:href => "#"} 2
-                              %li
-                                %a{:href => "#"} 3
-                              %li
-                                %a{:href => "#"} 4
-                              %li
-                                %a{:href => "#"} 5
-                              %li
-                                %a{:href => "#"} 6
-                              %li ....
-                              %li
-                                %a{:href => "#"} 12
-                              %li
-                                %a{:href => "#"} >
+                            = paginate @voters_with_votes, :left => 6, :right => 1
                       %span.clear
         %span.clear
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}

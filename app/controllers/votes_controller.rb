@@ -3,14 +3,14 @@ class VotesController < ApplicationController
   before_filter :authenticate_user!, :except => :new
 
   def index
-    @photos = current_user.voted_photos.page(params[:page]).per(1).includes(:voters)
+    @photos = current_user.voted_photos.page(params[:page]).per(5).includes(:voters)
     respond_to do |format|
       format.html
     end
   end
 
   def show
-    @voters_with_votes = current_user.voters_with_votes(params[:page])
+    @voters_with_votes = Kaminari.paginate_array(current_user.voters_with_votes).page(params[:page]).per(5)
     respond_to do |format|
       format.html
     end
@@ -39,7 +39,7 @@ class VotesController < ApplicationController
     @photos = photos_ids.map{|id| Photo.find(id)}
     if current_user.vote(@photos)
       respond_to do |format|
-        format.js{ render :json => true }
+        format.js { render :json => true }
       end
     end
   end

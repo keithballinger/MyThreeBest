@@ -149,8 +149,8 @@ class User < ActiveRecord::Base
     vote.destroy
   end
 
-  def voters_with_votes(page_number = 1)
-    voters.page(page_number).per(5).map do |voter|
+  def voters_with_votes
+    voters.map do |voter|
       { voter => voter.votes_for(self) }
     end
   end
