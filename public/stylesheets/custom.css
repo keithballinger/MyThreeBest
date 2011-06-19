@@ -23,3 +23,7 @@
 #try_container {
   display: none;
 }
+
+.invite_right .banner img {
+  float: none;
+}
