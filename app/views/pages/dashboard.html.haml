@@ -31,7 +31,7 @@
                             %script{:src => "http://connect.facebook.net/en_US/all.js#xfbml=1"}
                             .send_button
                               %p
-                                = link_to image_tag("sendPersonalInvite.png"), "#"
+                                = link_to image_tag("sendPersonalInvite.png"), "https://www.facebook.com/dialog/send?app_id=#{FacebookConfig['app_id']}&name=Vote%20My%20Three%20Best&link=#{new_vote_url(current_user, current_user.token)}&redirect_uri=#{root_url}"
                             %br
                             %p
                             = link_to image_tag("postWall.png"), invite_all_path, :remote => true, :id => "invite-all"
