@@ -10,26 +10,7 @@
                 = render :partial => "shared/menu", :locals => {:active => "see_votes"}
                 .invite_left
                   = render "shared/user_avatar"
-                  .invite_bg_repeat.pad02
-                    .invite_top
-                      .invite_bottom
-                        .see_vote_left
-                          .crousal
-                            .belt
-                              .panel
-                                %h2 My Current Three Best
-                                %ul
-                                  %li.first
-                                    = render :partial => "shared/best_photo_small", :locals => {:photo => current_user.top_photo_one}
-                                  %li
-                                    = render :partial => "shared/best_photo_small", :locals => {:photo => current_user.top_photo_two}
-                                  %li
-                                    = render :partial => "shared/best_photo_small", :locals => {:photo => current_user.top_photo_three}
-                          %span.clear
-                          %h3 BEST CAMERA DEALS
-                          %span.add_sec
-                            %a{:href => "#"}
-                              %img{:alt => "", :src => "/images/add_banner.jpg"}/
+                  = render "shared/three_best"
                 .invite_right
                   .invite_right_bg
                     .invite_right_top
