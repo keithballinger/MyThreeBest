@@ -2,7 +2,7 @@
   #layout
     #header
       %span.logo
-        = link_to image_tag("logo.gif"), root_path
+        = link_to image_tag("logo.png"), root_path
       .login
         = link_to image_tag("login_icon.gif"), "/auth/facebook"
         = link_to "login", "/auth/facebook"
@@ -18,11 +18,11 @@
         .panel
           %ul
             %li.first
-              = image_tag "pict01.jpg"
+              = image_tag "picture2.png", :size => "178x372"
             %li
-              = image_tag "pict02.jpg"
+              = image_tag "picture1.png", :size => "489x372"
             %li
-              = image_tag "pict03.jpg"
+              = image_tag "picture3.png", :size => "178x372"
     .facebook_login
       %a{:href => "/auth/facebook"}
         = image_tag "facebook_icon.gif"
@@ -40,7 +40,7 @@
                     .common_box_top
                       .common_box_bottom
                         .common_box_main
-                          .common_box_inner
+                          .common_box_inner.inner_bg03
                             %h2 Invite your friends
                             %p
                               %strong Kelly
@@ -66,17 +66,16 @@
                     .common_box_top
                       .common_box_bottom
                         .common_box_main
-                          .common_box_inner
+                          .common_box_inner.inner_bg02
                             %h2.head02 Viewing Photos
-                            %p.text
-                              Graphics in progress
+                            = image_tag "viewing_photos.png"
                 %li
                   .common_box_bg
                     .common_box_top
                       .common_box_bottom
                         .common_box_main
                           .common_box_inner.inner_bg01
-                            %h2.head03 Vote Your Best 3
+                            %h2.head03 Vote Your 3 Best
                             .vote
                               .vote_img
                                 .vote_bg
@@ -94,9 +93,8 @@
                       .common_box_bottom
                         .common_box_main
                           .inner_bg_repeat
-                            .common_box_inner.inner_bg
+                            .common_box_inner.inner_bg04
                               %h2.head04 See Friends Vote
-                              %p.text
-                                Graphics in progress
+                              = image_tag "vote.png"
       %span.clear
     = render "shared/footer"

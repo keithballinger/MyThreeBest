@@ -31,3 +31,17 @@
 .brown_text {
   color: #666;
 }
+
+.inner_bg04 {
+  padding-bottom: 0px !important;
+  height: 130px !important;
+}
+
+.inner_bg02 {
+  height: 130px;
+  padding-bottom: 0px !important;
+}
+
+.inner_bg03 {
+  padding-bottom: 4px !important;
+}
