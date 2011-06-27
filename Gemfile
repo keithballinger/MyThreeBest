@@ -50,7 +50,7 @@ end
 
 
 #- For Testing
-group :test do
+group :development, :test do
   gem 'shoulda-matchers', '>= 1.0.0.beta1'
   gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
   gem 'mocha', '>= 0.9.11'
