@@ -13,7 +13,7 @@ describe VotesController do
       @user.friend(@voter)
       photos = create_photos_with_permissions(@user, 5, @voter)
       sign_in @voter
-      get 'new', :user_id => @user.id
+      get 'new', :user_id => @user.id, :token => @user.token
 
       response.should render_template("votes/new")
       assigns(:photos).should == photos
@@ -24,7 +24,7 @@ describe VotesController do
       photos = create_photos_with_permissions(@user, 3, @voter)
       @voter.vote(photos)
       sign_in @voter
-      get 'new', :user_id => @user.id
+      get 'new', :user_id => @user.id, :token => @user.token
 
       assigns(:first_voted).should_not be_nil
       assigns(:second_voted).should_not be_nil
@@ -33,7 +33,7 @@ describe VotesController do
 
     it "should redirect to voter if isn't friend" do
       sign_in @voter
-      get 'new', :user_id => @user.id
+      get 'new', :user_id => @user.id, :token => 'invalid'
 
       response.should redirect_to(root_path)
     end

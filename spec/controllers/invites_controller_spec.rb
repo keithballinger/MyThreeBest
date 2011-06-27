@@ -20,19 +20,6 @@ describe InvitesController do
 
   end
 
-  describe "on #create" do
-
-    it "should create a new invitation" do
-      friend = Factory.create(:user)
-      @user.friend(friend)
-      expect {
-        xhr :post, :create, {:user_id => friend.id, :invitation => { :email => "user@facebook.com", :subject => "Vote My Three Best Photos!!",
-                             :message => "Hi #{friend.first_name}: mythreebest.com/vote/#{@user.id}"}}
-      }.to change(Invite, :count).by(1)
-    end
-
-  end
-
   describe "on #all" do
     it "should send a invitation to user facebook wall" do
       expect {
