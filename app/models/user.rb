@@ -168,12 +168,12 @@ class User < ActiveRecord::Base
 
   ['one', 'two', 'three'].each do |number|
     define_method "top_photo_#{number}" do
-      Photo.find(self.instance_eval("top_photo_#{number}_id")) rescue nil
-      #Photo.find(send("self.top_photo_#{number}_id")) rescue nil
+      #Photo.find(self.instance_eval("top_photo_#{number}_id")) rescue nil
+      Photo.find(read_attribute("top_photo_#{number}_id")) rescue nil
     end
     define_method "top_photo_#{number}=" do |photo|
-      instance_eval("self.top_photo_#{number}_id = photo.id")
-      #send("self.top_photo_#{number}_id=", photo.id)
+      #instance_eval("self.top_photo_#{number}_id = photo.id")
+      write_attribute("top_photo_#{number}_id", photo.id)
     end
   end
 
