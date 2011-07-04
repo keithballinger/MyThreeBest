@@ -30,12 +30,15 @@
                                         %strong Votes You
                                       %em= "#{time_ago_in_words(votes.first.created_at)} ago"
                                     %ul
-                                      %li.first
-                                        = image_tag votes[0].photo.preview_url, :width => 130
-                                      %li
-                                        = image_tag votes[1].photo.preview_url, :width => 130
-                                      %li
-                                        = image_tag votes[2].photo.preview_url, :width => 130
+                                      - if votes[0]
+                                        %li.first
+                                          = image_tag votes[0].photo.preview_url, :width => 130
+                                      - if votes[1]
+                                        %li
+                                          = image_tag votes[1].photo.preview_url, :width => 130
+                                      - if votes[2]
+                                        %li
+                                          = image_tag votes[2].photo.preview_url, :width => 130
                           .paging
                             = paginate @voters_with_votes, :left => 6, :right => 1
                       %span.clear
