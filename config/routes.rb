@@ -4,7 +4,6 @@ MyThreeBest::Application.routes.draw do
   root :to => "pages#index"
 
   # - How it works
-  match "/how_it_works" => "pages#how_it_works"
   match "/invite_sent" => "pages#facebook_callback", :as => :facebook_callback
 
   # - Auth Routes
