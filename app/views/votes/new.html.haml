@@ -38,7 +38,7 @@
                                 .indicator
                               .flow
                                 - @photos.each do |photo|
-                                  = image_tag photo.preview_url, :id => "photo#{photo.id}", :class => "item", :title => photo.title
+                                  = image_tag photo.preview_url, :id => photo.id, :class => "item", :title => photo.title
                               .globalCaption.grayCaption
                               .scrollbar
                                 .slider

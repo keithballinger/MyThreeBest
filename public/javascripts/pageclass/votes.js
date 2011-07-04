@@ -18,9 +18,9 @@ function loadPhotos(response){
     var flowChanged = false;
     $.each(response, function(index, object) {
         var photo = object.photo;
-        if($("#photo"+photo.id).length == 0) {
+        if($("#"+photo.id).length == 0) {
             var img = document.createElement('img')
-            $(img).attr({src: photo.preview_url, id: "photo"+photo.id, title: photo.title});
+            $(img).attr({src: photo.preview_url, id: photo.id, title: photo.title});
             $(img).addClass("item");
             fantasticFlow.addItem(img, 'last');
             flowChanged = true;
