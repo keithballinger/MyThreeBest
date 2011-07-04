@@ -18,18 +18,19 @@ class VotesController < ApplicationController
 
   def new
     @user = User.find(params[:user_id])
-    if facebook_request?
-      render :facebook
-    else
-      authenticate_user! unless facebook_request?
-      voted_photos = current_user.votes_for(@user)
-      @first_voted  = voted_photos[0] rescue nil
-      @second_voted = voted_photos[1] rescue nil
-      @third_voted  = voted_photos[2] rescue nil
-      #@photos = current_user.photos_for_friend(@user, params[:page])
-      @photos = @user.photos.page(params[:page]).per(20).sort_by{|photo| photo.priority}
-      respond_to do |format|
+    respond_to do |format|
+      if facebook_request?
+        format.html { render :facebook }
+      else
+        authenticate_user! unless facebook_request?
+        voted_photos = current_user.votes_for(@user)
+        @first_voted  = voted_photos[0] rescue nil
+        @second_voted = voted_photos[1] rescue nil
+        @third_voted  = voted_photos[2] rescue nil
+        #@photos = current_user.photos_for_friend(@user, params[:page])
+        @photos = @user.photos.page(params[:page]).per(20).sort_by{|photo| photo.priority}
         format.html
+        format.json { render :json => @photos }
       end
     end
   end

@@ -1,5 +1,6 @@
 - content_for :javascripts do
   = javascript_include_tag "contentflow"
+  = javascript_include_tag "pageclass/votes"
 
 - content_for :stylesheets do
   = stylesheet_link_tag "contentflow"
@@ -32,16 +33,16 @@
                       .black_box_bottom
                         .black_box_main
                           .photos_box
-                            .ContentFlow
+                            #fantasticFlow.ContentFlow
                               .loadIndicator
                                 .indicator
                               .flow
                                 - @photos.each do |photo|
-                                  = image_tag photo.preview_url, :id => photo.id, :class => "item", :title => photo.title
-                              .globalCaption
+                                  = image_tag photo.preview_url, :id => "photo#{photo.id}", :class => "item", :title => photo.title
+                              .globalCaption.grayCaption
                               .scrollbar
                                 .slider
-                                  .position
+                                  .position.grayCaption
                           .choose_img_sec
                             #try_container
                               .try_outer
@@ -78,6 +79,7 @@
 
   :javascript
     $(document).ready(function() {
+        loadInterval = setInterval(loadPage, 1000);
         $(".select-photo").click(function(event) {
             event.preventDefault();
             var selected = $(".active canvas");
