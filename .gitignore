@@ -4,6 +4,7 @@ log/*.log
 tmp/**/*
 tmp/*
 .rvmrc
+.rbenv-version
 coverage
 coverage.data
 dump.rdb
