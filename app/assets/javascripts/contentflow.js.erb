@@ -14,7 +14,7 @@
 var ContentFlowGlobal = {
     Flows: new Array,
     AddOns: {},
-    scriptName: "<%= asset_digest('contentflow.js') %>",
+    scriptName: 'contentflow',
     scriptElement:  null,
     Browser: new (function () {
         this.Opera = window.opera ? true : false;
@@ -99,7 +99,7 @@ var ContentFlowGlobal = {
         /* get / set basic values */
         this.scriptElement = this.getScriptElement(this.scriptName);
         if (!this.scriptElement) {
-            this.scriptName = "<%= asset_digest('contentflow.js') %>";
+            this.scriptName = 'contentflow';
             this.scriptElement = this.getScriptElement(this.scriptName);
         }
 
@@ -110,8 +110,8 @@ var ContentFlowGlobal = {
 
     init: function () {
         /* add default stylesheets */
-        this.addStylesheet(this.CSSBaseDir+'<%= asset_digest("contentflow.css") %>');
-        this.addStylesheet(this.CSSBaseDir+'<%= asset_digest("mycontentflow.css") %>');
+        this.addStylesheet('<%= asset_path("contentflow.css") %>');
+        this.addStylesheet('<%= asset_path("mycontentflow.css") %>');
                                                                     // FF2: without adding a css-file FF2 hangs on a reload.
                                                                     //      I don't have the slidest idea why
                                                                     //      Could be timing problem
