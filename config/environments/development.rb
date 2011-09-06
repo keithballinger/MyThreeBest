@@ -14,7 +14,7 @@ MyThreeBest::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  # config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -22,14 +22,10 @@ MyThreeBest::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  config.after_initialize do
-    #Bullet.enable = true
-    #Bullet.alert = true
-    #Bullet.bullet_logger = true
-    #Bullet.console = true
-    #Bullet.growl = true
-    #Bullet.rails_logger = true
-    #Bullet.disable_browser_cache = true
-  end
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
 end
 
