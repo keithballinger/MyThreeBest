@@ -1,0 +1,51 @@
+.question_mark {
+  margin-left: 40px !important;
+}
+
+.disabled_button {
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+
+.banner {
+  margin-left: 25px;
+  margin-top: 30px;
+}
+
+.banner h2 {
+  color: #32b9ea;
+}
+
+.alert-dialog {
+  display: none;
+}
+
+#try_container {
+  display: none;
+}
+
+.invite_right .banner img {
+  float: none;
+}
+
+.brown_text {
+  color: #666;
+}
+
+.inner_bg04 {
+  padding-bottom: 0px !important;
+  height: 130px !important;
+}
+
+.inner_bg02 {
+  height: 130px;
+  padding-bottom: 0px !important;
+}
+
+.inner_bg03 {
+  padding-bottom: 4px !important;
+}
+
+.grayCaption {
+  color: #828181 !important;
+}

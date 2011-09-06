@@ -1,10 +1,3 @@
-- content_for :javascripts do
-  = javascript_include_tag "contentflow"
-  = javascript_include_tag "pageclass/votes"
-
-- content_for :stylesheets do
-  = stylesheet_link_tag "contentflow"
-
 - content_for :meta do
   %meta{:property => "og:title", :content => "My Three Best"}/
   %meta{:property => "og:image", :content => @user.profile_picture}/
@@ -78,6 +71,9 @@
     = render :partial => "shared/footer", :locals => {:css_class => "pad1"}
 
   :javascript
+    var fantasticFlow = new ContentFlow('fantasticFlow');
+    var photosPage = 1;
+    var loadInterval;
     $(document).ready(function() {
         loadInterval = setInterval(loadPage, 1000);
         $(".select-photo").click(function(event) {
