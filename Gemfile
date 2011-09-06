@@ -41,10 +41,8 @@ group :production, :staging do
 end
 
 
-# - Testing libraries with generators and rake tasks
 group :development, :test do
   gem 'rspec-rails', '>= 2.5.0'
-  gem 'thin', '>= 1.2.7'
   gem 'ruby-debug19', '>= 0.11.6', :require => 'ruby-debug'
 end
 
@@ -55,16 +53,15 @@ group :test do
   gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
   gem 'mocha', '>= 0.9.11'
   gem 'ffaker', '>= 1.2.0'
+  gem 'simplecov', '>= 0.4.1', :require => false
 
   #- Acceptance tests
-  gem 'capybara', '~> 1.0.0.beta1'
-  gem 'capybara-webkit', '>= 1.0.0.beta1'
+  gem 'capybara', '>= 1.0.0'
+  gem 'capybara-webkit', '>= 0.6.1'
   gem 'launchy', '>= 0.3.7'
   gem 'database_cleaner', '>= 0.6.6'
 
   #- Code metrics
-  gem 'metrical', '>= 0.0.4'
-  gem 'simplecov', '>= 0.4.1', :require => false
 
   #- Speed up our tests
   gem 'spork', '>= 0.9.0.rc4'
