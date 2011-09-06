@@ -55,4 +55,7 @@ MyThreeBest::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  # Files to Precompile
+  config.assets.precompile = [/\.(?!js$|css$)\w+$/, /application.(css|js)$/]
 end
