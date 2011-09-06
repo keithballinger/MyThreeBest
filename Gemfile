@@ -1,10 +1,11 @@
 source :rubygems
 
-#- Basic Rails App
-gem 'rails', '3.1.0.rc4'
+#- Rails Stack
+gem 'rails', '3.1.0'
 gem 'haml-rails', '>= 0.3.4'
 gem 'jquery-rails', '>= 0.2.7'
 gem 'rake', '>= 0.9.2'
+gem 'simple_form', '>= 1.3.1'
 
 #- Authentication
 gem 'devise', '>= 1.3.0'
@@ -19,8 +20,9 @@ gem 'typhoeus', '>= 0.2.4'
 gem 'yajl-ruby', '>= 0.8.2', :require => 'yajl/json_gem'
 gem 'dalli', '>= 1.0.3'
 gem 'hoptoad_notifier', '>= 2.4.9'
-gem 'simple_form', '>= 1.3.1'
 gem 'kaminari', '>= 0.10.4'
+
+# - Scaling
 gem 'resque-heroku-autoscaler', '>= 0.2.3'
 gem 'heroku', '>= 2.2.8'
 
@@ -29,8 +31,6 @@ group :development do
   gem 'sqlite3', '>= 1.3.3'
   gem 'rails3-generators', '>= 0.17.4'
   gem 'annotate', '>= 2.4.0'
-  gem 'interactive_editor', '>= 0.0.8'
-  gem 'ruby-growl', '>= 3.0'
   gem 'foreman', '>= 0.18.0'
 end
 
@@ -50,19 +50,17 @@ end
 
 
 #- For Testing
-group :development, :test do
+group :test do
   gem 'shoulda-matchers', '>= 1.0.0.beta1'
   gem 'factory_girl_rails', '>= 1.1.beta1', :require => false
   gem 'mocha', '>= 0.9.11'
   gem 'ffaker', '>= 1.2.0'
-  gem 'resque_spec', '>= 0.4.2'
 
   #- Acceptance tests
   gem 'capybara', '~> 1.0.0.beta1'
   gem 'capybara-webkit', '>= 1.0.0.beta1'
   gem 'launchy', '>= 0.3.7'
   gem 'database_cleaner', '>= 0.6.6'
-  gem 'fakeweb', '>= 1.3.0'
 
   #- Code metrics
   gem 'metrical', '>= 0.0.4'
