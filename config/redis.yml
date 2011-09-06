@@ -3,3 +3,6 @@ development:
 
 test:
   redis_url: "redis://localhost/test"
+
+production:
+  redis_url: "redis://localhost"
