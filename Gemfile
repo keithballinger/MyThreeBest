@@ -1,7 +1,8 @@
 source :rubygems
 
 #- Rails Stack
-gem 'rails', '3.1.0'
+# gem 'rails', '3.1.0'
+gem 'rails', :git => 'git://github.com/rails/rails.git', :branch => '3-1-stable'
 gem 'haml-rails', '>= 0.3.4'
 gem 'jquery-rails', '>= 0.2.7'
 gem 'rake', '>= 0.9.2'
