@@ -180,7 +180,7 @@ GEM
     rb-fsevent (0.4.3.1)
     rdoc (3.9.4)
     redis (2.2.2)
-    redis-namespace (1.0.3)
+    redis-namespace (1.0.4)
       redis (< 3.0.0)
     redisk (0.2.2)
       redis (>= 0.1.1)
