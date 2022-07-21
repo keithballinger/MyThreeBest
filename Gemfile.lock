@@ -262,7 +262,7 @@ GEM
       polyglot (>= 0.3.1)
     typhoeus (0.2.4)
       mime-types
-    tzinfo (0.3.29)
+    tzinfo (0.3.61)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
     uuid (2.3.4)
